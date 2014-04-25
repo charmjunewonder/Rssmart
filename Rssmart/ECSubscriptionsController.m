@@ -151,6 +151,7 @@ static ECSubscriptionsController *_sharedInstance = nil;
 	return [item extractTitleForDisplay];
 }
 
+//TODO:maybe delete?
 - (void)outlineView:(NSOutlineView *)outlineView setObjectValue:(NSString *)value forTableColumn:(NSTableColumn *)tableColumn byItem:(ECSubscriptionItem *)item {
 	
 	[item setTitle:value];
@@ -176,6 +177,7 @@ static ECSubscriptionsController *_sharedInstance = nil;
 	return YES;
 }
 
+//TODO:drap
 - (NSDragOperation)outlineView:(NSOutlineView *)outlineView validateDrop:(id <NSDraggingInfo>)info proposedItem:(ECSubscriptionItem *)dropTarget proposedChildIndex:(NSInteger)childIndex {
 	NSDragOperation result = NSDragOperationNone;
 	
@@ -216,6 +218,9 @@ static ECSubscriptionsController *_sharedInstance = nil;
 	return result;
 }
 
+/*
+ *
+ */
 - (BOOL)outlineView:(NSOutlineView *)outlineView acceptDrop:(id <NSDraggingInfo>)info item:(ECSubscriptionItem *)dropTarget childIndex:(NSInteger)childIndex {
 	
 	if ([info draggingSource] == subsView) {
@@ -237,22 +242,37 @@ static ECSubscriptionsController *_sharedInstance = nil;
 
 # pragma mark CLSourceList delegate methods
 
+/*
+ *
+ */
 - (BOOL)outlineView:(NSOutlineView *)outlineView isGroupItem:(ECSubscriptionItem *)item {
 	return [item isGroupItem];
 }
 
+/*
+ *
+ */
 - (BOOL)outlineView:(NSOutlineView *)outlineView shouldSelectItem:(ECSubscriptionItem *)item {
 	return ![item isGroupItem];
 }
 
+/*
+ *
+ */
 - (BOOL)outlineView:(NSOutlineView *)outlineView shouldShowOutlineCellForItem:(ECSubscriptionItem *)item {
 	return ![item isGroupItem];
 }
 
+/*
+ * is editable
+ */
 - (BOOL)outlineView:(NSOutlineView *)outlineView shouldEditTableColumn:(NSTableColumn *)tableColumn item:(ECSubscriptionItem *)item {
 	return NO;
 }
 
+/*
+ *
+ */
 - (void)outlineView:(NSOutlineView *)outlineView willDisplayCell:(ECSubscriptionsTextFieldCell *)cell forTableColumn:(NSTableColumn *)tableColumn item:(ECSubscriptionItem *)item {
 	[cell setBadgeWidth:[ECSubscriptionsView sizeOfBadgeForItem:item].width];
 	
@@ -263,6 +283,9 @@ static ECSubscriptionsController *_sharedInstance = nil;
 	}
 }
 
+/*
+ * then postsview will change
+ */
 - (void)outlineViewSelectionDidChange:(NSNotification *)notification {
 	ECSubscriptionItem *selectedItem = [subsView itemAtRow:[subsView selectedRow]];
 	
