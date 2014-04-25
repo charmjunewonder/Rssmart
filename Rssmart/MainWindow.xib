@@ -112,7 +112,7 @@
                             <webView fixedFrame="YES" id="bSD-cn-pwu">
                                 <rect key="frame" x="408" y="0.0" width="432" height="583"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12" javaEnabled="NO" javaScriptCanOpenWindowsAutomatically="NO">
+                                <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12">
                                     <nil key="identifier"/>
                                 </webPreferences>
                             </webView>
@@ -130,6 +130,9 @@
                             <behavior key="behavior" lightByContents="YES"/>
                             <font key="font" metaFont="system" size="20"/>
                         </buttonCell>
+                        <connections>
+                            <action selector="addSubscription:" target="sR3-8g-wLc" id="M6I-AC-p95"/>
+                        </connections>
                     </button>
                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yFC-pj-cgG">
                         <rect key="frame" x="8" y="5" width="23" height="25"/>
@@ -145,9 +148,96 @@
         </window>
         <customObject id="sR3-8g-wLc" customClass="ECSubscriptionsController">
             <connections>
+                <outlet property="addFeedController" destination="d4B-ia-Jrl" id="6CC-w1-T8a"/>
                 <outlet property="subsView" destination="TlF-42-hWE" id="fHZ-OK-9Hz"/>
             </connections>
         </customObject>
+        <customObject id="d4B-ia-Jrl" customClass="ECAddFeedController">
+            <connections>
+                <outlet property="addFeedDialog" destination="THW-fi-6iZ" id="ibq-Xp-MmT"/>
+                <outlet property="feedDialogTextField" destination="PKZ-sU-jZb" id="ss3-rO-Wvw"/>
+                <outlet property="mainWindow" destination="51i-xz-Lua" id="Hes-gS-fxZ"/>
+            </connections>
+        </customObject>
+        <window title="Add Subscription" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" oneShot="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="THW-fi-6iZ" customClass="NSPanel">
+            <windowStyleMask key="styleMask" titled="YES" utility="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="553" y="457" width="385" height="113"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
+            <view key="contentView" id="xtt-EY-jl3">
+                <rect key="frame" x="0.0" y="0.0" width="385" height="113"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lkv-8p-l1C">
+                        <rect key="frame" x="17" y="76" width="38" height="17"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Feed:" id="6j6-ua-iD7">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ock-iW-lXR">
+                        <rect key="frame" x="6" y="48" width="61" height="17"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Category" id="or7-GQ-PEP">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PKZ-sU-jZb">
+                        <rect key="frame" x="78" y="73" width="293" height="22"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="RY7-Qg-F8G">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xHm-8n-VtE">
+                        <rect key="frame" x="77" y="43" width="297" height="26"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="31Q-JP-CrS" id="OCJ-fE-imw">
+                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <menu key="menu" title="OtherViews" id="5GX-dk-ZC9">
+                                <items>
+                                    <menuItem title="Item 1" state="on" id="31Q-JP-CrS"/>
+                                    <menuItem title="Item 2" id="urJ-JI-FGg"/>
+                                    <menuItem title="Item 3" id="gG3-dT-6VA"/>
+                                </items>
+                            </menu>
+                        </popUpButtonCell>
+                    </popUpButton>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7dK-W9-DJq">
+                        <rect key="frame" x="295" y="5" width="82" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="push" title="Submit" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="I3j-61-3Sz">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="addSubscriptionForSure:" target="sR3-8g-wLc" id="xeB-Br-nt6"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kXx-1G-aTW">
+                        <rect key="frame" x="213" y="5" width="82" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="oNT-3A-0FR">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="hideDialog:" target="d4B-ia-Jrl" id="74a-7Y-kyo"/>
+                        </connections>
+                    </button>
+                </subviews>
+            </view>
+        </window>
     </objects>
     <resources>
         <image name="NSRefreshTemplate" width="10" height="12"/>

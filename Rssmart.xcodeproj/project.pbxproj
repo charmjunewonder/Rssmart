@@ -42,6 +42,8 @@
 		D1B835E6190A92FD00E2D939 /* rssIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = D1B835E0190A92FD00E2D939 /* rssIcon.png */; };
 		D1B835E7190A92FD00E2D939 /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = D1B835E1190A92FD00E2D939 /* star.png */; };
 		D1B835E8190A92FD00E2D939 /* unreadDot.png in Resources */ = {isa = PBXBuildFile; fileRef = D1B835E2190A92FD00E2D939 /* unreadDot.png */; };
+		D1B835F2190AAF8900E2D939 /* AddFeedPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1B835F1190AAF8900E2D939 /* AddFeedPanel.xib */; };
+		D1B835F6190AB16C00E2D939 /* ECAddFeedController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B835F5190AB16C00E2D939 /* ECAddFeedController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,6 +116,9 @@
 		D1B835E0190A92FD00E2D939 /* rssIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rssIcon.png; sourceTree = "<group>"; };
 		D1B835E1190A92FD00E2D939 /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
 		D1B835E2190A92FD00E2D939 /* unreadDot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unreadDot.png; sourceTree = "<group>"; };
+		D1B835F1190AAF8900E2D939 /* AddFeedPanel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddFeedPanel.xib; sourceTree = "<group>"; };
+		D1B835F4190AB16C00E2D939 /* ECAddFeedController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECAddFeedController.h; sourceTree = "<group>"; };
+		D1B835F5190AB16C00E2D939 /* ECAddFeedController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECAddFeedController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,8 +190,7 @@
 				D1B835DC190A92FD00E2D939 /* Image */,
 				D1B8356F190A062D00E2D939 /* RssmartAppDelegate.h */,
 				D1B83570190A062D00E2D939 /* RssmartAppDelegate.m */,
-				D1B83572190A062D00E2D939 /* MainMenu.xib */,
-				D1B835DA190A567200E2D939 /* MainWindow.xib */,
+				D1B835F3190AB13E00E2D939 /* XIB */,
 				D1B835CF190A172200E2D939 /* ECConstants.h */,
 				D1B835D0190A17C600E2D939 /* Utility */,
 				D1B8359D190A0BCC00E2D939 /* Controller */,
@@ -253,6 +257,8 @@
 				D1B835D5190A42BB00E2D939 /* ECRequestController.m */,
 				D1B835D7190A42C500E2D939 /* ECDatabaseController.h */,
 				D1B835D8190A42C500E2D939 /* ECDatabaseController.m */,
+				D1B835F4190AB16C00E2D939 /* ECAddFeedController.h */,
+				D1B835F5190AB16C00E2D939 /* ECAddFeedController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -314,6 +320,16 @@
 				D1B835E2190A92FD00E2D939 /* unreadDot.png */,
 			);
 			path = Image;
+			sourceTree = "<group>";
+		};
+		D1B835F3190AB13E00E2D939 /* XIB */ = {
+			isa = PBXGroup;
+			children = (
+				D1B83572190A062D00E2D939 /* MainMenu.xib */,
+				D1B835DA190A567200E2D939 /* MainWindow.xib */,
+				D1B835F1190AAF8900E2D939 /* AddFeedPanel.xib */,
+			);
+			name = XIB;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -399,6 +415,7 @@
 				D1B835E8190A92FD00E2D939 /* unreadDot.png in Resources */,
 				D1B83576190A062D00E2D939 /* Images.xcassets in Resources */,
 				D1B8356E190A062D00E2D939 /* Credits.rtf in Resources */,
+				D1B835F2190AAF8900E2D939 /* AddFeedPanel.xib in Resources */,
 				D1B83574190A062D00E2D939 /* MainMenu.xib in Resources */,
 				D1B835E4190A92FD00E2D939 /* outlineHighlight.png in Resources */,
 				D1B835E3190A92FD00E2D939 /* inbox-table.png in Resources */,
@@ -433,6 +450,7 @@
 				D1B835BF190A0CBB00E2D939 /* FMDatabase.m in Sources */,
 				D1B835D9190A42C500E2D939 /* ECDatabaseController.m in Sources */,
 				D1B835C1190A0CBB00E2D939 /* FMDatabasePool.m in Sources */,
+				D1B835F6190AB16C00E2D939 /* ECAddFeedController.m in Sources */,
 				D1B835C2190A0CBB00E2D939 /* FMDatabaseQueue.m in Sources */,
 				D1B835A1190A0C0500E2D939 /* ECWindowController.m in Sources */,
 				D1B8359C190A0B8D00E2D939 /* ECSubscriptionFolder.m in Sources */,
@@ -573,6 +591,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Rssmart/Rssmart-Prefix.pch";
 				INFOPLIST_FILE = "Rssmart/Rssmart-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_LDFLAGS = "-lsqlite3";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -588,6 +607,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Rssmart/Rssmart-Prefix.pch";
 				INFOPLIST_FILE = "Rssmart/Rssmart-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_LDFLAGS = "-lsqlite3";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;

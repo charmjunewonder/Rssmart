@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 Eric Chen. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 
 @interface ECDatabaseController : NSObject
 

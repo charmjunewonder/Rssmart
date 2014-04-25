@@ -10,6 +10,7 @@
 @class ECSubscriptionFeed;
 @class ECSubscriptionFolder;
 @class ECSubscriptionItem;
+@class ECAddFeedController;
 
 @interface ECSubscriptionsController : NSObject <NSOutlineViewDataSource,
 NSOutlineViewDelegate>
@@ -26,8 +27,13 @@ NSOutlineViewDelegate>
 @property (retain, nonatomic) ECSubscriptionItem *subscriptionSubscriptions;
 @property (retain, nonatomic) ECSubscriptionItem *subscriptionSelectedItem;
 @property (assign, nonatomic) ECSubscriptionItem *subscriptionDragItem;
+@property (assign, nonatomic) IBOutlet ECAddFeedController *addFeedController;
 
 + (ECSubscriptionsController *)getSharedInstance;
 
 -(void)setup;
+
+- (IBAction)addSubscription:(id)sender;
+- (IBAction)addSubscriptionForSure:(id)sender;
+
 @end

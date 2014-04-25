@@ -12,6 +12,7 @@
 #import "ECSubscriptionsTextFieldCell.h"
 #import "ECSubscriptionsView.h"
 #import "ECConstants.h"
+#import "ECAddFeedController.h"
 
 #define SOURCE_LIST_DRAG_TYPE @"SourceListDragType"
 
@@ -29,6 +30,7 @@
 @synthesize subscriptionSubscriptions;
 @synthesize subscriptionSelectedItem;
 @synthesize subscriptionDragItem;
+@synthesize addFeedController;
 
 static ECSubscriptionsController *_sharedInstance = nil;
 
@@ -299,5 +301,19 @@ static ECSubscriptionsController *_sharedInstance = nil;
 }
 #pragma mark -
 
+- (IBAction)addSubscription:(id)sender{
+    [addFeedController clearTextField];
+	[addFeedController showDialog:self];
+}
 
+- (IBAction)addSubscriptionForSure:(id)sender{
+    
+    NSString *url = [addFeedController getUrl];
+	
+	if (url != nil && [url length] > 0) {
+//		[self addSubscriptionForUrlString:url];
+	}
+    
+	[addFeedController hideDialog:nil];
+}
 @end
