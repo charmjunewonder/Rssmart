@@ -1,0 +1,670 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D1B8355E190A062D00E2D939 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1B8355D190A062D00E2D939 /* Cocoa.framework */; };
+		D1B83568190A062D00E2D939 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D1B83566190A062D00E2D939 /* InfoPlist.strings */; };
+		D1B8356A190A062D00E2D939 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B83569190A062D00E2D939 /* main.m */; };
+		D1B8356E190A062D00E2D939 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = D1B8356C190A062D00E2D939 /* Credits.rtf */; };
+		D1B83571190A062D00E2D939 /* RssmartAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B83570190A062D00E2D939 /* RssmartAppDelegate.m */; };
+		D1B83574190A062D00E2D939 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1B83572190A062D00E2D939 /* MainMenu.xib */; };
+		D1B83576190A062D00E2D939 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D1B83575190A062D00E2D939 /* Images.xcassets */; };
+		D1B8357D190A062D00E2D939 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1B8357C190A062D00E2D939 /* XCTest.framework */; };
+		D1B8357E190A062D00E2D939 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1B8355D190A062D00E2D939 /* Cocoa.framework */; };
+		D1B83586190A062D00E2D939 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D1B83584190A062D00E2D939 /* InfoPlist.strings */; };
+		D1B83588190A062D00E2D939 /* RssmartTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B83587190A062D00E2D939 /* RssmartTests.m */; };
+		D1B83592190A08D500E2D939 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1B83591190A08D500E2D939 /* WebKit.framework */; };
+		D1B83595190A091400E2D939 /* ECSubscriptionItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B83594190A091400E2D939 /* ECSubscriptionItem.m */; };
+		D1B83599190A0B8100E2D939 /* ECSubscriptionFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B83598190A0B8100E2D939 /* ECSubscriptionFeed.m */; };
+		D1B8359C190A0B8D00E2D939 /* ECSubscriptionFolder.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B8359B190A0B8D00E2D939 /* ECSubscriptionFolder.m */; };
+		D1B835A1190A0C0500E2D939 /* ECWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B835A0190A0C0500E2D939 /* ECWindowController.m */; };
+		D1B835BF190A0CBB00E2D939 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B835B5190A0CBB00E2D939 /* FMDatabase.m */; };
+		D1B835C0190A0CBB00E2D939 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B835B7190A0CBB00E2D939 /* FMDatabaseAdditions.m */; };
+		D1B835C1190A0CBB00E2D939 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B835B9190A0CBB00E2D939 /* FMDatabasePool.m */; };
+		D1B835C2190A0CBB00E2D939 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B835BB190A0CBB00E2D939 /* FMDatabaseQueue.m */; };
+		D1B835C3190A0CBB00E2D939 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B835BE190A0CBB00E2D939 /* FMResultSet.m */; };
+		D1B835C4190A0D0700E2D939 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1B83560190A062D00E2D939 /* AppKit.framework */; };
+		D1B835C8190A135800E2D939 /* ECSubscriptionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B835C7190A135800E2D939 /* ECSubscriptionsView.m */; };
+		D1B835CB190A136A00E2D939 /* ECSubscriptionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B835CA190A136A00E2D939 /* ECSubscriptionsController.m */; };
+		D1B835CE190A14DB00E2D939 /* ECSubscriptionsTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B835CD190A14DB00E2D939 /* ECSubscriptionsTextFieldCell.m */; };
+		D1B835D3190A17E000E2D939 /* ECVersionNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B835D2190A17E000E2D939 /* ECVersionNumber.m */; };
+		D1B835D6190A42BB00E2D939 /* ECRequestController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B835D5190A42BB00E2D939 /* ECRequestController.m */; };
+		D1B835D9190A42C500E2D939 /* ECDatabaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B835D8190A42C500E2D939 /* ECDatabaseController.m */; };
+		D1B835DB190A567200E2D939 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1B835DA190A567200E2D939 /* MainWindow.xib */; };
+		D1B835E3190A92FD00E2D939 /* inbox-table.png in Resources */ = {isa = PBXBuildFile; fileRef = D1B835DD190A92FD00E2D939 /* inbox-table.png */; };
+		D1B835E4190A92FD00E2D939 /* outlineHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = D1B835DE190A92FD00E2D939 /* outlineHighlight.png */; };
+		D1B835E5190A92FD00E2D939 /* outlineHighlightFocused.png in Resources */ = {isa = PBXBuildFile; fileRef = D1B835DF190A92FD00E2D939 /* outlineHighlightFocused.png */; };
+		D1B835E6190A92FD00E2D939 /* rssIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = D1B835E0190A92FD00E2D939 /* rssIcon.png */; };
+		D1B835E7190A92FD00E2D939 /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = D1B835E1190A92FD00E2D939 /* star.png */; };
+		D1B835E8190A92FD00E2D939 /* unreadDot.png in Resources */ = {isa = PBXBuildFile; fileRef = D1B835E2190A92FD00E2D939 /* unreadDot.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D1B8357F190A062D00E2D939 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D1B83552190A062D00E2D939 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D1B83559190A062D00E2D939;
+			remoteInfo = Rssmart;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		D1B8355A190A062D00E2D939 /* Rssmart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rssmart.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D1B8355D190A062D00E2D939 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		D1B83560190A062D00E2D939 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		D1B83561190A062D00E2D939 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		D1B83562190A062D00E2D939 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		D1B83565190A062D00E2D939 /* Rssmart-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Rssmart-Info.plist"; sourceTree = "<group>"; };
+		D1B83567190A062D00E2D939 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D1B83569190A062D00E2D939 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		D1B8356B190A062D00E2D939 /* Rssmart-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Rssmart-Prefix.pch"; sourceTree = "<group>"; };
+		D1B8356D190A062D00E2D939 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		D1B8356F190A062D00E2D939 /* RssmartAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RssmartAppDelegate.h; sourceTree = "<group>"; };
+		D1B83570190A062D00E2D939 /* RssmartAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RssmartAppDelegate.m; sourceTree = "<group>"; };
+		D1B83573190A062D00E2D939 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		D1B83575190A062D00E2D939 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		D1B8357B190A062D00E2D939 /* RssmartTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RssmartTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D1B8357C190A062D00E2D939 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		D1B83583190A062D00E2D939 /* RssmartTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RssmartTests-Info.plist"; sourceTree = "<group>"; };
+		D1B83585190A062D00E2D939 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D1B83587190A062D00E2D939 /* RssmartTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RssmartTests.m; sourceTree = "<group>"; };
+		D1B83591190A08D500E2D939 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		D1B83593190A091400E2D939 /* ECSubscriptionItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSubscriptionItem.h; sourceTree = "<group>"; };
+		D1B83594190A091400E2D939 /* ECSubscriptionItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSubscriptionItem.m; sourceTree = "<group>"; };
+		D1B83597190A0B8100E2D939 /* ECSubscriptionFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSubscriptionFeed.h; sourceTree = "<group>"; };
+		D1B83598190A0B8100E2D939 /* ECSubscriptionFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSubscriptionFeed.m; sourceTree = "<group>"; };
+		D1B8359A190A0B8D00E2D939 /* ECSubscriptionFolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSubscriptionFolder.h; sourceTree = "<group>"; };
+		D1B8359B190A0B8D00E2D939 /* ECSubscriptionFolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSubscriptionFolder.m; sourceTree = "<group>"; };
+		D1B8359F190A0C0500E2D939 /* ECWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECWindowController.h; sourceTree = "<group>"; };
+		D1B835A0190A0C0500E2D939 /* ECWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECWindowController.m; sourceTree = "<group>"; };
+		D1B835B4190A0CBB00E2D939 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
+		D1B835B5190A0CBB00E2D939 /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
+		D1B835B6190A0CBB00E2D939 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		D1B835B7190A0CBB00E2D939 /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
+		D1B835B8190A0CBB00E2D939 /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
+		D1B835B9190A0CBB00E2D939 /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
+		D1B835BA190A0CBB00E2D939 /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
+		D1B835BB190A0CBB00E2D939 /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
+		D1B835BC190A0CBB00E2D939 /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
+		D1B835BD190A0CBB00E2D939 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
+		D1B835BE190A0CBB00E2D939 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
+		D1B835C6190A135800E2D939 /* ECSubscriptionsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSubscriptionsView.h; sourceTree = "<group>"; };
+		D1B835C7190A135800E2D939 /* ECSubscriptionsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSubscriptionsView.m; sourceTree = "<group>"; };
+		D1B835C9190A136A00E2D939 /* ECSubscriptionsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSubscriptionsController.h; sourceTree = "<group>"; };
+		D1B835CA190A136A00E2D939 /* ECSubscriptionsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSubscriptionsController.m; sourceTree = "<group>"; };
+		D1B835CC190A14DB00E2D939 /* ECSubscriptionsTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECSubscriptionsTextFieldCell.h; sourceTree = "<group>"; };
+		D1B835CD190A14DB00E2D939 /* ECSubscriptionsTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSubscriptionsTextFieldCell.m; sourceTree = "<group>"; };
+		D1B835CF190A172200E2D939 /* ECConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECConstants.h; sourceTree = "<group>"; };
+		D1B835D1190A17E000E2D939 /* ECVersionNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECVersionNumber.h; sourceTree = "<group>"; };
+		D1B835D2190A17E000E2D939 /* ECVersionNumber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECVersionNumber.m; sourceTree = "<group>"; };
+		D1B835D4190A42BB00E2D939 /* ECRequestController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECRequestController.h; sourceTree = "<group>"; };
+		D1B835D5190A42BB00E2D939 /* ECRequestController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECRequestController.m; sourceTree = "<group>"; };
+		D1B835D7190A42C500E2D939 /* ECDatabaseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDatabaseController.h; sourceTree = "<group>"; };
+		D1B835D8190A42C500E2D939 /* ECDatabaseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDatabaseController.m; sourceTree = "<group>"; };
+		D1B835DA190A567200E2D939 /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
+		D1B835DD190A92FD00E2D939 /* inbox-table.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "inbox-table.png"; sourceTree = "<group>"; };
+		D1B835DE190A92FD00E2D939 /* outlineHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = outlineHighlight.png; sourceTree = "<group>"; };
+		D1B835DF190A92FD00E2D939 /* outlineHighlightFocused.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = outlineHighlightFocused.png; sourceTree = "<group>"; };
+		D1B835E0190A92FD00E2D939 /* rssIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rssIcon.png; sourceTree = "<group>"; };
+		D1B835E1190A92FD00E2D939 /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
+		D1B835E2190A92FD00E2D939 /* unreadDot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unreadDot.png; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D1B83557190A062D00E2D939 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D1B835C4190A0D0700E2D939 /* AppKit.framework in Frameworks */,
+				D1B83592190A08D500E2D939 /* WebKit.framework in Frameworks */,
+				D1B8355E190A062D00E2D939 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D1B83578190A062D00E2D939 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D1B8357E190A062D00E2D939 /* Cocoa.framework in Frameworks */,
+				D1B8357D190A062D00E2D939 /* XCTest.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D1B83551190A062D00E2D939 = {
+			isa = PBXGroup;
+			children = (
+				D1B83563190A062D00E2D939 /* Rssmart */,
+				D1B83581190A062D00E2D939 /* RssmartTests */,
+				D1B8355C190A062D00E2D939 /* Frameworks */,
+				D1B8355B190A062D00E2D939 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D1B8355B190A062D00E2D939 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D1B8355A190A062D00E2D939 /* Rssmart.app */,
+				D1B8357B190A062D00E2D939 /* RssmartTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D1B8355C190A062D00E2D939 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D1B83591190A08D500E2D939 /* WebKit.framework */,
+				D1B8355D190A062D00E2D939 /* Cocoa.framework */,
+				D1B8357C190A062D00E2D939 /* XCTest.framework */,
+				D1B8355F190A062D00E2D939 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D1B8355F190A062D00E2D939 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D1B83560190A062D00E2D939 /* AppKit.framework */,
+				D1B83561190A062D00E2D939 /* CoreData.framework */,
+				D1B83562190A062D00E2D939 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		D1B83563190A062D00E2D939 /* Rssmart */ = {
+			isa = PBXGroup;
+			children = (
+				D1B835DC190A92FD00E2D939 /* Image */,
+				D1B8356F190A062D00E2D939 /* RssmartAppDelegate.h */,
+				D1B83570190A062D00E2D939 /* RssmartAppDelegate.m */,
+				D1B83572190A062D00E2D939 /* MainMenu.xib */,
+				D1B835DA190A567200E2D939 /* MainWindow.xib */,
+				D1B835CF190A172200E2D939 /* ECConstants.h */,
+				D1B835D0190A17C600E2D939 /* Utility */,
+				D1B8359D190A0BCC00E2D939 /* Controller */,
+				D1B8359E190A0BE100E2D939 /* View */,
+				D1B83596190A091E00E2D939 /* Model */,
+				D1B835C5190A0DE700E2D939 /* Library */,
+				D1B83575190A062D00E2D939 /* Images.xcassets */,
+				D1B83564190A062D00E2D939 /* Supporting Files */,
+			);
+			path = Rssmart;
+			sourceTree = "<group>";
+		};
+		D1B83564190A062D00E2D939 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D1B83565190A062D00E2D939 /* Rssmart-Info.plist */,
+				D1B83566190A062D00E2D939 /* InfoPlist.strings */,
+				D1B83569190A062D00E2D939 /* main.m */,
+				D1B8356B190A062D00E2D939 /* Rssmart-Prefix.pch */,
+				D1B8356C190A062D00E2D939 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D1B83581190A062D00E2D939 /* RssmartTests */ = {
+			isa = PBXGroup;
+			children = (
+				D1B83587190A062D00E2D939 /* RssmartTests.m */,
+				D1B83582190A062D00E2D939 /* Supporting Files */,
+			);
+			path = RssmartTests;
+			sourceTree = "<group>";
+		};
+		D1B83582190A062D00E2D939 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D1B83583190A062D00E2D939 /* RssmartTests-Info.plist */,
+				D1B83584190A062D00E2D939 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D1B83596190A091E00E2D939 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D1B83593190A091400E2D939 /* ECSubscriptionItem.h */,
+				D1B83594190A091400E2D939 /* ECSubscriptionItem.m */,
+				D1B83597190A0B8100E2D939 /* ECSubscriptionFeed.h */,
+				D1B83598190A0B8100E2D939 /* ECSubscriptionFeed.m */,
+				D1B8359A190A0B8D00E2D939 /* ECSubscriptionFolder.h */,
+				D1B8359B190A0B8D00E2D939 /* ECSubscriptionFolder.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		D1B8359D190A0BCC00E2D939 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				D1B8359F190A0C0500E2D939 /* ECWindowController.h */,
+				D1B835A0190A0C0500E2D939 /* ECWindowController.m */,
+				D1B835C9190A136A00E2D939 /* ECSubscriptionsController.h */,
+				D1B835CA190A136A00E2D939 /* ECSubscriptionsController.m */,
+				D1B835D4190A42BB00E2D939 /* ECRequestController.h */,
+				D1B835D5190A42BB00E2D939 /* ECRequestController.m */,
+				D1B835D7190A42C500E2D939 /* ECDatabaseController.h */,
+				D1B835D8190A42C500E2D939 /* ECDatabaseController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		D1B8359E190A0BE100E2D939 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D1B835C6190A135800E2D939 /* ECSubscriptionsView.h */,
+				D1B835C7190A135800E2D939 /* ECSubscriptionsView.m */,
+				D1B835CC190A14DB00E2D939 /* ECSubscriptionsTextFieldCell.h */,
+				D1B835CD190A14DB00E2D939 /* ECSubscriptionsTextFieldCell.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		D1B835B3190A0CBB00E2D939 /* fmdb */ = {
+			isa = PBXGroup;
+			children = (
+				D1B835B4190A0CBB00E2D939 /* FMDatabase.h */,
+				D1B835B5190A0CBB00E2D939 /* FMDatabase.m */,
+				D1B835B6190A0CBB00E2D939 /* FMDatabaseAdditions.h */,
+				D1B835B7190A0CBB00E2D939 /* FMDatabaseAdditions.m */,
+				D1B835B8190A0CBB00E2D939 /* FMDatabasePool.h */,
+				D1B835B9190A0CBB00E2D939 /* FMDatabasePool.m */,
+				D1B835BA190A0CBB00E2D939 /* FMDatabaseQueue.h */,
+				D1B835BB190A0CBB00E2D939 /* FMDatabaseQueue.m */,
+				D1B835BC190A0CBB00E2D939 /* FMDB.h */,
+				D1B835BD190A0CBB00E2D939 /* FMResultSet.h */,
+				D1B835BE190A0CBB00E2D939 /* FMResultSet.m */,
+			);
+			path = fmdb;
+			sourceTree = "<group>";
+		};
+		D1B835C5190A0DE700E2D939 /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				D1B835B3190A0CBB00E2D939 /* fmdb */,
+			);
+			name = Library;
+			sourceTree = "<group>";
+		};
+		D1B835D0190A17C600E2D939 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				D1B835D1190A17E000E2D939 /* ECVersionNumber.h */,
+				D1B835D2190A17E000E2D939 /* ECVersionNumber.m */,
+			);
+			name = Utility;
+			sourceTree = "<group>";
+		};
+		D1B835DC190A92FD00E2D939 /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				D1B835DD190A92FD00E2D939 /* inbox-table.png */,
+				D1B835DE190A92FD00E2D939 /* outlineHighlight.png */,
+				D1B835DF190A92FD00E2D939 /* outlineHighlightFocused.png */,
+				D1B835E0190A92FD00E2D939 /* rssIcon.png */,
+				D1B835E1190A92FD00E2D939 /* star.png */,
+				D1B835E2190A92FD00E2D939 /* unreadDot.png */,
+			);
+			path = Image;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D1B83559190A062D00E2D939 /* Rssmart */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D1B8358B190A062D00E2D939 /* Build configuration list for PBXNativeTarget "Rssmart" */;
+			buildPhases = (
+				D1B83556190A062D00E2D939 /* Sources */,
+				D1B83557190A062D00E2D939 /* Frameworks */,
+				D1B83558190A062D00E2D939 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Rssmart;
+			productName = Rssmart;
+			productReference = D1B8355A190A062D00E2D939 /* Rssmart.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D1B8357A190A062D00E2D939 /* RssmartTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D1B8358E190A062D00E2D939 /* Build configuration list for PBXNativeTarget "RssmartTests" */;
+			buildPhases = (
+				D1B83577190A062D00E2D939 /* Sources */,
+				D1B83578190A062D00E2D939 /* Frameworks */,
+				D1B83579190A062D00E2D939 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D1B83580190A062D00E2D939 /* PBXTargetDependency */,
+			);
+			name = RssmartTests;
+			productName = RssmartTests;
+			productReference = D1B8357B190A062D00E2D939 /* RssmartTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D1B83552190A062D00E2D939 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = EC;
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = "Eric Chen";
+				TargetAttributes = {
+					D1B8357A190A062D00E2D939 = {
+						TestTargetID = D1B83559190A062D00E2D939;
+					};
+				};
+			};
+			buildConfigurationList = D1B83555190A062D00E2D939 /* Build configuration list for PBXProject "Rssmart" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D1B83551190A062D00E2D939;
+			productRefGroup = D1B8355B190A062D00E2D939 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D1B83559190A062D00E2D939 /* Rssmart */,
+				D1B8357A190A062D00E2D939 /* RssmartTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D1B83558190A062D00E2D939 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D1B83568190A062D00E2D939 /* InfoPlist.strings in Resources */,
+				D1B835E7190A92FD00E2D939 /* star.png in Resources */,
+				D1B835DB190A567200E2D939 /* MainWindow.xib in Resources */,
+				D1B835E8190A92FD00E2D939 /* unreadDot.png in Resources */,
+				D1B83576190A062D00E2D939 /* Images.xcassets in Resources */,
+				D1B8356E190A062D00E2D939 /* Credits.rtf in Resources */,
+				D1B83574190A062D00E2D939 /* MainMenu.xib in Resources */,
+				D1B835E4190A92FD00E2D939 /* outlineHighlight.png in Resources */,
+				D1B835E3190A92FD00E2D939 /* inbox-table.png in Resources */,
+				D1B835E6190A92FD00E2D939 /* rssIcon.png in Resources */,
+				D1B835E5190A92FD00E2D939 /* outlineHighlightFocused.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D1B83579190A062D00E2D939 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D1B83586190A062D00E2D939 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D1B83556190A062D00E2D939 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D1B835D3190A17E000E2D939 /* ECVersionNumber.m in Sources */,
+				D1B83599190A0B8100E2D939 /* ECSubscriptionFeed.m in Sources */,
+				D1B83571190A062D00E2D939 /* RssmartAppDelegate.m in Sources */,
+				D1B835CE190A14DB00E2D939 /* ECSubscriptionsTextFieldCell.m in Sources */,
+				D1B835CB190A136A00E2D939 /* ECSubscriptionsController.m in Sources */,
+				D1B835D6190A42BB00E2D939 /* ECRequestController.m in Sources */,
+				D1B8356A190A062D00E2D939 /* main.m in Sources */,
+				D1B835C8190A135800E2D939 /* ECSubscriptionsView.m in Sources */,
+				D1B835BF190A0CBB00E2D939 /* FMDatabase.m in Sources */,
+				D1B835D9190A42C500E2D939 /* ECDatabaseController.m in Sources */,
+				D1B835C1190A0CBB00E2D939 /* FMDatabasePool.m in Sources */,
+				D1B835C2190A0CBB00E2D939 /* FMDatabaseQueue.m in Sources */,
+				D1B835A1190A0C0500E2D939 /* ECWindowController.m in Sources */,
+				D1B8359C190A0B8D00E2D939 /* ECSubscriptionFolder.m in Sources */,
+				D1B835C3190A0CBB00E2D939 /* FMResultSet.m in Sources */,
+				D1B83595190A091400E2D939 /* ECSubscriptionItem.m in Sources */,
+				D1B835C0190A0CBB00E2D939 /* FMDatabaseAdditions.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D1B83577190A062D00E2D939 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D1B83588190A062D00E2D939 /* RssmartTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D1B83580190A062D00E2D939 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D1B83559190A062D00E2D939 /* Rssmart */;
+			targetProxy = D1B8357F190A062D00E2D939 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		D1B83566190A062D00E2D939 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D1B83567190A062D00E2D939 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		D1B8356C190A062D00E2D939 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D1B8356D190A062D00E2D939 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		D1B83572190A062D00E2D939 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D1B83573190A062D00E2D939 /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		D1B83584190A062D00E2D939 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D1B83585190A062D00E2D939 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D1B83589190A062D00E2D939 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		D1B8358A190A062D00E2D939 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		D1B8358C190A062D00E2D939 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Rssmart/Rssmart-Prefix.pch";
+				INFOPLIST_FILE = "Rssmart/Rssmart-Info.plist";
+				OTHER_LDFLAGS = "-lsqlite3";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		D1B8358D190A062D00E2D939 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Rssmart/Rssmart-Prefix.pch";
+				INFOPLIST_FILE = "Rssmart/Rssmart-Info.plist";
+				OTHER_LDFLAGS = "-lsqlite3";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		D1B8358F190A062D00E2D939 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Rssmart.app/Contents/MacOS/Rssmart";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Rssmart/Rssmart-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "RssmartTests/RssmartTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		D1B83590190A062D00E2D939 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Rssmart.app/Contents/MacOS/Rssmart";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Rssmart/Rssmart-Prefix.pch";
+				INFOPLIST_FILE = "RssmartTests/RssmartTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D1B83555190A062D00E2D939 /* Build configuration list for PBXProject "Rssmart" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D1B83589190A062D00E2D939 /* Debug */,
+				D1B8358A190A062D00E2D939 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D1B8358B190A062D00E2D939 /* Build configuration list for PBXNativeTarget "Rssmart" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D1B8358C190A062D00E2D939 /* Debug */,
+				D1B8358D190A062D00E2D939 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D1B8358E190A062D00E2D939 /* Build configuration list for PBXNativeTarget "RssmartTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D1B8358F190A062D00E2D939 /* Debug */,
+				D1B83590190A062D00E2D939 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D1B83552190A062D00E2D939 /* Project object */;
+}
