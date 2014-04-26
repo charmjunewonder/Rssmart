@@ -14,7 +14,6 @@
 #import "ECSubscriptionFolder.h"
 #import "ECConstants.h"
 
-
 @interface ECDatabaseController (Private)
 + (NSString *)pathForDatabaseFile;
 @end
@@ -49,7 +48,7 @@ static NSString *path;
 /*
  * create the table in the database or load the feeds from database
  */
-+ (void)loadFromDatabaseTo:(ECSubscriptionFolder *)subscriptions {
++ (void)loadFromDatabaseTo:(ECSubscriptionItem *)subscriptions {
 	
 	FMDatabase *db = [FMDatabase databaseWithPath:[ECDatabaseController pathForDatabaseFile]];
 	
@@ -77,8 +76,7 @@ static NSString *path;
 		[db executeUpdate:@"CREATE TABLE post (Id INTEGER PRIMARY KEY, FeedId INTEGER, Guid TEXT, Title TEXT, Link TEXT, Published INTEGER, Received INTEGER, Author TEXT, Content TEXT, PlainTextContent TEXT, IsRead INTEGER NOT NULL DEFAULT 0, HasEnclosures INTEGER NOT NULL DEFAULT 0, IsHidden INTEGER NOT NULL DEFAULT 0, IsStarred INTEGER NOT NULL DEFAULT 0)"];
 	}
 	
-	[self recursivelyLoadChildrenOf:subscriptions usingDatabaseHandle:db];
-	
+	[self recursivelyLoadChildrenOf:nil usingDatabaseHandle:db to:subscriptions];
 	[db close];
 	
 //	NSString *versionId = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
@@ -90,12 +88,12 @@ static NSString *path;
  * TODO:can be faster
  */
 + (void)recursivelyLoadChildrenOf:(ECSubscriptionFolder *)parentFolder
-              usingDatabaseHandle:(FMDatabase *)db{
+              usingDatabaseHandle:(FMDatabase *)db
+                               to:(ECSubscriptionItem *)root
+{
 	
 	FMResultSet *rs;
-    BOOL isRoot = NO;
-	if ([parentFolder.title isEqualToString:@"SUBSCRIPTIONS"]) {
-        isRoot = YES;
+	if (parentFolder == nil) {
 		rs = [db executeQuery:@"SELECT * FROM folder WHERE folder.ParentId IS NULL"];
 	} else {
 		rs = [db executeQuery:@"SELECT * FROM folder WHERE folder.ParentId=?", [NSNumber numberWithInteger:[parentFolder dbId]]];
@@ -108,18 +106,22 @@ static NSString *path;
 		[newFolder setPath:[rs stringForColumn:@"Path"]];
 		[newFolder setTitle:[rs stringForColumn:@"Title"]];
 		
-        [[parentFolder children] addObject:newFolder];
-        [newFolder setParentFolderReference:parentFolder];
+		if (parentFolder == nil) {
+			[[root children] addObject:newFolder];
+            //TODO:setParentFolderReference
+		} else {
+			[[parentFolder children] addObject:newFolder];
+			[newFolder setParentFolderReference:parentFolder];
+		}
 		
-		[self recursivelyLoadChildrenOf:newFolder usingDatabaseHandle:db];
-		
+		[self recursivelyLoadChildrenOf:newFolder usingDatabaseHandle:db to:nil];
 		[newFolder release];
 	}
 	
 	[rs close];
 	rs = nil;
 	
-	if (isRoot == YES) {
+	if (parentFolder == nil) {
 		rs = [db executeQuery:@"SELECT * FROM feed WHERE feed.FolderId IS NULL"];
 	} else {
 		rs = [db executeQuery:@"SELECT * FROM feed WHERE feed.FolderId=?", [NSNumber numberWithInteger:[parentFolder dbId]]];
@@ -132,8 +134,13 @@ static NSString *path;
 		
 		if (isHidden == NO) {
 			
-            [[parentFolder children] addObject:feed];
-            [feed setParentFolderReference:parentFolder];
+            if (parentFolder == nil) {
+                [[root children] addObject:feed];
+                //TODO:setParentFolderReference
+            } else {
+                [[parentFolder children] addObject:feed];
+                [feed setParentFolderReference:parentFolder];
+            }
 
 			
 //			// refresh the icon (if we have the link for this feed)
@@ -169,7 +176,7 @@ static NSString *path;
 	[rs close];
 }
 
-+ (void)addSubscriptionForUrlString:(NSString *)url {
++ (void)addSubscriptionForUrlString:(NSString *)url toFolder:(ECSubscriptionFolder *)folder refreshImmediately:(BOOL)shouldRefresh{
 	
 	// check to see if this feed already exists in the database
 	FMDatabase *db = [FMDatabase databaseWithPath:[ECDatabaseController pathForDatabaseFile]];

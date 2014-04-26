@@ -7,7 +7,6 @@
 //
 
 #import "ECSubscriptionsController.h"
-//#import "ECSubscriptionItem.h"
 #import "ECSubscriptionFeed.h"
 #import "ECSubscriptionFolder.h"
 #import "ECSubscriptionsTextFieldCell.h"
@@ -63,7 +62,6 @@ static ECSubscriptionsController *_sharedInstance = nil;
         
         // create an object as a placeholder until we create the real object; crashes otherwise
         [self setSubscriptionRoot:[[[ECSubscriptionFolder alloc] init] autorelease]];
-        
 //        [subsView setDelegate:self];
 //        [subsView setDataSource:self];
         
@@ -82,15 +80,15 @@ static ECSubscriptionsController *_sharedInstance = nil;
  */
 - (void)initializeSourceList {
 	
-	ECSubscriptionFolder *root = [[ECSubscriptionFolder alloc] init];
+	ECSubscriptionItem *root = [[ECSubscriptionItem alloc] init];
     
 	/************************ Library ************************/
-	ECSubscriptionFolder *library = [[ECSubscriptionFolder alloc] init];
+	ECSubscriptionItem *library = [[ECSubscriptionItem alloc] init];
     [library setIcon:nil];
 	[library setTitle:@"LIBRARY"];
 	[library setIsGroupItem:YES];
 	
-	ECSubscriptionFolder *newItems = [[ECSubscriptionFolder alloc] init];
+	ECSubscriptionItem *newItems = [[ECSubscriptionItem alloc] init];
 	[newItems setTitle:@"New Items"];
 	NSString *newItemsIconName = [[NSBundle mainBundle] pathForResource:@"inbox-table" ofType:@"png"];
 	NSImage *newItemsIcon = [[[NSImage alloc] initWithContentsOfFile:newItemsIconName] autorelease];
@@ -101,7 +99,7 @@ static ECSubscriptionsController *_sharedInstance = nil;
 	[self setSubscriptionNewItems:newItems];
 	[newItems release];
 	
-	ECSubscriptionFolder *starredItems = [[ECSubscriptionFolder alloc] init];
+	ECSubscriptionItem *starredItems = [[ECSubscriptionItem alloc] init];
 	[starredItems setTitle:@"Starred Items"];
 	NSImage *starredItemsIcon = [NSImage imageNamed:@"star"];
 	[starredItemsIcon setFlipped:YES];
@@ -114,7 +112,7 @@ static ECSubscriptionsController *_sharedInstance = nil;
 	[library release];
     
     /************************ Subscriptions ************************/
-	ECSubscriptionFolder *subscriptions = [[ECSubscriptionFolder alloc] init];
+	ECSubscriptionItem *subscriptions = [[ECSubscriptionItem alloc] init];
     [subscriptions setIcon:nil];
 	[subscriptions setTitle:@"SUBSCRIPTIONS"];
 	[subscriptions setIsGroupItem:YES];
@@ -125,6 +123,8 @@ static ECSubscriptionsController *_sharedInstance = nil;
 	[self setSubscriptionSubscriptions:subscriptions];
 	[subscriptions release];
 	
+    [[addFeedController folderArray] addObject:subscriptions];
+    
 	[self setSubscriptionRoot:root];
 	[root release];
 		
@@ -313,21 +313,23 @@ static ECSubscriptionsController *_sharedInstance = nil;
 
 - (IBAction)addSubscription:(id)sender{
     [addFeedController clearTextField];
+    [addFeedController reloadDataOfPopUp];
 	[addFeedController showDialog:self];
 }
 
 - (IBAction)addSubscriptionForSure:(id)sender{
     
     NSString *url = [addFeedController getUrl];
-	
+	ECSubscriptionFolder *folder = nil;
+    
 	if (url != nil && [url length] > 0) {
-		[self addSubscriptionForUrlString:url];
+		[self addSubscriptionForUrlString:url toFolder:folder];
 	}
     
 	[addFeedController hideDialog:nil];
 }
 
-- (void)addSubscriptionForUrlString:(NSString *)url {
+- (void)addSubscriptionForUrlString:(NSString *)url toFolder:(ECSubscriptionFolder *)folder{
 	url = [url ecTrimmedString];
 	
 	// add http:// to the beginning if necessary
@@ -342,7 +344,7 @@ static ECSubscriptionsController *_sharedInstance = nil;
 		}
 	}
 	
-    [ECDatabaseController addSubscriptionForUrlString:url];
+    [ECDatabaseController addSubscriptionForUrlString:url toFolder:folder refreshImmediately:YES];
 }
 
 

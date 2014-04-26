@@ -31,6 +31,7 @@
 		[self setIsDraggable:NO];
 		[self setBadgeValue:0];
 		[self setIsLoading:NO];
+        [self setChildren:[NSMutableArray array]];
 	}
 	return self;
 }
@@ -39,7 +40,7 @@
 	[title release];
 	[icon release];
 	[iconLastRefreshed release];
-	
+    [children release];
 	[super dealloc];
 }
 

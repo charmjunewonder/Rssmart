@@ -7,13 +7,44 @@
 //
 
 #import "ECAddFeedController.h"
-//#import <Foundation/Foundation.h>
+#import "ECSubscriptionFolder.h"
 
 @implementation ECAddFeedController
 
 @synthesize mainWindow;
 @synthesize addFeedDialog;
 @synthesize feedDialogTextField;
+@synthesize folderArray;
+
+-(id)init
+{
+    self = [super init];
+    if (self != nil) {
+        folderArray = [[NSMutableArray alloc] init];
+    }
+    return self;
+}
+
+
+- (void)reloadDataOfPopUp
+{
+    NSAssert(addFeedDialog != nil, @"AddFeedDialog is nil");
+
+//    NSMenu *menu = [categoryPopUp menu];
+//    NSUInteger i, itemCount;
+//    itemCount = [folderArray count];
+//    
+//    for (i = 0; i < itemCount; i++) {
+//        ECSubscriptionFolder *folder = [folderArray objectAtIndex:i];
+//        NSMenuItem *mi = [[NSMenuItem alloc] init];
+//        [mi setTitle:[folder title]];
+//        [mi setTag:i];
+//        [mi setValue:folder forKey:@"folder"];
+//        [menu addItem:mi];
+//    }
+    // Initially show the first controller
+
+}
 
 - (IBAction)showDialog:(id)sender {
 	[NSApp beginSheet:addFeedDialog modalForWindow:mainWindow modalDelegate:self didEndSelector:@selector(didEndDialog:returnCode:contextInfo:) contextInfo:nil];
@@ -34,4 +65,5 @@
 - (void)clearTextField{
     [feedDialogTextField setStringValue:@""];
 }
+
 @end

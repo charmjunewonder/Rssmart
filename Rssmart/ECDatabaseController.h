@@ -6,11 +6,11 @@
 //  Copyright (c) 2014 Eric Chen. All rights reserved.
 //
 
-@class ECSubscriptionFolder;
+@class ECSubscriptionItem;
 
 @interface ECDatabaseController : NSObject
 
-+ (void)addSubscriptionForUrlString:(NSString *)url;
-+ (void)loadFromDatabaseTo:(ECSubscriptionFolder *)subscriptions;
++ (void)addSubscriptionForUrlString:(NSString *)url toFolder:(ECSubscriptionItem *)folder refreshImmediately:(BOOL)shouldRefresh;
++ (void)loadFromDatabaseTo:(ECSubscriptionItem *)subscriptions;
 
 @end

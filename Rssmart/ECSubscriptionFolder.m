@@ -16,7 +16,6 @@
 - (id)init {
 	self = [super init];
 	if (self != nil) {
-        [self setChildren:[NSMutableArray array]];
 		[self setIsEditable:YES];
 		[self setIsDraggable:YES];
 		[self setIcon:[NSImage imageNamed:NSImageNameFolder]];
@@ -35,7 +34,6 @@
 			[(ECSubscriptionFolder *)item setParentFolderReference:nil];
 		}
 	}
-    [[super children] release];
 
 	[path release];
 	

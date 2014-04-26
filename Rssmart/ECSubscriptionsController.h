@@ -18,13 +18,13 @@ NSOutlineViewDelegate>
 @property (retain, nonatomic) NSMutableArray *subscriptionList;
 @property (assign, nonatomic) IBOutlet ECSubscriptionsView *subsView;
 //feeds that are at the top containing 'Library' and 'Subscriptions'
-@property (retain, nonatomic) ECSubscriptionFolder *subscriptionRoot;
+@property (retain, nonatomic) ECSubscriptionItem *subscriptionRoot;
 //feeds that contains new posts
-@property (retain, nonatomic) ECSubscriptionFolder *subscriptionNewItems;
+@property (retain, nonatomic) ECSubscriptionItem *subscriptionNewItems;
 //feeds that contains starred posts
-@property (retain, nonatomic) ECSubscriptionFolder *subscriptionStarredItems;
+@property (retain, nonatomic) ECSubscriptionItem *subscriptionStarredItems;
 //feeds that contains all posts
-@property (retain, nonatomic) ECSubscriptionFolder *subscriptionSubscriptions;
+@property (retain, nonatomic) ECSubscriptionItem *subscriptionSubscriptions;
 @property (retain, nonatomic) ECSubscriptionItem *subscriptionSelectedItem;
 @property (assign, nonatomic) ECSubscriptionItem *subscriptionDragItem;
 @property (assign, nonatomic) IBOutlet ECAddFeedController *addFeedController;
