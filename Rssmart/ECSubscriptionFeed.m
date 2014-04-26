@@ -8,6 +8,8 @@
 
 #import "ECSubscriptionFeed.h"
 #import "FMResultSet.h"
+#import "ECConstants.h"
+#import "ECTimer.h"
 
 @interface ECSubscriptionFeed (Private)
 - (void)populateUsingResultSet:(FMResultSet *)rs;
@@ -70,6 +72,31 @@
 	if (lastSyncPostsData != nil) {
 		[self setLastSyncPosts:[NSUnarchiver unarchiveObjectWithData:lastSyncPostsData]];
 	}
+}
+
+- (void)startIconRefreshTimer{
+    // refresh the icon (if we have the link for this feed)
+//    if ([self websiteLink] != nil && [[self websiteLink] length] > 0) {
+//        NSTimeInterval iconRefreshTimeLapsed = 0.0;
+//        NSTimeInterval iconRefreshDelay = 0.0;
+//        NSTimeInterval minRefreshDelay = (TIME_INTERVAL_MINUTE * 10);
+//        
+//        if ([feed iconLastRefreshed] != nil) {
+//            iconRefreshTimeLapsed = [[NSDate date] timeIntervalSinceDate:[feed iconLastRefreshed]];
+//        }
+//        
+//        if ([feed iconLastRefreshed] == nil || iconRefreshTimeLapsed > ICON_REFRESH_INTERVAL) {
+//            iconRefreshDelay = minRefreshDelay;
+//        } else {
+//            iconRefreshDelay = ICON_REFRESH_INTERVAL - iconRefreshTimeLapsed;
+//        }
+//        
+//        if (iconRefreshDelay < minRefreshDelay) {
+//            iconRefreshDelay = minRefreshDelay;
+//        }
+//        
+//        _iconTimer = [ECTimer scheduledTimerWithTimeInterval:iconRefreshDelay target:self selector:@selector(timeToAddFeedToIconQueue:) userInfo:feed repeats:NO];
+//    }
 }
 
 @end

@@ -143,29 +143,6 @@ static NSString *path;
             }
 
 			
-//			// refresh the icon (if we have the link for this feed)
-//			if ([feed websiteLink] != nil && [[feed websiteLink] length] > 0) {
-//				NSTimeInterval iconRefreshTimeLapsed = 0.0;
-//				NSTimeInterval iconRefreshDelay = 0.0;
-//				NSTimeInterval minRefreshDelay = (TIME_INTERVAL_MINUTE * 10);
-//				
-//				if ([feed iconLastRefreshed] != nil) {
-//					iconRefreshTimeLapsed = [[NSDate date] timeIntervalSinceDate:[feed iconLastRefreshed]];
-//				}
-//				
-//				if ([feed iconLastRefreshed] == nil || iconRefreshTimeLapsed > ICON_REFRESH_INTERVAL) {
-//					iconRefreshDelay = minRefreshDelay;
-//				} else {
-//					iconRefreshDelay = ICON_REFRESH_INTERVAL - iconRefreshTimeLapsed;
-//				}
-//				
-//				if (iconRefreshDelay < minRefreshDelay) {
-//					iconRefreshDelay = minRefreshDelay;
-//				}
-//				
-//				CLTimer *iconTimer = [CLTimer scheduledTimerWithTimeInterval:iconRefreshDelay target:self selector:@selector(timeToAddFeedToIconQueue:) userInfo:feed repeats:NO];
-//				[iconRefreshTimers addObject:iconTimer];
-//			}
 		}
 		
 //		[feedLookupDict setObject:feed forKey:[NSNumber numberWithInteger:[feed dbId]]];
