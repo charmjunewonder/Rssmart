@@ -21,6 +21,7 @@
 @synthesize isLoading;
 @synthesize dbId;
 @synthesize parentFolderReference;
+@synthesize children;
 
 - (id)init {
 	self = [super init];

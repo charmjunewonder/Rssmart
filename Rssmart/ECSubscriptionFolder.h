@@ -10,7 +10,6 @@
 
 @interface ECSubscriptionFolder : ECSubscriptionItem
 
-@property (retain, nonatomic) NSMutableArray *children;
 @property (copy, nonatomic) NSString *path;
 
 @end

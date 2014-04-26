@@ -74,7 +74,7 @@ static ECSubscriptionsController *_sharedInstance = nil;
 -(void)setup{
     [self initializeSourceList];
     [ECDatabaseController loadFromDatabaseTo:subscriptionSubscriptions];
-
+	[subsView reloadData];
 }
 
 /*
@@ -86,6 +86,7 @@ static ECSubscriptionsController *_sharedInstance = nil;
     
 	/************************ Library ************************/
 	ECSubscriptionFolder *library = [[ECSubscriptionFolder alloc] init];
+    [library setIcon:nil];
 	[library setTitle:@"LIBRARY"];
 	[library setIsGroupItem:YES];
 	
@@ -111,12 +112,13 @@ static ECSubscriptionsController *_sharedInstance = nil;
 	
 	[[root children] addObject:library];
 	[library release];
-	
+    
+    /************************ Subscriptions ************************/
 	ECSubscriptionFolder *subscriptions = [[ECSubscriptionFolder alloc] init];
+    [subscriptions setIcon:nil];
 	[subscriptions setTitle:@"SUBSCRIPTIONS"];
 	[subscriptions setIsGroupItem:YES];
     
-    /************************ Subscriptions ************************/
 //	[subscriptions setChildren:subscriptionList];
 	
 	[[root children] addObject:subscriptions];
@@ -125,9 +127,9 @@ static ECSubscriptionsController *_sharedInstance = nil;
 	
 	[self setSubscriptionRoot:root];
 	[root release];
-	
-	[subsView reloadData];
-	
+		
+    [subsView reloadData];
+
 	// expand group items
 	ECSubscriptionItem *child;
 	

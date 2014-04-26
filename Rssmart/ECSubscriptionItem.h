@@ -20,6 +20,7 @@
 @property (retain) NSDate *iconLastRefreshed;
 @property (assign, nonatomic) BOOL isLoading;
 @property (assign, nonatomic) ECSubscriptionFolder *parentFolderReference;
+@property (retain, nonatomic) NSMutableArray *children;
 
 - (NSString *)extractTitleForDisplay;
 

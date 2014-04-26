@@ -12,7 +12,6 @@
 @implementation ECSubscriptionFolder
 
 @synthesize path;
-@synthesize children;
 
 - (id)init {
 	self = [super init];
@@ -29,14 +28,14 @@
 	
 	// zero weak refs
     //TODO:children
-	for (ECSubscriptionItem *item in children) {
+	for (ECSubscriptionItem *item in [super children]) {
 		if ([item isKindOfClass:[ECSubscriptionFeed class]]) {
 			[(ECSubscriptionFeed *)item setParentFolderReference:nil];
 		} else if ([item isKindOfClass:[ECSubscriptionFolder class]]) {
 			[(ECSubscriptionFolder *)item setParentFolderReference:nil];
 		}
 	}
-    [children release];
+    [[super children] release];
 
 	[path release];
 	
