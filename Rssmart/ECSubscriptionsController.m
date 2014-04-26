@@ -7,12 +7,18 @@
 //
 
 #import "ECSubscriptionsController.h"
-#import "ECSubscriptionItem.h"
+//#import "ECSubscriptionItem.h"
+#import "ECSubscriptionFeed.h"
 #import "ECSubscriptionFolder.h"
 #import "ECSubscriptionsTextFieldCell.h"
 #import "ECSubscriptionsView.h"
 #import "ECConstants.h"
 #import "ECAddFeedController.h"
+#import "ECVersionNumber.h"
+#import "FMDatabase.h"
+#import "NSString+ECAddition.h"
+#import "ECErrorUtility.h"
+#import "ECDatabaseController.h"
 
 #define SOURCE_LIST_DRAG_TYPE @"SourceListDragType"
 
@@ -56,7 +62,7 @@ static ECSubscriptionsController *_sharedInstance = nil;
 //        self.postsController = [PostsController getSharedInstance];
         
         // create an object as a placeholder until we create the real object; crashes otherwise
-        [self setSubscriptionRoot:[[[ECSubscriptionItem alloc] init] autorelease]];
+        [self setSubscriptionRoot:[[[ECSubscriptionFolder alloc] init] autorelease]];
         
 //        [subsView setDelegate:self];
 //        [subsView setDataSource:self];
@@ -67,6 +73,8 @@ static ECSubscriptionsController *_sharedInstance = nil;
 
 -(void)setup{
     [self initializeSourceList];
+    [ECDatabaseController loadFromDatabaseTo:subscriptionSubscriptions];
+
 }
 
 /*
@@ -74,14 +82,14 @@ static ECSubscriptionsController *_sharedInstance = nil;
  */
 - (void)initializeSourceList {
 	
-	ECSubscriptionItem *root = [[ECSubscriptionItem alloc] init];
+	ECSubscriptionFolder *root = [[ECSubscriptionFolder alloc] init];
     
 	/************************ Library ************************/
-	ECSubscriptionItem *library = [[ECSubscriptionItem alloc] init];
+	ECSubscriptionFolder *library = [[ECSubscriptionFolder alloc] init];
 	[library setTitle:@"LIBRARY"];
 	[library setIsGroupItem:YES];
 	
-	ECSubscriptionItem *newItems = [[ECSubscriptionItem alloc] init];
+	ECSubscriptionFolder *newItems = [[ECSubscriptionFolder alloc] init];
 	[newItems setTitle:@"New Items"];
 	NSString *newItemsIconName = [[NSBundle mainBundle] pathForResource:@"inbox-table" ofType:@"png"];
 	NSImage *newItemsIcon = [[[NSImage alloc] initWithContentsOfFile:newItemsIconName] autorelease];
@@ -92,7 +100,7 @@ static ECSubscriptionsController *_sharedInstance = nil;
 	[self setSubscriptionNewItems:newItems];
 	[newItems release];
 	
-	ECSubscriptionItem *starredItems = [[ECSubscriptionItem alloc] init];
+	ECSubscriptionFolder *starredItems = [[ECSubscriptionFolder alloc] init];
 	[starredItems setTitle:@"Starred Items"];
 	NSImage *starredItemsIcon = [NSImage imageNamed:@"star"];
 	[starredItemsIcon setFlipped:YES];
@@ -104,12 +112,12 @@ static ECSubscriptionsController *_sharedInstance = nil;
 	[[root children] addObject:library];
 	[library release];
 	
-	ECSubscriptionItem *subscriptions = [[ECSubscriptionItem alloc] init];
+	ECSubscriptionFolder *subscriptions = [[ECSubscriptionFolder alloc] init];
 	[subscriptions setTitle:@"SUBSCRIPTIONS"];
 	[subscriptions setIsGroupItem:YES];
     
     /************************ Subscriptions ************************/
-	[subscriptions setChildren:subscriptionList];
+//	[subscriptions setChildren:subscriptionList];
 	
 	[[root children] addObject:subscriptions];
 	[self setSubscriptionSubscriptions:subscriptions];
@@ -133,19 +141,19 @@ static ECSubscriptionsController *_sharedInstance = nil;
 
 # pragma mark SubscriptionsView data source methods
 
-- (NSInteger)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(ECSubscriptionItem *)item {
+- (NSInteger)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(ECSubscriptionFolder *)item {
     return (item == nil) ? [[subscriptionRoot children] count] : [[item children] count];
 }
 
-- (BOOL)outlineView:(NSOutlineView *)outlineView isItemExpandable:(ECSubscriptionItem *)item {
+- (BOOL)outlineView:(NSOutlineView *)outlineView isItemExpandable:(ECSubscriptionFolder *)item {
     return (item == nil) ? YES : ([item isGroupItem] || [item isKindOfClass:[ECSubscriptionFolder class]] || [[item children] count] > 0);
 }
 
-- (id)outlineView:(NSOutlineView *)outlineView child:(NSInteger)childIndex ofItem:(ECSubscriptionItem *)item {
+- (id)outlineView:(NSOutlineView *)outlineView child:(NSInteger)childIndex ofItem:(ECSubscriptionFolder *)item {
     return (item == nil) ? [[subscriptionRoot children] objectAtIndex:childIndex] : [[item children] objectAtIndex:childIndex];
 }
 
-- (id)outlineView:(NSOutlineView *)outlineView objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(ECSubscriptionItem *)item {
+- (id)outlineView:(NSOutlineView *)outlineView objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(ECSubscriptionFolder *)item {
 	if (item == nil) {
 		return @"";
 	}
@@ -311,9 +319,29 @@ static ECSubscriptionsController *_sharedInstance = nil;
     NSString *url = [addFeedController getUrl];
 	
 	if (url != nil && [url length] > 0) {
-//		[self addSubscriptionForUrlString:url];
+		[self addSubscriptionForUrlString:url];
 	}
     
 	[addFeedController hideDialog:nil];
 }
+
+- (void)addSubscriptionForUrlString:(NSString *)url {
+	url = [url ecTrimmedString];
+	
+	// add http:// to the beginning if necessary
+	NSURL *urlTest = [NSURL URLWithString:url];
+	
+	if ([urlTest scheme] == nil) {
+		NSString *newUrl = [NSString stringWithFormat:@"http://%@", url];
+		NSURL *newUrlTest = [NSURL URLWithString:newUrl];
+		
+		if (newUrlTest != nil && [[newUrlTest scheme] isEqual:@"http"]) {
+			url = newUrl;
+		}
+	}
+	
+    [ECDatabaseController addSubscriptionForUrlString:url];
+}
+
+
 @end

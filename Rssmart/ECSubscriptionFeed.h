@@ -8,15 +8,11 @@
 
 #import "ECSubscriptionItem.h"
 
-@class ECSubscriptionFolder;
-@class ECSubscriptionItem;
 @class FMResultSet;
 
 @interface ECSubscriptionFeed :ECSubscriptionItem
 
-@property (assign, nonatomic) NSInteger dbId;
 @property (copy, nonatomic) NSString *url;
-@property (assign, nonatomic) ECSubscriptionFolder *enclosingFolderReference;
 @property (copy, nonatomic) NSString *websiteLink;
 @property (retain, nonatomic) NSArray *postsToAddToDB;
 @property (retain, nonatomic) NSMutableArray *lastSyncPosts;

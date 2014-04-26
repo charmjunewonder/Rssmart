@@ -10,8 +10,7 @@
 
 @interface ECSubscriptionFolder : ECSubscriptionItem
 
-@property (assign, nonatomic) NSInteger dbId;
+@property (retain, nonatomic) NSMutableArray *children;
 @property (copy, nonatomic) NSString *path;
-@property (assign, nonatomic) ECSubscriptionFolder *parentFolderReference;
 
 @end

@@ -44,6 +44,9 @@
 		D1B835E8190A92FD00E2D939 /* unreadDot.png in Resources */ = {isa = PBXBuildFile; fileRef = D1B835E2190A92FD00E2D939 /* unreadDot.png */; };
 		D1B835F2190AAF8900E2D939 /* AddFeedPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1B835F1190AAF8900E2D939 /* AddFeedPanel.xib */; };
 		D1B835F6190AB16C00E2D939 /* ECAddFeedController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B835F5190AB16C00E2D939 /* ECAddFeedController.m */; };
+		D1B835FA190B92A000E2D939 /* NSString+ECAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B835F9190B92A000E2D939 /* NSString+ECAddition.m */; };
+		D1B835FD190B934E00E2D939 /* ECErrorUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B835FC190B934E00E2D939 /* ECErrorUtility.m */; };
+		D1B83600190B956500E2D939 /* NSFileManager+ECAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B835FF190B956500E2D939 /* NSFileManager+ECAdditions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,6 +122,12 @@
 		D1B835F1190AAF8900E2D939 /* AddFeedPanel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddFeedPanel.xib; sourceTree = "<group>"; };
 		D1B835F4190AB16C00E2D939 /* ECAddFeedController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECAddFeedController.h; sourceTree = "<group>"; };
 		D1B835F5190AB16C00E2D939 /* ECAddFeedController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECAddFeedController.m; sourceTree = "<group>"; };
+		D1B835F8190B92A000E2D939 /* NSString+ECAddition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ECAddition.h"; sourceTree = "<group>"; };
+		D1B835F9190B92A000E2D939 /* NSString+ECAddition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ECAddition.m"; sourceTree = "<group>"; };
+		D1B835FB190B934E00E2D939 /* ECErrorUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECErrorUtility.h; sourceTree = "<group>"; };
+		D1B835FC190B934E00E2D939 /* ECErrorUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECErrorUtility.m; sourceTree = "<group>"; };
+		D1B835FE190B956500E2D939 /* NSFileManager+ECAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileManager+ECAdditions.h"; sourceTree = "<group>"; };
+		D1B835FF190B956500E2D939 /* NSFileManager+ECAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+ECAdditions.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,11 +200,11 @@
 				D1B8356F190A062D00E2D939 /* RssmartAppDelegate.h */,
 				D1B83570190A062D00E2D939 /* RssmartAppDelegate.m */,
 				D1B835F3190AB13E00E2D939 /* XIB */,
-				D1B835CF190A172200E2D939 /* ECConstants.h */,
-				D1B835D0190A17C600E2D939 /* Utility */,
 				D1B8359D190A0BCC00E2D939 /* Controller */,
 				D1B8359E190A0BE100E2D939 /* View */,
 				D1B83596190A091E00E2D939 /* Model */,
+				D1B835F7190B927400E2D939 /* Category */,
+				D1B835D0190A17C600E2D939 /* Utility */,
 				D1B835C5190A0DE700E2D939 /* Library */,
 				D1B83575190A062D00E2D939 /* Images.xcassets */,
 				D1B83564190A062D00E2D939 /* Supporting Files */,
@@ -303,8 +312,11 @@
 		D1B835D0190A17C600E2D939 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				D1B835CF190A172200E2D939 /* ECConstants.h */,
 				D1B835D1190A17E000E2D939 /* ECVersionNumber.h */,
 				D1B835D2190A17E000E2D939 /* ECVersionNumber.m */,
+				D1B835FB190B934E00E2D939 /* ECErrorUtility.h */,
+				D1B835FC190B934E00E2D939 /* ECErrorUtility.m */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -330,6 +342,17 @@
 				D1B835F1190AAF8900E2D939 /* AddFeedPanel.xib */,
 			);
 			name = XIB;
+			sourceTree = "<group>";
+		};
+		D1B835F7190B927400E2D939 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				D1B835FE190B956500E2D939 /* NSFileManager+ECAdditions.h */,
+				D1B835FF190B956500E2D939 /* NSFileManager+ECAdditions.m */,
+				D1B835F8190B92A000E2D939 /* NSString+ECAddition.h */,
+				D1B835F9190B92A000E2D939 /* NSString+ECAddition.m */,
+			);
+			name = Category;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -441,10 +464,13 @@
 			files = (
 				D1B835D3190A17E000E2D939 /* ECVersionNumber.m in Sources */,
 				D1B83599190A0B8100E2D939 /* ECSubscriptionFeed.m in Sources */,
+				D1B835FA190B92A000E2D939 /* NSString+ECAddition.m in Sources */,
 				D1B83571190A062D00E2D939 /* RssmartAppDelegate.m in Sources */,
 				D1B835CE190A14DB00E2D939 /* ECSubscriptionsTextFieldCell.m in Sources */,
+				D1B835FD190B934E00E2D939 /* ECErrorUtility.m in Sources */,
 				D1B835CB190A136A00E2D939 /* ECSubscriptionsController.m in Sources */,
 				D1B835D6190A42BB00E2D939 /* ECRequestController.m in Sources */,
+				D1B83600190B956500E2D939 /* NSFileManager+ECAdditions.m in Sources */,
 				D1B8356A190A062D00E2D939 /* main.m in Sources */,
 				D1B835C8190A135800E2D939 /* ECSubscriptionsView.m in Sources */,
 				D1B835BF190A0CBB00E2D939 /* FMDatabase.m in Sources */,

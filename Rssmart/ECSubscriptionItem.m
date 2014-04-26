@@ -12,7 +12,6 @@
 @implementation ECSubscriptionItem
 
 @synthesize title;
-@synthesize children;
 @synthesize isGroupItem;
 @synthesize isEditable;
 @synthesize isDraggable;
@@ -20,11 +19,12 @@
 @synthesize icon;
 @synthesize iconLastRefreshed;
 @synthesize isLoading;
+@synthesize dbId;
+@synthesize parentFolderReference;
 
 - (id)init {
 	self = [super init];
 	if (self != nil) {
-		[self setChildren:[NSMutableArray array]];
 		[self setIsGroupItem:NO];
 		[self setIsEditable:NO];
 		[self setIsDraggable:NO];
@@ -36,7 +36,6 @@
 
 - (void)dealloc {
 	[title release];
-	[children release];
 	[icon release];
 	[iconLastRefreshed release];
 	

@@ -15,9 +15,7 @@
 
 @implementation ECSubscriptionFeed
 
-@synthesize dbId;
 @synthesize url;
-@synthesize enclosingFolderReference;
 @synthesize websiteLink;
 @synthesize postsToAddToDB;
 @synthesize lastSyncPosts;

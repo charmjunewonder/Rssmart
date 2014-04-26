@@ -22,21 +22,21 @@
                         <rect key="frame" x="0.0" y="32" width="840" height="583"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <subviews>
-                            <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="Wpp-ca-pAs">
-                                <rect key="frame" x="0.0" y="0.0" width="212" height="583"/>
+                            <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" verticalScrollElasticity="none" id="Wpp-ca-pAs">
+                                <rect key="frame" x="0.0" y="0.0" width="176" height="583"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <clipView key="contentView" ambiguous="YES" misplaced="YES" id="4d7-5w-iJp">
-                                    <rect key="frame" x="1" y="1" width="210" height="581"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="176" height="583"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" multipleSelection="NO" autosaveColumns="NO" rowHeight="24" indentationPerLevel="16" outlineTableColumn="4F9-6b-agf" id="TlF-42-hWE" customClass="ECSubscriptionsView">
-                                            <rect key="frame" x="0.0" y="0.0" width="210" height="581"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="176" height="583"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="0.0"/>
                                             <color key="backgroundColor" name="_sourceListBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
-                                                <tableColumn identifier="AutomaticTableColumnIdentifier.0" width="207" minWidth="16" maxWidth="1000" id="4F9-6b-agf">
+                                                <tableColumn identifier="AutomaticTableColumnIdentifier.0" width="173" minWidth="16" maxWidth="1000" id="4F9-6b-agf">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -67,22 +67,22 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
-                            <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="82" horizontalPageScroll="10" verticalLineScroll="82" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="jl3-OM-v8g">
-                                <rect key="frame" x="213" y="0.0" width="194" height="583"/>
+                            <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="82" horizontalPageScroll="10" verticalLineScroll="82" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="jl3-OM-v8g">
+                                <rect key="frame" x="177" y="0.0" width="230" height="583"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <clipView key="contentView" ambiguous="YES" misplaced="YES" id="lak-XM-Cv4">
-                                    <rect key="frame" x="1" y="1" width="192" height="581"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="230" height="583"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="80" id="HSa-4u-0XX">
-                                            <rect key="frame" x="0.0" y="0.0" width="192" height="581"/>
+                                        <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="80" id="HSa-4u-0XX">
+                                            <rect key="frame" x="0.0" y="0.0" width="230" height="583"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <tableViewGridLines key="gridStyleMask" horizontal="YES"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
-                                                <tableColumn width="189" minWidth="40" maxWidth="1000" id="Obm-I5-Ynf">
+                                                <tableColumn width="227" minWidth="40" maxWidth="1000" id="Obm-I5-Ynf">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -198,14 +198,13 @@
                     <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xHm-8n-VtE">
                         <rect key="frame" x="77" y="43" width="297" height="26"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="31Q-JP-CrS" id="OCJ-fE-imw">
+                        <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="OCJ-fE-imw">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                             <menu key="menu" title="OtherViews" id="5GX-dk-ZC9">
                                 <items>
-                                    <menuItem title="Item 1" state="on" id="31Q-JP-CrS"/>
-                                    <menuItem title="Item 2" id="urJ-JI-FGg"/>
-                                    <menuItem title="Item 3" id="gG3-dT-6VA"/>
+                                    <menuItem title="Root" id="31Q-JP-CrS"/>
+                                    <menuItem isSeparatorItem="YES" id="NcK-a3-UWi"/>
                                 </items>
                             </menu>
                         </popUpButtonCell>

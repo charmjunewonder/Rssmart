@@ -11,13 +11,13 @@
 
 @implementation ECSubscriptionFolder
 
-@synthesize dbId;
 @synthesize path;
-@synthesize parentFolderReference;
+@synthesize children;
 
 - (id)init {
 	self = [super init];
 	if (self != nil) {
+        [self setChildren:[NSMutableArray array]];
 		[self setIsEditable:YES];
 		[self setIsDraggable:YES];
 		[self setIcon:[NSImage imageNamed:NSImageNameFolder]];
@@ -29,14 +29,15 @@
 	
 	// zero weak refs
     //TODO:children
-	for (ECSubscriptionItem *item in self.children) {
+	for (ECSubscriptionItem *item in children) {
 		if ([item isKindOfClass:[ECSubscriptionFeed class]]) {
-			[(ECSubscriptionFeed *)item setEnclosingFolderReference:nil];
+			[(ECSubscriptionFeed *)item setParentFolderReference:nil];
 		} else if ([item isKindOfClass:[ECSubscriptionFolder class]]) {
 			[(ECSubscriptionFolder *)item setParentFolderReference:nil];
 		}
 	}
-	
+    [children release];
+
 	[path release];
 	
 	[super dealloc];
