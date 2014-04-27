@@ -7,9 +7,10 @@
 //
 
 #import "ECOperationDelegate.h"
+#import "ECFeedRequestDelegate.h"
 #import "ECRequest.h"
 
-@interface ECRequestController : NSObject <ECOperationDelegate>
+@interface ECRequestController : NSObject <ECOperationDelegate, ECFeedRequestDelegate>
 
 @property (retain, nonatomic) NSMutableArray *iconRefreshTimers;
 @property (retain, nonatomic) NSOperationQueue *operationQueue;
@@ -23,5 +24,9 @@
 + (ECRequestController *)getSharedInstance;
 
 - (void)startToRequestIconForFeed:(ECSubscriptionFeed *)feed;
-
+- (void)queueSyncRequestForSpecificFeeds:(NSMutableArray *)feeds;
+- (void)runDatabaseUpdateOnBackgroundThread:(NSString *)queryString, ... NS_REQUIRES_NIL_TERMINATION;
+- (void)queueIconRefreshOperationFor:(ECSubscriptionFeed *)feed;
+- (void)addTimerOfIconRequestForFeed:(ECSubscriptionFeed *)feed forTimeInterval:(NSTimeInterval) interval;
+- (void)startToOperate;
 @end

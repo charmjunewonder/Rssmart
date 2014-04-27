@@ -18,6 +18,7 @@
 #import "FMDatabase.h"
 #import "FMResultSet.h"
 #import "GTMNSString+HTML.h"
+#import "ECDatabaseController.h"
 
 #define FEED_TYPE_UNKNOWN 0
 #define FEED_TYPE_RSS 1
@@ -156,64 +157,8 @@
 			if (isFirstSync) {
 				newPosts = probablyNewPosts;
 			} else {
-				newPosts = [NSMutableArray array];
-				
 				if ([probablyNewPosts count] > 0) {
-                    
-					FMDatabase *db = [FMDatabase databaseWithPath:[ECDatabaseUtility pathForDatabaseFile]];
-					
-					if (![db open]) {
-						[NSException raise:@"Database error" format:@"Failed to connect to the database!"];
-					}
-					
-					for (ECPost *post in probablyNewPosts) {
-						BOOL postIsNew = YES;
-						
-						FMResultSet *rs = nil;
-                        
-                        if ([post title] != nil && [[post title] length] > 0 && [post plainTextContent] != nil && [[post plainTextContent] length] > 0) {
-                            rs = [db executeQuery:@"SELECT * FROM post WHERE FeedId=? AND Title=? AND PlainTextContent=?", [NSNumber numberWithInteger:[post feedDbId]], [post title], [post plainTextContent]];
-                            
-                            if ([db hadError] || [rs next]) {
-                                postIsNew = NO;
-                            }
-                            
-                            [rs close];
-                        } else if ([post title] != nil && [[post title] length] > 0 && ([post plainTextContent] == nil || [[post plainTextContent] length] == 0)) {
-                            rs = [db executeQuery:@"SELECT * FROM post WHERE FeedId=? AND Title=? AND PlainTextContent IS NULL", [NSNumber numberWithInteger:[post feedDbId]], [post title]];
-                            
-                            if ([db hadError] || [rs next]) {
-                                postIsNew = NO;
-                            }
-                            
-                            [rs close];
-                        } else if ([post plainTextContent] != nil && [[post plainTextContent] length] > 0 && ([post title] == nil || [[post title] length] == 0)) {
-                            rs = [db executeQuery:@"SELECT * FROM post WHERE FeedId=? AND Title IS NULL AND PlainTextContent=?", [NSNumber numberWithInteger:[post feedDbId]], [post plainTextContent]];
-                            
-                            if ([db hadError] || [rs next]) {
-                                postIsNew = NO;
-                            }
-                            
-                            [rs close];
-                        }
-                        
-						// if we still think this post is new, check the guid
-                        if (postIsNew && [post guid] != nil && [[post guid] length] > 0) {
-							rs = [db executeQuery:@"SELECT * FROM post WHERE FeedId=? AND Guid=?", [NSNumber numberWithInteger:[post feedDbId]], [post guid]];
-                            
-                            if ([db hadError] || [rs next]) {
-                                postIsNew = NO;
-                            }
-                            
-                            [rs close];
-                        }
-						
-						if (postIsNew) {
-							[newPosts addObject:post];
-						}
-					}
-					
-					[db close];
+                    newPosts = [ECDatabaseController checkIfPostsNotExists:probablyNewPosts];
 				}
 			}
 			
@@ -297,17 +242,7 @@
 		
 		if (postsDidChange) {
 			[feed setLastSyncPosts:syncPosts];
-			
-			FMDatabase *db = [FMDatabase databaseWithPath:[ECDatabaseUtility pathForDatabaseFile]];
-			
-			if (![db open]) {
-				[NSException raise:@"Database error" format:@"Failed to connect to the database!"];
-			}
-			
-			NSData *syncPostsData = [NSArchiver archivedDataWithRootObject:syncPosts];
-			[db executeUpdate:@"UPDATE feed SET LastSyncPosts=? WHERE Id=?", syncPostsData, [NSNumber numberWithInteger:[feed dbId]]];
-			
-			[db close];
+			[ECDatabaseController updateLastSyncPosts:syncPosts forFeed:feed];
 		}
 		
 		[self performSelectorOnMainThread:@selector(dispatchDidFinishDelegateMessage) withObject:nil waitUntilDone:YES];
@@ -372,16 +307,7 @@
 			
 			if ([[feed websiteLink] isEqual:hrefValue] == NO) {
 				[feed setWebsiteLink:hrefValue];
-				
-				FMDatabase *db = [FMDatabase databaseWithPath:[ECDatabaseUtility pathForDatabaseFile]];
-				
-				if (![db open]) {
-					[NSException raise:@"Database error" format:@"Failed to connect to the database!"];
-				}
-				
-				[db executeUpdate:@"UPDATE feed SET WebsiteLink=? WHERE Id=?", hrefValue, [NSNumber numberWithInteger:[feed dbId]]];
-				
-				[db close];
+                [ECDatabaseController updateWebsiteLink:hrefValue forFeed:feed];
 				
 				[self performSelectorOnMainThread:@selector(dispatchWebsiteLinkDelegateMessage) withObject:nil waitUntilDone:YES];
 			}
@@ -477,15 +403,7 @@
 			if (relValue == nil || [relValue isEqual:@"alternate"]) {
 				if ([[feed websiteLink] isEqual:hrefValue] == NO) {
 					[feed setWebsiteLink:hrefValue];
-					
-					FMDatabase *db = [FMDatabase databaseWithPath:[ECDatabaseUtility pathForDatabaseFile]];
-					
-					if (![db open]) {
-						[NSException raise:@"Database error" format:@"Failed to connect to the database!"];
-					}
-					
-					[db executeUpdate:@"UPDATE feed SET WebsiteLink=? WHERE Id=?", hrefValue, [NSNumber numberWithInteger:[feed dbId]]];
-					[db close];
+					[ECDatabaseController updateWebsiteLink:hrefValue forFeed:feed];
 					
 					[self performSelectorOnMainThread:@selector(dispatchWebsiteLinkDelegateMessage) withObject:nil waitUntilDone:YES];
 				}

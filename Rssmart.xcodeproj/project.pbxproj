@@ -20,6 +20,7 @@
 		D101BED6190CF3A900B8A0A0 /* ECStringHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D101BED5190CF3A900B8A0A0 /* ECStringHelper.m */; };
 		D101BED9190CF40A00B8A0A0 /* ECXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D101BED8190CF40A00B8A0A0 /* ECXMLParser.m */; };
 		D101BEDC190CF7A400B8A0A0 /* ECDateUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = D101BEDB190CF7A400B8A0A0 /* ECDateUtility.m */; };
+		D101BEDF190D5EE800B8A0A0 /* ECDatabaseUpdateOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D101BEDE190D5EE800B8A0A0 /* ECDatabaseUpdateOperation.m */; };
 		D1B8355E190A062D00E2D939 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1B8355D190A062D00E2D939 /* Cocoa.framework */; };
 		D1B83568190A062D00E2D939 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D1B83566190A062D00E2D939 /* InfoPlist.strings */; };
 		D1B8356A190A062D00E2D939 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B83569190A062D00E2D939 /* main.m */; };
@@ -105,6 +106,8 @@
 		D101BED8190CF40A00B8A0A0 /* ECXMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECXMLParser.m; sourceTree = "<group>"; };
 		D101BEDA190CF7A400B8A0A0 /* ECDateUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDateUtility.h; sourceTree = "<group>"; };
 		D101BEDB190CF7A400B8A0A0 /* ECDateUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDateUtility.m; sourceTree = "<group>"; };
+		D101BEDD190D5EE800B8A0A0 /* ECDatabaseUpdateOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDatabaseUpdateOperation.h; sourceTree = "<group>"; };
+		D101BEDE190D5EE800B8A0A0 /* ECDatabaseUpdateOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDatabaseUpdateOperation.m; sourceTree = "<group>"; };
 		D1B8355A190A062D00E2D939 /* Rssmart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rssmart.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1B8355D190A062D00E2D939 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		D1B83560190A062D00E2D939 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -214,6 +217,8 @@
 				D101BED0190CF2BD00B8A0A0 /* ECFeedParserOperation.h */,
 				D101BED1190CF2BD00B8A0A0 /* ECFeedParserOperation.m */,
 				D101BED3190CF35600B8A0A0 /* ECFeedParserOperationDelegate.h */,
+				D101BEDD190D5EE800B8A0A0 /* ECDatabaseUpdateOperation.h */,
+				D101BEDE190D5EE800B8A0A0 /* ECDatabaseUpdateOperation.m */,
 			);
 			name = Operation;
 			sourceTree = "<group>";
@@ -571,6 +576,7 @@
 				D1B835BF190A0CBB00E2D939 /* FMDatabase.m in Sources */,
 				D1B835D9190A42C500E2D939 /* ECDatabaseController.m in Sources */,
 				D1B835C1190A0CBB00E2D939 /* FMDatabasePool.m in Sources */,
+				D101BEDF190D5EE800B8A0A0 /* ECDatabaseUpdateOperation.m in Sources */,
 				D1B835F6190AB16C00E2D939 /* ECAddFeedController.m in Sources */,
 				D1B835C2190A0CBB00E2D939 /* FMDatabaseQueue.m in Sources */,
 				D101BEC9190CF0D800B8A0A0 /* ECPost.m in Sources */,
@@ -729,7 +735,10 @@
 				);
 				INFOPLIST_FILE = "Rssmart/Rssmart-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				OTHER_LDFLAGS = "-lsqlite3";
+				OTHER_LDFLAGS = (
+					"-lsqlite3",
+					"-lxml2",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -750,7 +759,10 @@
 				);
 				INFOPLIST_FILE = "Rssmart/Rssmart-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				OTHER_LDFLAGS = "-lsqlite3";
+				OTHER_LDFLAGS = (
+					"-lsqlite3",
+					"-lxml2",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

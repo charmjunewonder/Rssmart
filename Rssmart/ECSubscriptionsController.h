@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Eric Chen. All rights reserved.
 //
 #import "ECIconRefreshOperationDelegate.h"
+#import "ECFeedParserOperationDelegate.h"
 
 @class ECSubscriptionsView;
 @class ECSubscriptionItem;
@@ -14,7 +15,7 @@
 @class ECAddFeedController;
 
 @interface ECSubscriptionsController : NSObject <NSOutlineViewDataSource,
-NSOutlineViewDelegate, ECIconRefreshOperationDelegate>
+NSOutlineViewDelegate, ECIconRefreshOperationDelegate, ECFeedParserOperationDelegate>
 
 @property (retain, nonatomic) NSMutableArray *subscriptionList;
 @property (assign, nonatomic) IBOutlet ECSubscriptionsView *subsView;
@@ -36,5 +37,5 @@ NSOutlineViewDelegate, ECIconRefreshOperationDelegate>
 
 - (IBAction)addSubscription:(id)sender;
 - (IBAction)addSubscriptionForSure:(id)sender;
-
+- (void)refreshSubscriptionsView;
 @end

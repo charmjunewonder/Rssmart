@@ -19,8 +19,11 @@
 #import "ECErrorUtility.h"
 #import "ECDatabaseController.h"
 #import "ECIconRefreshOperation.h"
+#import "ECPost.h"
+#import "ECRequestController.h"
 
 #define SOURCE_LIST_DRAG_TYPE @"SourceListDragType"
+#define ICON_REFRESH_INTERVAL TIME_INTERVAL_MONTH
 
 @interface ECSubscriptionsController (Private)
 - (void)initializeSourceList;
@@ -73,6 +76,7 @@ static ECSubscriptionsController *_sharedInstance = nil;
 -(void)setup{
     [self initializeSourceList];
     [ECDatabaseController loadFromDatabaseTo:subscriptionSubscriptions];
+    [[ECRequestController getSharedInstance] startToOperate];
 	[subsView reloadData];
 }
 
@@ -370,18 +374,91 @@ static ECSubscriptionsController *_sharedInstance = nil;
 	[feed setIconLastRefreshed:[NSDate date]];
 	
 	if ([feed icon] != nil) {
-//		@try {
-//			NSData *faviconData = [NSArchiver archivedDataWithRootObject:[feed icon]];
-//			[self runDatabaseUpdateOnBackgroundThread:@"UPDATE feed SET Icon=?, IconLastRefreshed=? WHERE Id=?", faviconData, [feed iconLastRefreshed], [NSNumber numberWithInteger:[feed dbId]], nil];
-//		} @catch (...) {
-//			[self runDatabaseUpdateOnBackgroundThread:@"UPDATE feed SET Icon=NULL, IconLastRefreshed=? WHERE Id=?", [feed iconLastRefreshed], [NSNumber numberWithInteger:[feed dbId]], nil];
-//		}
+		@try {
+			NSData *faviconData = [NSArchiver archivedDataWithRootObject:[feed icon]];
+			[[ECRequestController getSharedInstance] runDatabaseUpdateOnBackgroundThread:@"UPDATE feed SET Icon=?, IconLastRefreshed=? WHERE Id=?", faviconData, [feed iconLastRefreshed], [NSNumber numberWithInteger:[feed dbId]], nil];
+		} @catch (...) {
+			[[ECRequestController getSharedInstance] runDatabaseUpdateOnBackgroundThread:@"UPDATE feed SET Icon=NULL, IconLastRefreshed=? WHERE Id=?", [feed iconLastRefreshed], [NSNumber numberWithInteger:[feed dbId]], nil];
+		}
 	} else {
-//		[self runDatabaseUpdateOnBackgroundThread:@"UPDATE feed SET Icon=NULL, IconLastRefreshed=? WHERE Id=?", [feed iconLastRefreshed], [NSNumber numberWithInteger:[feed dbId]], nil];
+		[[ECRequestController getSharedInstance] runDatabaseUpdateOnBackgroundThread:@"UPDATE feed SET Icon=NULL, IconLastRefreshed=? WHERE Id=?", [feed iconLastRefreshed], [NSNumber numberWithInteger:[feed dbId]], nil];
+	}
+    
+    [[ECRequestController getSharedInstance] addTimerOfIconRequestForFeed:feed forTimeInterval:ICON_REFRESH_INTERVAL];
+	
+}
+
+- (void)refreshSubscriptionsView{
+    [subsView reloadData];
+    [subsView setNeedsDisplay:YES];
+}
+
+#pragma mark CLFeedParserOperationDelegate
+- (void)feedParserOperationFoundNewPostsForFeed:(ECSubscriptionFeed *)feed {
+	NSArray *postsToAddToDB = [feed postsToAddToDB];
+	NSInteger numberOfUnread = 0;
+	
+	for (ECPost *post in postsToAddToDB) {
+		if ([post isRead] == NO) {
+			numberOfUnread++;
+		}
 	}
 	
-//	ECTimer *iconTimer = [ECTimer scheduledTimerWithTimeInterval:ICON_REFRESH_INTERVAL target:self selector:@selector(timeToAddFeedToIconQueue:) userInfo:feed repeats:NO];
-//	[iconRefreshTimers addObject:iconTimer];
+	if (numberOfUnread > 0) {
+		[feed setBadgeValue:([feed badgeValue] + numberOfUnread)];
+//		[SyndicationAppDelegate changeBadgeValuesBy:numberOfUnread forAncestorsOfItem:feed];
+//		[self changeNewItemsBadgeValueBy:numberOfUnread];
+	}
+	
+	[self processNewPosts:postsToAddToDB forFeed:feed];
 }
+
+- (void)feedParserOperationFoundTitleForFeed:(ECSubscriptionFeed *)feed {
+	[self subscriptionsViewDidRenameItem:feed];
+}
+
+- (void)feedParserOperationFoundWebsiteLinkForFeed:(ECSubscriptionFeed *)feed {
+    [[ECRequestController getSharedInstance] queueIconRefreshOperationFor:feed];
+}
+#pragma mark -
+
+- (void)processNewPosts:(NSArray *)newPosts forFeed:(ECSubscriptionFeed *)feed {
+	
+	if ([newPosts count] > 0) {
+		
+		NSArray *reverseNewItems = [[newPosts reverseObjectEnumerator] allObjects];
+		
+		// add them to the db
+			
+        [ECDatabaseController addToDatabaseForPosts:reverseNewItems forFeed:feed];
+	}
+	
+//	[fself updateMenuItems];
+}
+
+- (void)subscriptionsViewDidRenameItem:(ECSubscriptionItem *)item {
+	
+	//[self sortSourceList];
+	[self refreshSubscriptionsView];
+//	[self restoreSourceListSelections];
+	
+//    // update the label for any open tabs
+//    if ([subsView sourceListItem] == item) {
+//        [[windowController classicViewContainer] setNeedsDisplay:YES];
+//    }
+    
+    // refresh classic views (so feed titles can update there too)
+//    [[classicView tableView] setNeedsDisplay:YES];
+    
+	
+	if ([item isKindOfClass:[ECSubscriptionFeed class]]) {
+		ECSubscriptionFeed *feed = (ECSubscriptionFeed *)item;
+		[[ECRequestController getSharedInstance] runDatabaseUpdateOnBackgroundThread:@"UPDATE feed SET Title=? WHERE Id=?", [feed title], [NSNumber numberWithInteger:[feed dbId]], nil];
+	} else if ([item isKindOfClass:[ECSubscriptionFolder class]]) {
+		ECSubscriptionFolder *folder = (ECSubscriptionFolder *)item;
+		[[ECRequestController getSharedInstance] runDatabaseUpdateOnBackgroundThread:@"UPDATE folder SET Title=? WHERE Id=?", [folder title], [NSNumber numberWithInteger:[folder dbId]], nil];
+	}
+}
+
 
 @end
