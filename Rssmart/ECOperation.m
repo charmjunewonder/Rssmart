@@ -26,7 +26,7 @@
 		[NSException raise:@"Thread error" format:@"This function should only be called from the main thread!"];
 	}
 	
-	[[self delegate] didStartOperation:self];
+//	[[self delegate] didStartOperation:self];
 }
 
 - (void)dispatchDidFinishDelegateMessage {
@@ -34,7 +34,7 @@
 		[NSException raise:@"Thread error" format:@"This function should only be called from the main thread!"];
 	}
 	
-	[[self delegate] didFinishOperation:self];
+//	[[self delegate] didFinishOperation:self];
 }
 
 @end

@@ -18,6 +18,7 @@
 #import "NSString+ECAddition.h"
 #import "ECErrorUtility.h"
 #import "ECDatabaseController.h"
+#import "ECIconRefreshOperation.h"
 
 #define SOURCE_LIST_DRAG_TYPE @"SourceListDragType"
 
@@ -347,5 +348,40 @@ static ECSubscriptionsController *_sharedInstance = nil;
     [ECDatabaseController addSubscriptionForUrlString:url toFolder:folder refreshImmediately:YES];
 }
 
+- (void)iconRefreshOperation:(ECIconRefreshOperation *)refreshOp refreshedFeed:(ECSubscriptionFeed *)feed foundIcon:(NSImage *)icon {
+	
+	[feed setIcon:icon];
+	
+    [self redrawSourceListItem:feed];
+	
+	[self markIconAsRefreshedAndStartTimer:feed];
+}
+
+- (void)redrawSourceListItem:(ECSubscriptionItem *)item {
+	NSInteger itemRow = [subsView rowForItem:item];
+	
+	if (itemRow >= 0) {
+		[subsView setNeedsDisplayInRect:[subsView frameOfCellAtColumn:0 row:itemRow]];
+	}
+}
+
+- (void)markIconAsRefreshedAndStartTimer:(ECSubscriptionFeed *)feed {
+	
+	[feed setIconLastRefreshed:[NSDate date]];
+	
+	if ([feed icon] != nil) {
+//		@try {
+//			NSData *faviconData = [NSArchiver archivedDataWithRootObject:[feed icon]];
+//			[self runDatabaseUpdateOnBackgroundThread:@"UPDATE feed SET Icon=?, IconLastRefreshed=? WHERE Id=?", faviconData, [feed iconLastRefreshed], [NSNumber numberWithInteger:[feed dbId]], nil];
+//		} @catch (...) {
+//			[self runDatabaseUpdateOnBackgroundThread:@"UPDATE feed SET Icon=NULL, IconLastRefreshed=? WHERE Id=?", [feed iconLastRefreshed], [NSNumber numberWithInteger:[feed dbId]], nil];
+//		}
+	} else {
+//		[self runDatabaseUpdateOnBackgroundThread:@"UPDATE feed SET Icon=NULL, IconLastRefreshed=? WHERE Id=?", [feed iconLastRefreshed], [NSNumber numberWithInteger:[feed dbId]], nil];
+	}
+	
+//	ECTimer *iconTimer = [ECTimer scheduledTimerWithTimeInterval:ICON_REFRESH_INTERVAL target:self selector:@selector(timeToAddFeedToIconQueue:) userInfo:feed repeats:NO];
+//	[iconRefreshTimers addObject:iconTimer];
+}
 
 @end

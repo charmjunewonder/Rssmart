@@ -10,6 +10,7 @@
 		D101BEB4190C251600B8A0A0 /* ECOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D101BEB3190C251600B8A0A0 /* ECOperation.m */; };
 		D101BEB9190C26A200B8A0A0 /* ECIconRefreshOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D101BEB8190C26A200B8A0A0 /* ECIconRefreshOperation.m */; };
 		D101BEBC190C26FC00B8A0A0 /* ECUrlFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = D101BEBB190C26FC00B8A0A0 /* ECUrlFetcher.m */; };
+		D101BEBF190C28AB00B8A0A0 /* ECRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D101BEBE190C28AB00B8A0A0 /* ECRequest.m */; };
 		D1B8355E190A062D00E2D939 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1B8355D190A062D00E2D939 /* Cocoa.framework */; };
 		D1B83568190A062D00E2D939 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D1B83566190A062D00E2D939 /* InfoPlist.strings */; };
 		D1B8356A190A062D00E2D939 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B83569190A062D00E2D939 /* main.m */; };
@@ -73,6 +74,8 @@
 		D101BEB8190C26A200B8A0A0 /* ECIconRefreshOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECIconRefreshOperation.m; sourceTree = "<group>"; };
 		D101BEBA190C26FC00B8A0A0 /* ECUrlFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECUrlFetcher.h; sourceTree = "<group>"; };
 		D101BEBB190C26FC00B8A0A0 /* ECUrlFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECUrlFetcher.m; sourceTree = "<group>"; };
+		D101BEBD190C28AB00B8A0A0 /* ECRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECRequest.h; sourceTree = "<group>"; };
+		D101BEBE190C28AB00B8A0A0 /* ECRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECRequest.m; sourceTree = "<group>"; };
 		D1B8355A190A062D00E2D939 /* Rssmart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rssmart.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1B8355D190A062D00E2D939 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		D1B83560190A062D00E2D939 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -283,6 +286,8 @@
 				D1B83598190A0B8100E2D939 /* ECSubscriptionFeed.m */,
 				D1B8359A190A0B8D00E2D939 /* ECSubscriptionFolder.h */,
 				D1B8359B190A0B8D00E2D939 /* ECSubscriptionFolder.m */,
+				D101BEBD190C28AB00B8A0A0 /* ECRequest.h */,
+				D101BEBE190C28AB00B8A0A0 /* ECRequest.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -523,6 +528,7 @@
 				D1B83603190C210600E2D939 /* ECTimer.m in Sources */,
 				D1B83595190A091400E2D939 /* ECSubscriptionItem.m in Sources */,
 				D1B835C0190A0CBB00E2D939 /* FMDatabaseAdditions.m in Sources */,
+				D101BEBF190C28AB00B8A0A0 /* ECRequest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

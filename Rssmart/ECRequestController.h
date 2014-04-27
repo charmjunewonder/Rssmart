@@ -6,6 +6,22 @@
 //  Copyright (c) 2014 Eric Chen. All rights reserved.
 //
 
-@interface ECRequestController : NSObject
+#import "ECOperationDelegate.h"
+#import "ECRequest.h"
+
+@interface ECRequestController : NSObject <ECOperationDelegate>
+
+@property (retain, nonatomic) NSMutableArray *iconRefreshTimers;
+@property (retain, nonatomic) NSOperationQueue *operationQueue;
+@property (assign, nonatomic) NSInteger numberOfActiveParseOps;
+@property (retain, nonatomic) NSMutableArray *requestQueue;
+@property (assign, nonatomic) BOOL requestInProgress;
+@property (assign, nonatomic) ECRequestType activeRequestType;
+@property (retain, nonatomic) NSMutableArray *feedsToSync;
+@property (retain, nonatomic) NSMutableArray *feedRequests;
+
++ (ECRequestController *)getSharedInstance;
+
+- (void)startToRequestIconForFeed:(ECSubscriptionFeed *)feed;
 
 @end

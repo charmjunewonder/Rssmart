@@ -13,6 +13,8 @@
 #import "ECSubscriptionFeed.h"
 #import "ECSubscriptionFolder.h"
 #import "ECConstants.h"
+#import "ECTimer.h"
+#import "ECRequestController.h"
 
 @interface ECDatabaseController (Private)
 + (NSString *)pathForDatabaseFile;
@@ -141,10 +143,11 @@ static NSString *path;
                 [[parentFolder children] addObject:feed];
                 [feed setParentFolderReference:parentFolder];
             }
+            
+            ECRequestController *requestCon = [ECRequestController getSharedInstance];
+            [requestCon startToRequestIconForFeed:feed];
 
-			
 		}
-		
 //		[feedLookupDict setObject:feed forKey:[NSNumber numberWithInteger:[feed dbId]]];
 		
 		[feed release];
