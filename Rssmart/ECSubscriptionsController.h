@@ -13,6 +13,7 @@
 @class ECSubscriptionFeed;
 @class ECSubscriptionFolder;
 @class ECAddFeedController;
+@class ECAddFolderController;
 
 @interface ECSubscriptionsController : NSObject <NSOutlineViewDataSource,
 NSOutlineViewDelegate, ECIconRefreshOperationDelegate, ECFeedParserOperationDelegate>
@@ -30,6 +31,8 @@ NSOutlineViewDelegate, ECIconRefreshOperationDelegate, ECFeedParserOperationDele
 @property (retain, nonatomic) ECSubscriptionItem *subscriptionSelectedItem;
 @property (assign, nonatomic) ECSubscriptionItem *subscriptionDragItem;
 @property (assign, nonatomic) IBOutlet ECAddFeedController *addFeedController;
+@property (assign, nonatomic) IBOutlet ECAddFolderController *addFolderController;
+@property (assign, nonatomic) IBOutlet NSMenu *subsViewContextMenu;
 
 + (ECSubscriptionsController *)getSharedInstance;
 
@@ -37,5 +40,12 @@ NSOutlineViewDelegate, ECIconRefreshOperationDelegate, ECFeedParserOperationDele
 
 - (IBAction)addSubscription:(id)sender;
 - (IBAction)addSubscriptionForSure:(id)sender;
+- (IBAction)refreshSubscriptions:(id)sender;
+- (IBAction)addFolder:(id)sender;
+- (IBAction)addFolderForSure:(id)sender;
+- (IBAction)editFolder:(id)sender;
+- (IBAction)editFolderForSure:(id)sender;
+- (IBAction)deleteFolder:(id)sender;
 - (void)refreshSubscriptionsView;
+- (void)sourceListDelete:(id)sender;
 @end

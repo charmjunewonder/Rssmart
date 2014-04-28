@@ -16,6 +16,7 @@
 #import "ECFeedParserOperation.h"
 #import "ECPost.h"
 #import "ECDatabaseUpdateOperation.h"
+#import "ECSubscriptionFolder.h"
 
 #define ICON_REFRESH_INTERVAL TIME_INTERVAL_MONTH
 #define MAX_CONCURRENT_REQUESTS 2
@@ -120,28 +121,27 @@ static ECRequestController *_sharedInstance = nil;
 }
 
 - (void)didFinishOperation:(ECOperation *)op {
-//	if ([op isKindOfClass:[CLFeedParserOperation class]]) {
-//		
-//		
-//		[self setNumberOfActiveParseOps:(numberOfActiveParseOps-1)];
-//		
-//		[self startFeedRequests];
-//		
-//	}
-//	
-//	if (requestInProgress) {
-//		if ([operationQueue operationCount] == 1) {
-//			if (activeRequestType == ECRequestAllFeedsSync || activeRequestType == ECRequestSpecificFeedsSync) {
-//				if ([feedRequests count] == 0 && [feedsToSync count] == 0) {
-//					[self setRequestInProgress:NO];
-//					[self startRequestIfNoneInProgress];
-//				}
-//			} else if (activeRequestType == ECRequestDeleteHidden) {
-//				[self setRequestInProgress:NO];
-//				[self startRequestIfNoneInProgress];
-//			}
-//		}
-//	}
+	if ([op isKindOfClass:[ECFeedParserOperation class]]) {
+		
+		[self setNumberOfActiveParseOps:(numberOfActiveParseOps-1)];
+		
+		[self startFeedRequests];
+		
+	}
+	
+	if (requestInProgress) {
+		if ([operationQueue operationCount] == 1) {
+			if (activeRequestType == ECRequestAllFeedsSync || activeRequestType == ECRequestSpecificFeedsSync) {
+				if ([feedRequests count] == 0 && [feedsToSync count] == 0) {
+					[self setRequestInProgress:NO];
+					[self startRequestIfNoneInProgress];
+				}
+			} else if (activeRequestType == ECRequestDeleteHidden) {
+				[self setRequestInProgress:NO];
+				[self startRequestIfNoneInProgress];
+			}
+		}
+	}
 }
 #pragma mark -
 
@@ -180,14 +180,14 @@ static ECRequestController *_sharedInstance = nil;
 //			NSInteger timestamp = (NSInteger)[[NSDate date] timeIntervalSince1970];
 //			NSString *timestampString = [[NSNumber numberWithInteger:timestamp] stringValue];
 //			[SyndicationAppDelegate miscellaneousSetValue:timestampString forKey:MISCELLANEOUS_LAST_FEED_SYNC_KEY];
-//			
-//			if ([subscriptionList count] > 0) {
-//				[feedsToSync addObjectsFromArray:subscriptionList];
-//				[self startFeedRequests];
-//				
-//				[self setRequestInProgress:YES];
-//				[self setActiveRequestType:[request requestType]];
-//			}
+			
+			if ([request singleFeed] != nil) {
+				[feedsToSync addObject:[request singleFeed]];
+				[self startFeedRequests];
+				
+				[self setRequestInProgress:YES];
+				[self setActiveRequestType:[request requestType]];
+			}
 			
 		} else if ([request requestType] == ECRequestSpecificFeedsSync) {
 			
@@ -218,18 +218,36 @@ static ECRequestController *_sharedInstance = nil;
 - (void)startFeedRequests {
 	while ([feedsToSync count] > 0 && ([feedRequests count] + numberOfActiveParseOps) < MAX_CONCURRENT_REQUESTS) {
 		
-		ECSubscriptionFeed *feed = [feedsToSync objectAtIndex:0];
-		[feedsToSync removeObjectAtIndex:0];
-		
-		
-		ECFeedRequest *feedRequest = [[ECFeedRequest alloc] init];
-		[feedRequest setFeed:feed];
-		[feedRequest setDelegate:self];
-		//TODO: why
-		[feedRequests addObject:feedRequest]; // needs to be before call to startConnection
-		[feedRequest release];
-		
-		[feedRequest startConnection];
+		ECSubscriptionItem *item = [feedsToSync objectAtIndex:0];
+        [feedsToSync removeObjectAtIndex:0];
+        
+        if ([item isKindOfClass:[ECSubscriptionFeed class]]) {
+            ECSubscriptionFeed *feed = (ECSubscriptionFeed *)item;
+            
+            
+            ECFeedRequest *feedRequest = [[ECFeedRequest alloc] init];
+            [feedRequest setFeed:feed];
+            [feedRequest setDelegate:self];
+            //TODO: why
+            [feedRequests addObject:feedRequest]; // needs to be before call to startConnection
+            [feedRequest release];
+            
+            [feedRequest startConnection];
+        } else{
+            ECSubscriptionFolder *folder = (ECSubscriptionFolder *)item;
+            
+            NSMutableArray *feeds = [folder children];
+            for (ECSubscriptionFeed *feed in feeds){
+                ECFeedRequest *feedRequest = [[ECFeedRequest alloc] init];
+                [feedRequest setFeed:feed];
+                [feedRequest setDelegate:self];
+                //TODO: why
+                [feedRequests addObject:feedRequest]; // needs to be before call to startConnection
+                [feedRequest release];
+                
+                [feedRequest startConnection];
+            }
+        }
 	}
 }
 
@@ -286,6 +304,28 @@ static ECRequestController *_sharedInstance = nil;
     
 	[operationQueue addOperation:dbOp];
 	[dbOp release];
+}
+
+/*
+ * Sync All Feeds
+ */
+- (void)queueAllFeedsSyncRequest:(ECSubscriptionItem *)subscriptionRoot {
+	ECRequest *request = [[ECRequest alloc] init];
+	[request setRequestType:ECRequestAllFeedsSync];
+    [request setSingleFeed:subscriptionRoot];
+	[requestQueue addObject:request];
+	[request release];
+	
+	[self startRequestIfNoneInProgress];
+}
+
+- (void)removeFromRequestForFeed:(ECSubscriptionFeed *)feed{
+    [feedsToSync removeObject:feed];
+    for (ECFeedRequest *feedRequest in feedRequests) {
+        if ([feedRequest feed] == feed) {
+            [feedRequest stopConnection];
+        }
+    }
 }
 
 

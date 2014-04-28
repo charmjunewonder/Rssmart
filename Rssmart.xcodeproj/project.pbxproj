@@ -21,6 +21,7 @@
 		D101BED9190CF40A00B8A0A0 /* ECXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D101BED8190CF40A00B8A0A0 /* ECXMLParser.m */; };
 		D101BEDC190CF7A400B8A0A0 /* ECDateUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = D101BEDB190CF7A400B8A0A0 /* ECDateUtility.m */; };
 		D101BEDF190D5EE800B8A0A0 /* ECDatabaseUpdateOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D101BEDE190D5EE800B8A0A0 /* ECDatabaseUpdateOperation.m */; };
+		D17704C6190E22CC000EC269 /* ECAddFolderController.m in Sources */ = {isa = PBXBuildFile; fileRef = D17704C5190E22CC000EC269 /* ECAddFolderController.m */; };
 		D1B8355E190A062D00E2D939 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1B8355D190A062D00E2D939 /* Cocoa.framework */; };
 		D1B83568190A062D00E2D939 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D1B83566190A062D00E2D939 /* InfoPlist.strings */; };
 		D1B8356A190A062D00E2D939 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B83569190A062D00E2D939 /* main.m */; };
@@ -108,6 +109,8 @@
 		D101BEDB190CF7A400B8A0A0 /* ECDateUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDateUtility.m; sourceTree = "<group>"; };
 		D101BEDD190D5EE800B8A0A0 /* ECDatabaseUpdateOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECDatabaseUpdateOperation.h; sourceTree = "<group>"; };
 		D101BEDE190D5EE800B8A0A0 /* ECDatabaseUpdateOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECDatabaseUpdateOperation.m; sourceTree = "<group>"; };
+		D17704C4190E22CC000EC269 /* ECAddFolderController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECAddFolderController.h; sourceTree = "<group>"; };
+		D17704C5190E22CC000EC269 /* ECAddFolderController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECAddFolderController.m; sourceTree = "<group>"; };
 		D1B8355A190A062D00E2D939 /* Rssmart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rssmart.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1B8355D190A062D00E2D939 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		D1B83560190A062D00E2D939 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -349,6 +352,8 @@
 				D1B835D8190A42C500E2D939 /* ECDatabaseController.m */,
 				D1B835F4190AB16C00E2D939 /* ECAddFeedController.h */,
 				D1B835F5190AB16C00E2D939 /* ECAddFeedController.m */,
+				D17704C4190E22CC000EC269 /* ECAddFolderController.h */,
+				D17704C5190E22CC000EC269 /* ECAddFolderController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -563,6 +568,7 @@
 				D101BEB4190C251600B8A0A0 /* ECOperation.m in Sources */,
 				D101BEB9190C26A200B8A0A0 /* ECIconRefreshOperation.m in Sources */,
 				D101BED6190CF3A900B8A0A0 /* ECStringHelper.m in Sources */,
+				D17704C6190E22CC000EC269 /* ECAddFolderController.m in Sources */,
 				D1B83571190A062D00E2D939 /* RssmartAppDelegate.m in Sources */,
 				D1B835CE190A14DB00E2D939 /* ECSubscriptionsTextFieldCell.m in Sources */,
 				D1B835FD190B934E00E2D939 /* ECErrorUtility.m in Sources */,

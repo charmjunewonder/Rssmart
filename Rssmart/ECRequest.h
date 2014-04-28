@@ -8,12 +8,12 @@
 
 typedef enum {ECRequestAllFeedsSync, ECRequestSpecificFeedsSync, ECRequestDeleteHidden} ECRequestType;
 
-@class ECSubscriptionFeed;
+@class ECSubscriptionItem;
 
 @interface ECRequest : NSObject
 
 @property (assign, nonatomic) ECRequestType requestType;
 @property (retain, nonatomic) NSArray *specificFeeds;
-@property (retain, nonatomic) ECSubscriptionFeed *singleFeed;
+@property (retain, nonatomic) ECSubscriptionItem *singleFeed;//TODO:maybe delete？
 
 @end

@@ -412,4 +412,53 @@ static NSString *path;
     [db close];
 
 }
+
++ (ECSubscriptionFolder *)addFolderWithTitle:(NSString *)title{
+    FMDatabase *db = [FMDatabase databaseWithPath:[ECDatabaseController pathForDatabaseFile]];
+	
+	if (![db open]) {
+		[NSException raise:@"Database error" format:@"Failed to connect to the database!"];
+	}
+	
+	NSNumber *parentId = nil;
+		
+	[db executeUpdate:@"INSERT INTO folder (ParentId, Title) VALUES (?, ?)", parentId, title];
+	
+	NSInteger insertId = [db lastInsertRowId];
+	NSMutableString *folderPath = [NSMutableString string];
+		
+	[folderPath appendFormat:@"%ld/", insertId];
+	
+	[db executeUpdate:@"UPDATE folder SET Path=? WHERE Id=?", folderPath, [NSNumber numberWithInteger:insertId]];
+	
+	[db close];
+    
+    ECSubscriptionFolder *folder = [[[ECSubscriptionFolder alloc] init] autorelease];
+    
+	[folder setTitle:title];
+	[folder setDbId:insertId];
+	[folder setPath:folderPath];
+
+    return folder;
+}
+
++ (void)deleteFolder:(ECSubscriptionFolder *)folder{
+    FMDatabase *db = [FMDatabase databaseWithPath:[ECDatabaseController pathForDatabaseFile]];
+	
+	if (![db open]) {
+		[NSException raise:@"Database error" format:@"Failed to connect to the database!"];
+	}
+	
+	[db beginTransaction];
+	
+    [db executeUpdate:[NSString stringWithFormat:@"DELETE FROM enclosure WHERE PostId IN (SELECT post.Id FROM post, feed, folder WHERE post.FeedId=feed.Id AND feed.FolderId=folder.Id AND folder.Path LIKE '%@%%')", [folder path]]];
+    [db executeUpdate:[NSString stringWithFormat:@"DELETE FROM post WHERE Id IN (SELECT post.Id FROM post, feed, folder WHERE post.FeedId=feed.Id AND feed.FolderId=folder.Id AND folder.Path LIKE '%@%%')", [folder path]]];
+    [db executeUpdate:[NSString stringWithFormat:@"DELETE FROM feed WHERE Id IN (SELECT feed.Id FROM feed, folder WHERE feed.FolderId=folder.Id AND folder.Path LIKE '%@%%')", [folder path]]];
+    [db executeUpdate:[NSString stringWithFormat:@"DELETE FROM folder WHERE Path LIKE '%@%%'", [folder path]]];
+	
+	[db commit];
+	
+	[db close];
+
+}
 @end

@@ -8,6 +8,7 @@
 
 @class ECSubscriptionItem;
 @class ECSubscriptionFeed;
+@class ECSubscriptionFolder;
 
 @interface ECDatabaseController : NSObject
 
@@ -18,4 +19,6 @@
 + (void)updateWebsiteLink:(NSString *)webLink forFeed:(ECSubscriptionFeed *)feed;
 + (void)addToDatabaseForPosts:(NSArray *)posts forFeed:(ECSubscriptionFeed *)feed;
 + (void)updateDatabaseForQueries:(NSArray *)queries;
++ (ECSubscriptionFolder *)addFolderWithTitle:(NSString *)title;
++ (void)deleteFolder:(ECSubscriptionFolder *)folder;
 @end

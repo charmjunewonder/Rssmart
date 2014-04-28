@@ -39,7 +39,7 @@ static NSImage *defaultIcon;
 }
 
 - (BOOL)acceptsFirstResponder {
-	return NO;
+	return YES;
 }
 
 - (void)drawBackgroundInClipRect:(NSRect)clipRect {

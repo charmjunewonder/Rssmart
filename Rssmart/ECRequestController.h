@@ -29,4 +29,7 @@
 - (void)queueIconRefreshOperationFor:(ECSubscriptionFeed *)feed;
 - (void)addTimerOfIconRequestForFeed:(ECSubscriptionFeed *)feed forTimeInterval:(NSTimeInterval) interval;
 - (void)startToOperate;
+- (void)queueAllFeedsSyncRequest:(ECSubscriptionItem *)subscriptionRoot;
+- (void)removeFromRequestForFeed:(ECSubscriptionFeed *)feed;
+
 @end

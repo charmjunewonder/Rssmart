@@ -8,6 +8,7 @@
 
 #import "ECWindowController.h"
 #import "ECSubscriptionsController.h"
+#import "ECSubscriptionsView.h"
 
 @interface ECWindowController ()
 
@@ -35,9 +36,17 @@
     [super windowDidLoad];
     
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
-    
     subsController = [ECSubscriptionsController getSharedInstance];
+//    [[self window] makeFirstResponder:[[self window] contentView]];
+//    [[self window] makeFirstResponder:[subsController subsView]];
     [subsController setup];
 }
+
+//- (void)updateFirstResponder {
+//	BOOL returnVal = NO;
+//    returnVal = [[self window] makeFirstResponder:[[subsController subsView] tableView]];
+//
+//}
+
 
 @end
