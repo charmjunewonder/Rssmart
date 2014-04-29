@@ -21,4 +21,5 @@
 + (void)updateDatabaseForQueries:(NSArray *)queries;
 + (ECSubscriptionFolder *)addFolderWithTitle:(NSString *)title;
 + (void)deleteFolder:(ECSubscriptionFolder *)folder;
++ (void)deleteFeed:(ECSubscriptionFeed *)feed;
 @end

@@ -47,5 +47,5 @@ NSOutlineViewDelegate, ECIconRefreshOperationDelegate, ECFeedParserOperationDele
 - (IBAction)editFolderForSure:(id)sender;
 - (IBAction)deleteFolder:(id)sender;
 - (void)refreshSubscriptionsView;
-- (void)sourceListDelete:(id)sender;
+- (IBAction)subscriptionsItemRefresh:(id)sender;
 @end

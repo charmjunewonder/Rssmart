@@ -14,6 +14,7 @@
 @property (assign, nonatomic) IBOutlet NSWindow *mainWindow;
 @property (assign, nonatomic) IBOutlet NSTextField *feedDialogTextField;
 @property (assign, nonatomic) IBOutlet NSPanel *addFeedDialog;
+@property (assign, nonatomic) IBOutlet NSButton *submitButton;
 
 - (IBAction)showDialog:(id)sender;
 - (IBAction)hideDialog:(id)sender;

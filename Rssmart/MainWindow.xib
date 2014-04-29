@@ -327,9 +327,15 @@
                             </menuItem>
                             <menuItem title="Edit Subscription" id="oua-Az-FlI">
                                 <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="editFeed:" target="sR3-8g-wLc" id="X4B-jP-Xwf"/>
+                                </connections>
                             </menuItem>
                             <menuItem title="Delete Subscription" id="hpj-1C-3I7">
                                 <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="deleteFeed:" target="sR3-8g-wLc" id="G0K-cL-idT"/>
+                                </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="Vw9-y5-SIr"/>
                             <menuItem title="Add Folder" id="4hx-vl-wF9">
@@ -350,13 +356,14 @@
                                     <action selector="deleteFolder:" target="sR3-8g-wLc" id="u7e-65-Kxd"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Item 3" id="uEI-Ix-RNX">
+                            <menuItem isSeparatorItem="YES" id="Wwa-vC-3mx"/>
+                            <menuItem title="Refresh" id="uEI-Ix-RNX">
                                 <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="subscriptionsItemRefresh:" target="sR3-8g-wLc" id="QsT-cw-peN"/>
+                                </connections>
                             </menuItem>
-                            <menuItem title="Item 3" id="Jce-0Y-ict">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                            </menuItem>
-                            <menuItem title="Item 3" id="zyZ-rg-jY0">
+                            <menuItem title="Mark All As Read" id="Jce-0Y-ict">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                             </menuItem>
                         </items>
@@ -418,6 +425,7 @@
                 <outlet property="addFeedDialog" destination="THW-fi-6iZ" id="ibq-Xp-MmT"/>
                 <outlet property="feedDialogTextField" destination="PKZ-sU-jZb" id="ss3-rO-Wvw"/>
                 <outlet property="mainWindow" destination="51i-xz-Lua" id="Hes-gS-fxZ"/>
+                <outlet property="submitButton" destination="7dK-W9-DJq" id="5g7-vk-kjz"/>
             </connections>
         </customObject>
         <window title="Add Subscription" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" oneShot="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="THW-fi-6iZ" customClass="NSPanel">

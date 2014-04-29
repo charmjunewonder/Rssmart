@@ -115,7 +115,7 @@ static ECRequestController *_sharedInstance = nil;
 }
 
 
-#pragma mark CLOperationDelegate
+#pragma mark ECOperationDelegate
 - (void)didStartOperation:(ECOperation *)op {
 	
 }

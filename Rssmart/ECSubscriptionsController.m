@@ -260,7 +260,7 @@ static ECSubscriptionsController *_sharedInstance = nil;
 }
 #pragma mark -
 
-# pragma mark CLSourceList delegate methods
+# pragma mark ECSubsView delegate methods
 
 /*
  *
@@ -404,56 +404,46 @@ static ECSubscriptionsController *_sharedInstance = nil;
 	}
 	
 	[alert setAlertStyle:NSWarningAlertStyle];
-	[alert beginSheetModalForWindow:nil modalDelegate:self didEndSelector:@selector(sourceListDeleteAlertDidEnd:returnCode:contextInfo:) contextInfo:clickedItem];
+	[alert beginSheetModalForWindow:nil modalDelegate:self didEndSelector:@selector(folderDeleteAlertDidEnd:returnCode:contextInfo:) contextInfo:clickedItem];
 	[alert release];
 
 }
 
-- (void)sourceListDeleteAlertDidEnd:(NSAlert *)theAlert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
+- (void)folderDeleteAlertDidEnd:(NSAlert *)theAlert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
 	
 	if (returnCode == NSAlertFirstButtonReturn) {
 		
-		ECSubscriptionItem *clickedItem = [(ECSubscriptionItem *)contextInfo retain];
+		ECSubscriptionFolder *folder = [(ECSubscriptionFolder *)contextInfo retain];
 		
-		[self deleteSourceListItem:clickedItem];
+        [ECDatabaseController deleteFolder:folder];
 		
-		[clickedItem release];
-	}
-}
+        //TODO: if the selected tab is for the item we are deleting (or a descendent), change it to be for new items
+        
+        //TODO: change badgeValue
+        //	if ([item badgeValue] > 0) {
+        //		[SyndicationAppDelegate changeBadgeValuesBy:([item badgeValue] * -1) forAncestorsOfItem:item];
+        //		[self changeNewItemsBadgeValueBy:([item badgeValue] * -1)];
+        //	}
+        
+        //TODO: updateViewForSourceListItem
+        //	[self closeAllTabsForSourceListItem:item];
+        
+        [self didDeleteFolder:(ECSubscriptionFolder *)folder];
+		
+        [[subscriptionSubscriptions children] removeObject:folder];
+        
+        [self refreshSubscriptionsView];
+        //	[self restoreSourceListSelections];
 
-- (void)deleteSourceListItem:(ECSubscriptionItem *)item {
-	
-	if (item == nil) {
-		return;
+		[folder release];
 	}
-	
-    ECSubscriptionFolder *folder = (ECSubscriptionFolder *)item;
-    [ECDatabaseController deleteFolder:folder];
-	//TODO: if the selected tab is for the item we are deleting (or a descendent), change it to be for new items
-	
-    //TODO: change badgeValue
-//	if ([item badgeValue] > 0) {
-//		[SyndicationAppDelegate changeBadgeValuesBy:([item badgeValue] * -1) forAncestorsOfItem:item];
-//		[self changeNewItemsBadgeValueBy:([item badgeValue] * -1)];
-//	}
-	
-    //TODO: updateViewForSourceListItem
-    //	[self closeAllTabsForSourceListItem:item];
-	
-    [self didDeleteFolder:(ECSubscriptionFolder *)item];
-		
-    [[subscriptionSubscriptions children] removeObject:item];
-	
-	[self refreshSubscriptionsView];
-//	[self restoreSourceListSelections];
 }
 
 - (void)didDeleteFolder:(ECSubscriptionFolder *)folder {
-	if (folder != nil) {
-		for (ECSubscriptionItem *child in [folder children]) {
-            [self didDeleteFeed:(ECSubscriptionFeed *)child];
-		}
-	}
+    NSAssert(folder != nil, @"folder should not be nil!");
+    for (ECSubscriptionItem *child in [folder children]) {
+        [self didDeleteFeed:(ECSubscriptionFeed *)child];
+    }
 }
 
 - (void)didDeleteFeed:(ECSubscriptionFeed *)feed {
@@ -464,6 +454,88 @@ static ECSubscriptionsController *_sharedInstance = nil;
 
 - (IBAction)refreshSubscriptions:(id)sender{
     [[ECRequestController getSharedInstance] queueAllFeedsSyncRequest:subscriptionSubscriptions];
+}
+
+- (IBAction)deleteFeed:(id)sender{
+    ECSubscriptionItem *clickedItem = [self getCurrentSubscriptionItem];
+    
+    NSAssert(clickedItem != nil, @"clickedItem should not be nil");
+    
+    NSAlert *alert = [[NSAlert alloc] init];
+	[alert addButtonWithTitle:@"OK"];
+	[alert addButtonWithTitle:@"Cancel"];
+    
+    if ([clickedItem isKindOfClass:[ECSubscriptionFeed class]]) {
+		[alert setMessageText:@"Are you sure you want to delete this subscription?"];
+	} else if ([clickedItem isKindOfClass:[ECSubscriptionFolder class]]) {
+		[alert setMessageText:@"Are you sure you want to delete this folder?\nAll the subscriptions it contains will be REMOVED at the same time!"];
+	} else { // should never happen, but handle it anyway
+        [alert setMessageText:@"Are you sure you want to delete this?"];
+	}
+	
+	[alert setAlertStyle:NSWarningAlertStyle];
+	[alert beginSheetModalForWindow:nil modalDelegate:self didEndSelector:@selector(feedDeleteAlertDidEnd:returnCode:contextInfo:) contextInfo:clickedItem];
+	[alert release];
+    
+}
+
+- (void)feedDeleteAlertDidEnd:(NSAlert *)theAlert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
+	
+	if (returnCode == NSAlertFirstButtonReturn) {
+		
+		ECSubscriptionFeed *feed = [(ECSubscriptionFeed *)contextInfo retain];
+		
+        [ECDatabaseController deleteFeed:feed];
+		
+        //TODO: if the selected tab is for the item we are deleting (or a descendent), change it to be for new items
+        
+        //TODO: change badgeValue
+        //	if ([item badgeValue] > 0) {
+        //		[SyndicationAppDelegate changeBadgeValuesBy:([item badgeValue] * -1) forAncestorsOfItem:item];
+        //		[self changeNewItemsBadgeValueBy:([item badgeValue] * -1)];
+        //	}
+        
+        //TODO: updateViewForSourceListItem
+        //	[self closeAllTabsForSourceListItem:item];
+        
+        [self didDeleteFeed:(ECSubscriptionFeed *)feed];
+        
+		ECSubscriptionFolder *ancestor = [feed parentFolderReference];
+        if (ancestor == nil) {
+            [[subscriptionSubscriptions children] removeObject:feed];
+        } else{
+            [[ancestor children] removeObject:feed];
+        }
+        
+        [self refreshSubscriptionsView];
+        //	[self restoreSourceListSelections];
+        
+		[feed release];
+	}
+}
+
+- (IBAction)editFeed:(id)sender{
+    [[addFeedController submitButton] setAction:@selector(editFeedForSure:)];
+    
+    ECSubscriptionFeed *currentItem = (ECSubscriptionFeed *)[self getCurrentSubscriptionItem];
+    
+    [[addFeedController feedDialogTextField] setStringValue:[currentItem url]];
+    [addFeedController showDialog:self];
+}
+
+- (IBAction)editFeedForSure:(id)sender{
+    ECSubscriptionFeed *currentItem = (ECSubscriptionFeed *)[self getCurrentSubscriptionItem];
+    [currentItem setUrl:[[addFeedController feedDialogTextField] stringValue]];
+    [self editForFeed:currentItem];
+}
+
+- (void)editForFeed:(ECSubscriptionFeed *)feed {
+	
+    //	[self sortSourceList];
+	[self refreshSubscriptionsView];
+    //	[self restoreSourceListSelections];
+    [[ECRequestController getSharedInstance] runDatabaseUpdateOnBackgroundThread:@"UPDATE feed SET Url=? WHERE Id=?", [feed url], [NSNumber numberWithInteger:[feed dbId]], nil];
+    [addFeedController hideDialog:nil];
 }
 
 - (IBAction)addSubscription:(id)sender{
@@ -543,7 +615,7 @@ static ECSubscriptionsController *_sharedInstance = nil;
     [subsView setNeedsDisplay:YES];
 }
 
-#pragma mark CLFeedParserOperationDelegate
+#pragma mark ECFeedParserOperationDelegate
 - (void)feedParserOperationFoundNewPostsForFeed:(ECSubscriptionFeed *)feed {
 	NSArray *postsToAddToDB = [feed postsToAddToDB];
 	NSInteger numberOfUnread = 0;
@@ -610,7 +682,7 @@ static ECSubscriptionsController *_sharedInstance = nil;
 	}
 }
 
-#pragma mark CLSourceList context menu
+#pragma mark ECSubsView context menu
 - (void)menuNeedsUpdate:(NSMenu *)menu {
 	
 	if (menu == subsViewContextMenu) {
@@ -622,7 +694,7 @@ static ECSubscriptionsController *_sharedInstance = nil;
 			return;
 		}
         //TODO:menu item
-		NSMenuItem *refreshItem = [[NSMenuItem alloc] initWithTitle:@"Refresh" action:@selector(subscriptionsRefresh:) keyEquivalent:@""];
+		NSMenuItem *refreshItem = [[NSMenuItem alloc] initWithTitle:@"Refresh" action:@selector(subscriptionsItemRefresh:) keyEquivalent:@""];
         [refreshItem setTarget:self];
 		[menu addItem:refreshItem];
 		[refreshItem release];
@@ -634,25 +706,42 @@ static ECSubscriptionsController *_sharedInstance = nil;
 		
 		if ([clickedItem isEditable]) {
 			[menu addItem:[NSMenuItem separatorItem]];
-			
+			NSMenuItem *addItem = nil;
 			NSMenuItem *editItem = nil;
             NSMenuItem *deleteItem = nil;
-			
+
+            NSString *editTitle = [NSString stringWithFormat:@"Edit \"%@\"", [clickedItem title]];;
+            NSString *deleteTitle = [NSString stringWithFormat:@"Delete \"%@\"", [clickedItem title]];;
+
             if ([clickedItem isKindOfClass:[ECSubscriptionFeed class]]) {
-                deleteItem = [[NSMenuItem alloc] initWithTitle:@"Delete Feed"
-                                                        action:@selector(deleteFolder:)
+                addItem = [[NSMenuItem alloc] initWithTitle:@"Add Feed"
+                                                      action:@selector(addSubscription:)
+                                               keyEquivalent:@""];
+                
+                editItem = [[NSMenuItem alloc] initWithTitle:editTitle
+                                                      action:@selector(editFeed:)
+                                               keyEquivalent:@""];
+
+                deleteItem = [[NSMenuItem alloc] initWithTitle:deleteTitle
+                                                        action:@selector(deleteFeed:)
                                                  keyEquivalent:@""];
 
             } else{
-                NSString *editTitle = [NSString stringWithFormat:@"Rename \"%@\"", [clickedItem title]];;
+                addItem = [[NSMenuItem alloc] initWithTitle:@"Add Folder"
+                                                     action:@selector(addFolder:)
+                                              keyEquivalent:@""];
+                
                 editItem = [[NSMenuItem alloc] initWithTitle:editTitle
                                                       action:@selector(editFolder:)
                                                keyEquivalent:@""];
                 
-                deleteItem = [[NSMenuItem alloc] initWithTitle:@"Delete Folder"
+                deleteItem = [[NSMenuItem alloc] initWithTitle:deleteTitle
                                                         action:@selector(deleteFolder:)
                                                  keyEquivalent:@""];
             }
+            [addItem setTarget:self];
+			[menu addItem:addItem];
+			[addItem release];
             
             [editItem setTarget:self];
 			[menu addItem:editItem];
@@ -666,7 +755,7 @@ static ECSubscriptionsController *_sharedInstance = nil;
 	}
 }
 
-- (void)subscriptionsRefresh:(NSMenuItem *)sender {
+- (IBAction)subscriptionsItemRefresh:(id)sender {
 	NSInteger clickedRow = [subsView clickedRow];
 	ECSubscriptionItem *clickedItem = [subsView itemAtRow:clickedRow];
 	
@@ -682,5 +771,36 @@ static ECSubscriptionsController *_sharedInstance = nil;
         }
 	}
 }
+
+- (BOOL)validateUserInterfaceItem:(id <NSValidatedUserInterfaceItem>)anItem {
+			
+    ECSubscriptionItem *currentItem = [self getCurrentSubscriptionItem];
+    BOOL isFeed = NO;
+    
+    if (currentItem == nil) {
+        return  NO;
+    }
+    
+    if ([currentItem isKindOfClass:[ECSubscriptionFeed class]]) {
+        isFeed = YES;
+    } else if ([currentItem isKindOfClass:[ECSubscriptionFolder class]]) {
+        isFeed = NO;
+    }
+
+    if ([anItem action] == @selector(addSubscription:)
+        || [anItem action] == @selector(editFeed:)
+        || [anItem action] == @selector(deleteFeed:)) {
+		return isFeed;
+	}
+    
+	if ([anItem action] == @selector(addFolder:)
+        || [anItem action] == @selector(editFolder:)
+        || [anItem action] == @selector(deleteFolder:)) {
+		return !isFeed;
+	}
+    
+	return YES;
+}
+
 
 @end

@@ -461,4 +461,23 @@ static NSString *path;
 	[db close];
 
 }
+
++ (void)deleteFeed:(ECSubscriptionFeed *)feed{
+    FMDatabase *db = [FMDatabase databaseWithPath:[ECDatabaseController pathForDatabaseFile]];
+	
+	if (![db open]) {
+		[NSException raise:@"Database error" format:@"Failed to connect to the database!"];
+	}
+	
+	[db beginTransaction];
+	
+    [db executeUpdate:@"DELETE FROM enclosure WHERE PostId IN (SELECT Id FROM post WHERE FeedId=?)", [NSNumber numberWithInteger:[feed dbId]]];
+    [db executeUpdate:@"DELETE FROM post WHERE FeedId=?", [NSNumber numberWithInteger:[feed dbId]]];
+    [db executeUpdate:@"DELETE FROM feed WHERE Id=?", [NSNumber numberWithInteger:[feed dbId]]];
+	
+	[db commit];
+	
+	[db close];
+
+}
 @end
