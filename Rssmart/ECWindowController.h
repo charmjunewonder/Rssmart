@@ -12,6 +12,5 @@
 @interface ECWindowController : NSWindowController
 
 @property (assign, nonatomic) ECSubscriptionsController *subsController;
-//@property (assign, nonatomic) IBOutlet ECSubscriptionsView *subsView;
 
 @end

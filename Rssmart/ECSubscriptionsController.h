@@ -14,9 +14,12 @@
 @class ECSubscriptionFolder;
 @class ECAddFeedController;
 @class ECAddFolderController;
+@class ECPostsController;
 
 @interface ECSubscriptionsController : NSObject <NSOutlineViewDataSource,
 NSOutlineViewDelegate, ECIconRefreshOperationDelegate, ECFeedParserOperationDelegate>
+
+@property (assign, nonatomic) ECPostsController *postsController;
 
 @property (assign, nonatomic) IBOutlet ECSubscriptionsView *subsView;
 //feeds that are at the top containing 'Library' and 'Subscriptions'

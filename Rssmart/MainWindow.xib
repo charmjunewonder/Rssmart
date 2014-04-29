@@ -81,7 +81,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="230" height="583"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="80" id="HSa-4u-0XX">
+                                        <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="80" id="HSa-4u-0XX" customClass="ECTableView">
                                             <rect key="frame" x="0.0" y="0.0" width="230" height="583"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
@@ -103,6 +103,10 @@
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                 </tableColumn>
                                             </tableColumns>
+                                            <connections>
+                                                <outlet property="dataSource" destination="sJD-Ep-VW8" id="23j-WS-9bM"/>
+                                                <outlet property="delegate" destination="sJD-Ep-VW8" id="bJb-Hx-f5m"/>
+                                            </connections>
                                         </tableView>
                                     </subviews>
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -418,6 +422,11 @@
                 <outlet property="addFolderController" destination="x70-Ey-kDU" id="Dqw-lA-I7Q"/>
                 <outlet property="subsView" destination="TlF-42-hWE" id="fHZ-OK-9Hz"/>
                 <outlet property="subsViewContextMenu" destination="S0X-m5-bnD" id="yfU-Ra-28A"/>
+            </connections>
+        </customObject>
+        <customObject id="sJD-Ep-VW8" customClass="ECPostsController">
+            <connections>
+                <outlet property="tableView" destination="HSa-4u-0XX" id="vv8-mq-dOq"/>
             </connections>
         </customObject>
         <customObject id="d4B-ia-Jrl" customClass="ECAddFeedController">

@@ -22,6 +22,7 @@
 #import "ECPost.h"
 #import "ECRequestController.h"
 #import "ECAddFolderController.h"
+#import "ECPostsController.h"
 
 #define SOURCE_LIST_DRAG_TYPE @"SourceListDragType"
 #define ICON_REFRESH_INTERVAL TIME_INTERVAL_MONTH
@@ -42,6 +43,7 @@
 @synthesize addFeedController;
 @synthesize addFolderController;
 @synthesize subsViewContextMenu;
+@synthesize postsController;
 
 static ECSubscriptionsController *_sharedInstance = nil;
 
@@ -81,7 +83,8 @@ static ECSubscriptionsController *_sharedInstance = nil;
     
     [subsView registerForDraggedTypes:[NSArray arrayWithObjects:SOURCE_LIST_DRAG_TYPE, nil]];
 	[subsView setDraggingSourceOperationMask:NSDragOperationEvery forLocal:YES];
-
+    postsController = [ECPostsController getSharedInstance];
+    
 }
 
 /*
