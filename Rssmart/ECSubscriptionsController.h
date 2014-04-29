@@ -52,5 +52,6 @@ NSOutlineViewDelegate, ECIconRefreshOperationDelegate, ECFeedParserOperationDele
 - (void)refreshSubscriptionsView;
 - (IBAction)subscriptionsItemRefresh:(id)sender;
 - (ECSubscriptionFeed *)feedForDbId:(NSInteger)dbId;
-
+- (void)changeBadgeValuesBy:(NSInteger)value forAncestorsOfItem:(ECSubscriptionItem *)item;
+- (void)changeBadgeValueBy:(NSInteger)value forItem:(ECSubscriptionItem *)item;
 @end

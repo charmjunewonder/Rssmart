@@ -13,8 +13,13 @@
 #import "ECPost.h"
 #import "ECSubscriptionsController.h"
 #import "ECSubscriptionFeed.h"
+#import "ECArticleController.h"
+#import "ECRequestController.h"
+#import "ECWebView.h"
+#import "ECArticleController.h"
 
 #define CLASSIC_VIEW_POSTS_PER_QUERY 100
+#define UNREAD_COUNT_QUERY @"UPDATE feed SET UnreadCount = (SELECT COUNT(Id) FROM post WHERE FeedId=? AND IsRead=0 AND IsHidden=0) WHERE Id=?"
 
 @implementation ECPostsController
 
@@ -22,6 +27,7 @@
 @synthesize posts;
 @synthesize selectedItem;
 @synthesize searchQuery;
+@synthesize articleController;
 
 static ECPostsController *_sharedInstance = nil;
 
@@ -51,6 +57,7 @@ static ECPostsController *_sharedInstance = nil;
 
 - (void)setup{
     [self loadPostsIntoPostsView];
+    articleController = [ECArticleController getSharedInstance];
 }
 
 #pragma mark Load Post to TableView
@@ -144,39 +151,36 @@ static ECPostsController *_sharedInstance = nil;
 #pragma mark NSTableViewDelegate
 
 - (void)tableViewSelectionDidChange:(NSNotification *)aNotification {
-//	ECTableView *tableView = [aNotification object];
-//	CLClassicView *classicView = [tableView classicViewReference];
-//	CLPost *previousSelection = [classicView displayedPost];
-//	CLPost *currentSelection = nil;
-//	NSInteger selectedRow = [tableView selectedRow];
-//	
-//	if ([classicView shouldIgnoreSelectionChange] == NO || selectedRow >= 0) {
-//		if (selectedRow >= 0) {
-//			currentSelection = [[classicView posts] objectAtIndex:selectedRow];
-//			
-//			if (currentSelection != previousSelection) {
-//				NSString *headlineFontName = [delegate preferenceHeadlineFontName];
-//				CGFloat headlineFontSize = [delegate preferenceHeadlineFontSize];
-//				NSString *bodyFontName = [delegate preferenceBodyFontName];
-//				CGFloat bodyFontSize = [delegate preferenceBodyFontSize];
-//				
-//				[classicView updateUsingPost:currentSelection headlineFontName:headlineFontName headlineFontSize:headlineFontSize bodyFontName:bodyFontName bodyFontSize:bodyFontSize];
-//			}
-//			
-//			if ([currentSelection isRead] == NO) {
-//				[delegate markPostWithDbIdAsRead:[currentSelection dbId]];
-//			}
-//			
-//		} else {
-//			[classicView setDisplayedPost:nil];
-//			[[[classicView webView] mainFrame] loadHTMLString:@"" baseURL:nil];
-//		}
-//	}
-//	
-//	[classicView setShouldIgnoreSelectionChange:NO];
-//	
-//	[tableView setNeedsDisplay:YES];
-//	
+	ECPost *previousSelection = [articleController displayedPost];
+	ECPost *currentSelection = nil;
+	NSInteger selectedRow = [tableView selectedRow];
+	
+    if (selectedRow >= 0) {
+        currentSelection = [posts objectAtIndex:selectedRow];
+        
+        if (currentSelection != previousSelection) {
+            
+            //set headline font
+            NSString *headlineFontName = @"HelveticaNeue-Medium";
+            CGFloat headlineFontSize = 11.0f;
+            //set body font
+            NSString *bodyFontName = @"HelveticaNeue";
+            CGFloat bodyFontSize = 10.0f;
+            
+            [articleController updateUsingPost:currentSelection headlineFontName:headlineFontName headlineFontSize:headlineFontSize bodyFontName:bodyFontName bodyFontSize:bodyFontSize];
+        }
+        
+        if ([currentSelection isRead] == NO) {
+            [self markReadWithPost:currentSelection];
+        }
+        
+    } else {
+        [articleController setDisplayedPost:nil];
+        [[[articleController webView] mainFrame] loadHTMLString:@"" baseURL:nil];
+    }
+		
+	[tableView setNeedsDisplay:YES];
+	
 //	[delegate classicViewSelectionDidChange];
 }
 
@@ -208,5 +212,25 @@ static ECPostsController *_sharedInstance = nil;
 	return post;
 }
 #pragma mark -
+
+- (void)markReadWithPost:(ECPost *)post {
+		
+    NSArray *queries = [NSArray arrayWithObjects:
+                        [NSArray arrayWithObjects:@"UPDATE post SET IsRead=1 WHERE Id=?", [NSNumber numberWithInteger:[post dbId]], nil],
+                        [NSArray arrayWithObjects:UNREAD_COUNT_QUERY, [NSNumber numberWithInteger:[post feedDbId]], [NSNumber numberWithInteger:[post feedDbId]], nil],
+                        nil];
+    
+	[[ECRequestController getSharedInstance] runDatabaseUpdatesOnBackgroundThread:queries];
+	ECSubscriptionsController * subsCon = [ECSubscriptionsController getSharedInstance];
+	ECSubscriptionFeed *feed = [subsCon feedForDbId:[post feedDbId]];
+	
+	[subsCon changeBadgeValueBy:-1 forItem:feed];
+	[subsCon changeBadgeValuesBy:-1 forAncestorsOfItem:feed];
+	
+//	[self changeNewItemsBadgeValueBy:-1];
+	[subsCon refreshSubscriptionsView];
+	
+    [post setIsRead:YES];
+}
 
 @end

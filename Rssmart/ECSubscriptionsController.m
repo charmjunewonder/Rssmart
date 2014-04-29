@@ -326,7 +326,7 @@ static ECSubscriptionsController *_sharedInstance = nil;
 	ECSubscriptionItem *selectedItem = [subsView itemAtRow:[subsView selectedRow]];
 	//TODO:outlineViewSelectionDidChange
 	if (selectedItem != nil) {
-        [self openItemInCurrentTab:selectedItem orQuery:nil];
+//        [self openItemInCurrentTab:selectedItem orQuery:nil];
 	}
 	
 	[self setSubscriptionSelectedItem:selectedItem];
@@ -868,6 +868,14 @@ static ECSubscriptionsController *_sharedInstance = nil;
 	
 //	[self sortSourceList];
 	[self refreshSubscriptionsView];
+}
+
+- (void)changeBadgeValueBy:(NSInteger)value forItem:(ECSubscriptionItem *)item {
+	[item setBadgeValue:([item badgeValue] + value)];
+	
+	if ([item badgeValue] < 0) {
+		[item setBadgeValue:0];
+	}
 }
 
 - (void)changeBadgeValuesBy:(NSInteger)value forAncestorsOfItem:(ECSubscriptionItem *)item {

@@ -26,10 +26,10 @@
 - (void)startToRequestIconForFeed:(ECSubscriptionFeed *)feed;
 - (void)queueSyncRequestForSpecificFeeds:(NSMutableArray *)feeds;
 - (void)runDatabaseUpdateOnBackgroundThread:(NSString *)queryString, ... NS_REQUIRES_NIL_TERMINATION;
+- (void)runDatabaseUpdatesOnBackgroundThread:(NSArray *)queries;
 - (void)queueIconRefreshOperationFor:(ECSubscriptionFeed *)feed;
 - (void)addTimerOfIconRequestForFeed:(ECSubscriptionFeed *)feed forTimeInterval:(NSTimeInterval) interval;
 - (void)startToOperate;
 - (void)queueAllFeedsSyncRequest:(ECSubscriptionItem *)subscriptionRoot;
 - (void)removeFromRequestForFeed:(ECSubscriptionFeed *)feed;
-
 @end

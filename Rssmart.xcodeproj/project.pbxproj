@@ -26,6 +26,8 @@
 		D177BAA9190FB0FF0070A632 /* ECTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = D177BAA8190FB0FF0070A632 /* ECTableView.m */; };
 		D177BAAD190FB1650070A632 /* ECTableViewTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D177BAAC190FB1650070A632 /* ECTableViewTextFieldCell.m */; };
 		D177BAB0190FB1E10070A632 /* NSDate+ECAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D177BAAF190FB1E10070A632 /* NSDate+ECAdditions.m */; };
+		D177BAB3190FF6450070A632 /* ECWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = D177BAB2190FF6450070A632 /* ECWebView.m */; };
+		D177BAB6190FF6FA0070A632 /* ECArticleController.m in Sources */ = {isa = PBXBuildFile; fileRef = D177BAB5190FF6FA0070A632 /* ECArticleController.m */; };
 		D1B8355E190A062D00E2D939 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1B8355D190A062D00E2D939 /* Cocoa.framework */; };
 		D1B83568190A062D00E2D939 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D1B83566190A062D00E2D939 /* InfoPlist.strings */; };
 		D1B8356A190A062D00E2D939 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B83569190A062D00E2D939 /* main.m */; };
@@ -124,6 +126,10 @@
 		D177BAAC190FB1650070A632 /* ECTableViewTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECTableViewTextFieldCell.m; sourceTree = "<group>"; };
 		D177BAAE190FB1E10070A632 /* NSDate+ECAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+ECAdditions.h"; sourceTree = "<group>"; };
 		D177BAAF190FB1E10070A632 /* NSDate+ECAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+ECAdditions.m"; sourceTree = "<group>"; };
+		D177BAB1190FF6450070A632 /* ECWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECWebView.h; sourceTree = "<group>"; };
+		D177BAB2190FF6450070A632 /* ECWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECWebView.m; sourceTree = "<group>"; };
+		D177BAB4190FF6FA0070A632 /* ECArticleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECArticleController.h; sourceTree = "<group>"; };
+		D177BAB5190FF6FA0070A632 /* ECArticleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECArticleController.m; sourceTree = "<group>"; };
 		D1B8355A190A062D00E2D939 /* Rssmart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rssmart.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1B8355D190A062D00E2D939 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		D1B83560190A062D00E2D939 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -361,6 +367,8 @@
 				D1B835CA190A136A00E2D939 /* ECSubscriptionsController.m */,
 				D177BAA4190FADE60070A632 /* ECPostsController.h */,
 				D177BAA5190FADE60070A632 /* ECPostsController.m */,
+				D177BAB4190FF6FA0070A632 /* ECArticleController.h */,
+				D177BAB5190FF6FA0070A632 /* ECArticleController.m */,
 				D1B835D4190A42BB00E2D939 /* ECRequestController.h */,
 				D1B835D5190A42BB00E2D939 /* ECRequestController.m */,
 				D1B835D7190A42C500E2D939 /* ECDatabaseController.h */,
@@ -385,6 +393,8 @@
 				D177BAAB190FB1650070A632 /* ECTableViewTextFieldCell.h */,
 				D177BAAC190FB1650070A632 /* ECTableViewTextFieldCell.m */,
 				D177BAAA190FB1380070A632 /* ECTableViewTextFieldCellDelegate.h */,
+				D177BAB1190FF6450070A632 /* ECWebView.h */,
+				D177BAB2190FF6450070A632 /* ECWebView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -597,6 +607,7 @@
 				D1B835CB190A136A00E2D939 /* ECSubscriptionsController.m in Sources */,
 				D1B835D6190A42BB00E2D939 /* ECRequestController.m in Sources */,
 				D1B83600190B956500E2D939 /* NSFileManager+ECAdditions.m in Sources */,
+				D177BAB6190FF6FA0070A632 /* ECArticleController.m in Sources */,
 				D1B8356A190A062D00E2D939 /* main.m in Sources */,
 				D101BED2190CF2BD00B8A0A0 /* ECFeedParserOperation.m in Sources */,
 				D1B835C8190A135800E2D939 /* ECSubscriptionsView.m in Sources */,
@@ -605,6 +616,7 @@
 				D177BAA6190FADE60070A632 /* ECPostsController.m in Sources */,
 				D1B835BF190A0CBB00E2D939 /* FMDatabase.m in Sources */,
 				D1B835D9190A42C500E2D939 /* ECDatabaseController.m in Sources */,
+				D177BAB3190FF6450070A632 /* ECWebView.m in Sources */,
 				D1B835C1190A0CBB00E2D939 /* FMDatabasePool.m in Sources */,
 				D101BEDF190D5EE800B8A0A0 /* ECDatabaseUpdateOperation.m in Sources */,
 				D1B835F6190AB16C00E2D939 /* ECAddFeedController.m in Sources */,

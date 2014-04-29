@@ -120,7 +120,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
-                            <webView fixedFrame="YES" id="bSD-cn-pwu">
+                            <webView fixedFrame="YES" maintainsBackForwardList="NO" id="bSD-cn-pwu" customClass="ECWebView">
                                 <rect key="frame" x="408" y="0.0" width="432" height="583"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12">
@@ -427,6 +427,11 @@
         <customObject id="sJD-Ep-VW8" customClass="ECPostsController">
             <connections>
                 <outlet property="tableView" destination="HSa-4u-0XX" id="vv8-mq-dOq"/>
+            </connections>
+        </customObject>
+        <customObject id="gYN-h5-Zz2" customClass="ECArticleController">
+            <connections>
+                <outlet property="webView" destination="bSD-cn-pwu" id="LwP-oT-MHI"/>
             </connections>
         </customObject>
         <customObject id="d4B-ia-Jrl" customClass="ECAddFeedController">

@@ -9,8 +9,11 @@
 
 @class ECTableView;
 @class ECSubscriptionItem;
+@class ECArticleController;
 
 @interface ECPostsController : NSObject < NSTableViewDataSource, NSTableViewDelegate, ECTableViewTextFieldCellDelegate>
+
+@property (assign, nonatomic) ECArticleController *articleController;
 
 @property (assign, nonatomic) IBOutlet ECTableView *tableView;
 @property (retain, nonatomic) NSMutableArray *posts;
