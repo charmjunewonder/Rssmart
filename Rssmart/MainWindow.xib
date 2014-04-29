@@ -425,7 +425,7 @@
                 <outlet property="addFeedDialog" destination="THW-fi-6iZ" id="ibq-Xp-MmT"/>
                 <outlet property="feedDialogTextField" destination="PKZ-sU-jZb" id="ss3-rO-Wvw"/>
                 <outlet property="mainWindow" destination="51i-xz-Lua" id="Hes-gS-fxZ"/>
-                <outlet property="submitButton" destination="7dK-W9-DJq" id="5g7-vk-kjz"/>
+                <outlet property="submitButton" destination="7dK-W9-DJq" id="lTt-6E-DeW"/>
             </connections>
         </customObject>
         <window title="Add Subscription" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" oneShot="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="THW-fi-6iZ" customClass="NSPanel">
@@ -489,7 +489,7 @@ DQ
 </string>
                         </buttonCell>
                         <connections>
-                            <action selector="addSubscriptionForSure:" target="sR3-8g-wLc" id="xeB-Br-nt6"/>
+                            <action selector="addSubscriptionForSure:" target="sR3-8g-wLc" id="aWO-MY-Mhi"/>
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kXx-1G-aTW">
@@ -561,7 +561,7 @@ DQ
 </string>
                         </buttonCell>
                         <connections>
-                            <action selector="addFolderForSure:" target="sR3-8g-wLc" id="66M-zx-eXg"/>
+                            <action selector="addFolderForSure:" target="sR3-8g-wLc" id="Xiu-bk-9Hh"/>
                         </connections>
                     </button>
                 </subviews>

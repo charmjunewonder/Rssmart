@@ -17,7 +17,7 @@
 	self = [super init];
 	if (self != nil) {
 		[self setIsEditable:YES];
-		[self setIsDraggable:YES];
+		[self setIsDraggable:NO];
 		[self setIcon:[NSImage imageNamed:NSImageNameFolder]];
 	}
 	return self;

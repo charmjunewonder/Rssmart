@@ -32,7 +32,6 @@
 
 @implementation ECSubscriptionsController
 
-@synthesize subscriptionList;
 @synthesize subsView;
 @synthesize subscriptionRoot;
 @synthesize subscriptionNewItems;
@@ -69,8 +68,6 @@ static ECSubscriptionsController *_sharedInstance = nil;
         
         // create an object as a placeholder until we create the real object; crashes otherwise
         [self setSubscriptionRoot:[[[ECSubscriptionFolder alloc] init] autorelease]];
-//        [subsView setDelegate:self];
-//        [subsView setDataSource:self];
         
     }
     return self;
@@ -81,6 +78,10 @@ static ECSubscriptionsController *_sharedInstance = nil;
     [ECDatabaseController loadFromDatabaseTo:subscriptionSubscriptions];
     [[ECRequestController getSharedInstance] startToOperate];
 	[subsView reloadData];
+    
+    [subsView registerForDraggedTypes:[NSArray arrayWithObjects:SOURCE_LIST_DRAG_TYPE, nil]];
+	[subsView setDraggingSourceOperationMask:NSDragOperationEvery forLocal:YES];
+
 }
 
 /*
@@ -174,23 +175,20 @@ static ECSubscriptionsController *_sharedInstance = nil;
 //TODO:maybe delete?
 - (void)outlineView:(NSOutlineView *)outlineView setObjectValue:(NSString *)value forTableColumn:(NSTableColumn *)tableColumn byItem:(ECSubscriptionItem *)item {
 	
-	[item setTitle:value];
-	
-//	[self performSelector:@selector(updateFirstResponder) withObject:nil afterDelay:0.1];
-//	
-//	[delegate sourceListDidRenameItem:item];
 }
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView writeItems:(NSArray *)items toPasteboard:(NSPasteboard *)pboard {
 	
 	// instead of actually putting the item on the pasteboard, just put it in a ivar
 	// seems like a hack, but this is what the apple sample project that I downloaded does
-	subscriptionDragItem = (ECSubscriptionItem *)[items objectAtIndex:0];
 	
-	if ([subscriptionDragItem isDraggable] == NO) {
+
+	if ([[items objectAtIndex:0] isDraggable] == NO) {
 		return NO;
 	}
-	
+
+    subscriptionDragItem = (ECSubscriptionFeed *)[items objectAtIndex:0];
+
 	[pboard declareTypes:[NSArray arrayWithObjects:SOURCE_LIST_DRAG_TYPE, nil] owner:self];
     [pboard setData:[NSData data] forType:SOURCE_LIST_DRAG_TYPE];
 	
@@ -198,42 +196,48 @@ static ECSubscriptionsController *_sharedInstance = nil;
 }
 
 //TODO:drap
-- (NSDragOperation)outlineView:(NSOutlineView *)outlineView validateDrop:(id <NSDraggingInfo>)info proposedItem:(ECSubscriptionItem *)dropTarget proposedChildIndex:(NSInteger)childIndex {
+- (NSDragOperation)outlineView:(NSOutlineView *)outlineView
+                  validateDrop:(id <NSDraggingInfo>)info
+                  proposedItem:(ECSubscriptionItem *)dropTarget
+            proposedChildIndex:(NSInteger)childIndex {
 	NSDragOperation result = NSDragOperationNone;
 	
-//	if (dropTarget == nil || dropTarget == subscriptionSubscriptions || [dropTarget isKindOfClass:[ECSubscriptionFolder class]] || [dropTarget isKindOfClass:[ECSubscriptionFeed class]]) {
-//		result = NSDragOperationGeneric;
-//	}
-//	
-//	// don't allow dragging from a ancestor to a descendent
-//	if ([SyndicationAppDelegate isSourceListItem:dropTarget descendentOf:subscriptionDragItem]) {
-//		result = NSDragOperationNone;
-//	} else {
-//		
-//		// various types of drags that we want to redirect
-//		// the comments below explain which type of drag is being handled
-//		if ([dropTarget isKindOfClass:[ECSubscriptionFolder class]] && childIndex != NSOutlineViewDropOnItemIndex) {
-//			
-//			// dropping an item between the children of a folder
-//			[subsView setDropItem:dropTarget dropChildIndex:NSOutlineViewDropOnItemIndex];
-//		} else if ([dropTarget isKindOfClass:[ECSubscriptionFeed class]] && [(ECSubscriptionFeed *)dropTarget enclosingFolderReference] != nil) {
-//			
-//			// dropping an item on top of the child of a folder
-//			[subsView setDropItem:[(ECSubscriptionFeed *)dropTarget enclosingFolderReference] dropChildIndex:NSOutlineViewDropOnItemIndex];
-//		} else if ([dropTarget isKindOfClass:[ECSubscriptionFeed class]] && childIndex == NSOutlineViewDropOnItemIndex) {
-//			
-//			// dropping an item on to a regular item (not in a folder)
-//			[subsView setDropItem:subscriptionSubscriptions dropChildIndex:NSOutlineViewDropOnItemIndex];
-//		} else if (dropTarget == subscriptionSubscriptions && childIndex != NSOutlineViewDropOnItemIndex) {
-//			
-//			// dropping an item between regular items (not in a folder)
-//			[subsView setDropItem:subscriptionSubscriptions dropChildIndex:NSOutlineViewDropOnItemIndex];
-//		} else if (dropTarget == nil) {
-//			
-//			// dropping into empty space
-//			[subsView setDropItem:subscriptionSubscriptions dropChildIndex:NSOutlineViewDropOnItemIndex];
-//		}
-//	}
+	if (dropTarget == nil || dropTarget == subscriptionSubscriptions || [dropTarget isKindOfClass:[ECSubscriptionFolder class]] || [dropTarget isKindOfClass:[ECSubscriptionFeed class]]) {
+		result = NSDragOperationGeneric;
+	}
+	
+	// don't allow dragging from a ancestor to a descendent
+	if ([self isSubscriptionItem:dropTarget descendentOf:subscriptionDragItem]) {
+		result = NSDragOperationNone;
+	} else {
+		
+		// various types of drags that we want to redirect
+		// the comments below explain which type of drag is being handled
+		if ([dropTarget isKindOfClass:[ECSubscriptionFolder class]] && childIndex != NSOutlineViewDropOnItemIndex) {
+			//feed -> folder
+			// dropping an item between the children of a folder
+			[subsView setDropItem:dropTarget dropChildIndex:NSOutlineViewDropOnItemIndex];
+		}
+        else if ([dropTarget isKindOfClass:[ECSubscriptionFeed class]] && [(ECSubscriptionFeed *)dropTarget parentFolderReference] != nil) {
+			
+			// dropping an item on top of the child of a folder
+			[subsView setDropItem:[(ECSubscriptionFeed *)dropTarget parentFolderReference] dropChildIndex:NSOutlineViewDropOnItemIndex];
+		}
+        else if ([dropTarget isKindOfClass:[ECSubscriptionFeed class]] && childIndex == NSOutlineViewDropOnItemIndex) {
+			
+			// dropping an item on to a regular item (not in a folder)
+			[subsView setDropItem:subscriptionSubscriptions dropChildIndex:NSOutlineViewDropOnItemIndex];
+		}
+        else if (dropTarget == subscriptionSubscriptions && childIndex != NSOutlineViewDropOnItemIndex) {
+			
+			// dropping an item between regular items (not in a folder)
+			[subsView setDropItem:subscriptionSubscriptions dropChildIndex:NSOutlineViewDropOnItemIndex];
+		} else if (dropTarget == nil) {
+			
+			// dropping into empty space
+			[subsView setDropItem:subscriptionSubscriptions dropChildIndex:NSOutlineViewDropOnItemIndex];
+		}
+	}
 	
 	return result;
 }
@@ -251,8 +255,7 @@ static ECSubscriptionsController *_sharedInstance = nil;
 			folder = (ECSubscriptionFolder *)dropTarget;
 		}
 		
-//		[delegate moveItem:subscriptionDragItem toFolder:folder];
-		
+		[self moveFeed:subscriptionDragItem toFolder:folder];
 		return YES;
 	}
 	
@@ -347,8 +350,7 @@ static ECSubscriptionsController *_sharedInstance = nil;
 
 //	[self sortSourceList];
 	[self refreshSubscriptionsView];
-//	[self restoreSourceListSelections];
-			
+    
 	return newFolder;
 }
 
@@ -371,7 +373,7 @@ static ECSubscriptionsController *_sharedInstance = nil;
 	
 //	[self sortSourceList];
 	[self refreshSubscriptionsView];
-//	[self restoreSourceListSelections];
+
     [[ECRequestController getSharedInstance] runDatabaseUpdateOnBackgroundThread:@"UPDATE folder SET Title=? WHERE Id=?", [folder title], [NSNumber numberWithInteger:[folder dbId]], nil];
     [addFolderController hideDialog:nil];
 }
@@ -420,20 +422,16 @@ static ECSubscriptionsController *_sharedInstance = nil;
         //TODO: if the selected tab is for the item we are deleting (or a descendent), change it to be for new items
         
         //TODO: change badgeValue
-        //	if ([item badgeValue] > 0) {
-        //		[SyndicationAppDelegate changeBadgeValuesBy:([item badgeValue] * -1) forAncestorsOfItem:item];
-        //		[self changeNewItemsBadgeValueBy:([item badgeValue] * -1)];
-        //	}
+//        if ([item badgeValue] > 0) {
+//            [self changeNewItemsBadgeValueBy:([item badgeValue] * -1)];
+//        }
         
-        //TODO: updateViewForSourceListItem
-        //	[self closeAllTabsForSourceListItem:item];
         
         [self didDeleteFolder:(ECSubscriptionFolder *)folder];
 		
         [[subscriptionSubscriptions children] removeObject:folder];
         
         [self refreshSubscriptionsView];
-        //	[self restoreSourceListSelections];
 
 		[folder release];
 	}
@@ -490,13 +488,10 @@ static ECSubscriptionsController *_sharedInstance = nil;
         //TODO: if the selected tab is for the item we are deleting (or a descendent), change it to be for new items
         
         //TODO: change badgeValue
-        //	if ([item badgeValue] > 0) {
-        //		[SyndicationAppDelegate changeBadgeValuesBy:([item badgeValue] * -1) forAncestorsOfItem:item];
-        //		[self changeNewItemsBadgeValueBy:([item badgeValue] * -1)];
-        //	}
-        
-        //TODO: updateViewForSourceListItem
-        //	[self closeAllTabsForSourceListItem:item];
+        if ([feed badgeValue] > 0) {
+            [self changeBadgeValuesBy:([feed badgeValue] * -1) forAncestorsOfItem:feed];
+//            [self changeNewItemsBadgeValueBy:([item badgeValue] * -1)];
+        }
         
         [self didDeleteFeed:(ECSubscriptionFeed *)feed];
         
@@ -508,7 +503,6 @@ static ECSubscriptionsController *_sharedInstance = nil;
         }
         
         [self refreshSubscriptionsView];
-        //	[self restoreSourceListSelections];
         
 		[feed release];
 	}
@@ -533,15 +527,16 @@ static ECSubscriptionsController *_sharedInstance = nil;
 	
     //	[self sortSourceList];
 	[self refreshSubscriptionsView];
-    //	[self restoreSourceListSelections];
     [[ECRequestController getSharedInstance] runDatabaseUpdateOnBackgroundThread:@"UPDATE feed SET Url=? WHERE Id=?", [feed url], [NSNumber numberWithInteger:[feed dbId]], nil];
     [addFeedController hideDialog:nil];
 }
 
 - (IBAction)addSubscription:(id)sender{
     [addFeedController clearTextField];
-    [addFeedController reloadDataOfPopUp];
-	[addFeedController showDialog:self];
+    
+    [[addFeedController submitButton] setAction:@selector(addSubscriptionForSure:)];
+    
+    [addFeedController showDialog:self];
 }
 
 - (IBAction)addSubscriptionForSure:(id)sender{
@@ -628,7 +623,7 @@ static ECSubscriptionsController *_sharedInstance = nil;
 	
 	if (numberOfUnread > 0) {
 		[feed setBadgeValue:([feed badgeValue] + numberOfUnread)];
-//		[SyndicationAppDelegate changeBadgeValuesBy:numberOfUnread forAncestorsOfItem:feed];
+		[self changeBadgeValuesBy:numberOfUnread forAncestorsOfItem:feed];
 //		[self changeNewItemsBadgeValueBy:numberOfUnread];
 	}
 	
@@ -662,7 +657,6 @@ static ECSubscriptionsController *_sharedInstance = nil;
 	
 	//[self sortSourceList];
 	[self refreshSubscriptionsView];
-//	[self restoreSourceListSelections];
 	
 //    // update the label for any open tabs
 //    if ([subsView sourceListItem] == item) {
@@ -802,5 +796,80 @@ static ECSubscriptionsController *_sharedInstance = nil;
 	return YES;
 }
 
+- (BOOL)isSubscriptionItem:(ECSubscriptionItem *)item descendentOf:(ECSubscriptionItem *)parent {
+	while (item != nil) {
+		if (item == parent) {
+			return YES;
+		}
+		
+		if ([item isKindOfClass:[ECSubscriptionFeed class]]) {
+			item = [(ECSubscriptionFeed *)item parentFolderReference];
+		} else if ([item isKindOfClass:[ECSubscriptionFolder class]]) {
+			item = [(ECSubscriptionFolder *)item parentFolderReference];
+		} else {
+			item = nil; // this prevents an infinite loop if we get something other that the two types that we can handle
+		}
+	}
+    
+	return NO;
+}
+
+- (void)moveFeed:(ECSubscriptionFeed *)feed toFolder:(ECSubscriptionFolder *)folder {
+	
+	NSNumber *folderId = nil;
+	
+	if (folder != nil) {
+		folderId = [NSNumber numberWithInteger:[folder dbId]];
+	}
+    
+    if (folderId == nil) {
+        folderId = [NSNumber numberWithInteger:0];
+    }
+	
+    [[ECRequestController getSharedInstance] runDatabaseUpdateOnBackgroundThread:@"UPDATE feed SET FolderId=? WHERE Id=?", folderId, [NSNumber numberWithInteger:[(ECSubscriptionFeed *)feed dbId]], nil];
+	
+	// update ui
+	ECSubscriptionFolder *ancestor = [feed parentFolderReference];
+	
+    // remove it from its previous location
+	if (ancestor != nil) {
+		[self changeBadgeValuesBy:([feed badgeValue] * -1) forAncestorsOfItem:feed];
+		[[ancestor children] removeObject:feed];
+		
+        [(ECSubscriptionFeed *)feed setParentFolderReference:nil];
+	} else {
+		[[subscriptionSubscriptions children] removeObject:feed];
+	}
+	
+	if (folder != nil) {
+		
+		[[folder children] addObject:feed];
+		
+        [feed setParentFolderReference:folder];
+		
+		[self changeBadgeValuesBy:[feed badgeValue] forAncestorsOfItem:feed];
+		
+	} else {
+		[[subscriptionSubscriptions children] addObject:feed];
+	}
+	
+//	[self sortSourceList];
+	[self refreshSubscriptionsView];
+}
+
+- (void)changeBadgeValuesBy:(NSInteger)value forAncestorsOfItem:(ECSubscriptionItem *)item {
+	
+	if (value == 0) {
+		return;
+	}
+	
+	ECSubscriptionFolder *ancestor = [item parentFolderReference];
+	
+	if (ancestor != nil) {
+		[ancestor setBadgeValue:([ancestor badgeValue] + value)];
+        //TODO: need recursively?
+		[self changeBadgeValuesBy:value forAncestorsOfItem:ancestor];
+	}
+}
 
 @end

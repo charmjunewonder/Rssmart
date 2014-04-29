@@ -128,7 +128,8 @@ static NSString *path;
 	rs = nil;
 	
 	if (parentFolder == nil) {
-		rs = [db executeQuery:@"SELECT * FROM feed WHERE feed.FolderId IS NULL"];
+		rs = [db executeQuery:@"SELECT * FROM feed WHERE feed.FolderId=?",[NSNumber numberWithInteger:0]
+];
 	} else {
 		rs = [db executeQuery:@"SELECT * FROM feed WHERE feed.FolderId=?", [NSNumber numberWithInteger:[parentFolder dbId]]];
 	}
@@ -145,6 +146,7 @@ static NSString *path;
                 //TODO:setParentFolderReference
             } else {
                 [[parentFolder children] addObject:feed];
+                [parentFolder setBadgeValue:[parentFolder badgeValue]+[feed badgeValue]];
                 [feed setParentFolderReference:parentFolder];
             }
             
@@ -190,6 +192,10 @@ static NSString *path;
 	if (folder != nil) {
 		folderId = [NSNumber numberWithInteger:[folder dbId]];
 	}
+    
+    if (folderId == nil) {
+        folderId = [NSNumber numberWithInteger:0];
+    }
 		
 	[db executeUpdate:@"INSERT INTO feed (FolderId, Url, Title) VALUES (?, ?, ?)", folderId, url, feedTitle];
 	
@@ -224,7 +230,6 @@ static NSString *path;
 	
 //	[self sortSourceList];
     [subsCon refreshSubscriptionsView];
-//	[self restoreSourceListSelections];
 	
 	if (shouldRefresh) {
 		[[ECRequestController getSharedInstance] queueSyncRequestForSpecificFeeds:[NSMutableArray arrayWithObject:newSub]];
