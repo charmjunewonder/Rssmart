@@ -19,6 +19,11 @@
 #import "ECPost.h"
 
 #define UNREAD_COUNT_QUERY @"UPDATE feed SET UnreadCount = (SELECT COUNT(Id) FROM post WHERE FeedId=? AND IsRead=0 AND IsHidden=0) WHERE Id=?"
+#define SEARCH_QUERY @"SELECT post.*, feed.Title AS FeedTitle, feed.Url AS FeedUrlString FROM post, feed WHERE post.FeedId=feed.Id AND post.IsHidden=0 AND (%@)"
+#define FEED_QUERY @"SELECT post.*, feed.Title AS FeedTitle, feed.Url AS FeedUrlString FROM post, feed WHERE post.FeedId=feed.Id AND feed.Id=%ld AND post.IsHidden=0"
+#define FOLDER_QUERY @"SELECT post.*, feed.Title AS FeedTitle, feed.Url AS FeedUrlString FROM post, feed, folder WHERE post.FeedId=feed.Id AND feed.FolderId=folder.Id AND folder.Path LIKE '%@%%' AND post.IsHidden=0"
+#define NEW_ITEMS_QUERY @"SELECT post.*, feed.Title AS FeedTitle, feed.Url AS FeedUrlString FROM post, feed WHERE post.FeedId=feed.Id AND post.IsHidden=0 AND post.IsRead=0"
+#define STARRED_QUERY @"SELECT post.*, feed.Title AS FeedTitle, feed.Url AS FeedUrlString FROM post, feed WHERE post.FeedId=feed.Id AND post.IsHidden=0 AND post.IsStarred=1"
 
 @interface ECDatabaseController (Private)
 + (NSString *)pathForDatabaseFile;
@@ -154,7 +159,7 @@ static NSString *path;
             [requestCon startToRequestIconForFeed:feed];
 
 		}
-//		[feedLookupDict setObject:feed forKey:[NSNumber numberWithInteger:[feed dbId]]];
+		[[[ECSubscriptionsController getSharedInstance] feedLookupDict] setObject:feed forKey:[NSNumber numberWithInteger:[feed dbId]]];
 		
 		[feed release];
 	}
@@ -162,14 +167,14 @@ static NSString *path;
 	[rs close];
 }
 
-+ (void)addSubscriptionForUrlString:(NSString *)url toFolder:(ECSubscriptionFolder *)folder refreshImmediately:(BOOL)shouldRefresh{
++ (ECSubscriptionFeed *)addSubscriptionForUrlString:(NSString *)url toFolder:(ECSubscriptionFolder *)folder refreshImmediately:(BOOL)shouldRefresh{
 	
 	// check to see if this feed already exists in the database
 	FMDatabase *db = [FMDatabase databaseWithPath:[ECDatabaseController pathForDatabaseFile]];
 	
 	if (![db open]) {
 		[ECErrorUtility createAndDisplayError:@"Unable to add subscription!"];
-		return;
+		return nil;
 	}
 	
 	FMResultSet *rs = [db executeQuery:@"SELECT * FROM feed WHERE Url=? AND IsHidden=0", url];
@@ -178,7 +183,7 @@ static NSString *path;
 		[ECErrorUtility createAndDisplayError:@"The subscription could not be added because it already exists in your library!"];
 		[rs close];
 		[db close];
-		return;
+		return nil;
 	}
 	
 	[rs close];
@@ -234,7 +239,7 @@ static NSString *path;
 	if (shouldRefresh) {
 		[[ECRequestController getSharedInstance] queueSyncRequestForSpecificFeeds:[NSMutableArray arrayWithObject:newSub]];
 	}
-
+    return newSub;
 }
 
 + (NSMutableArray *)checkIfPostsNotExists:(NSMutableArray *)probablyNewPosts{
@@ -484,5 +489,103 @@ static NSString *path;
 	
 	[db close];
 
+}
+
++ (NSInteger)loadPostsFromDatabaseForItem:(ECSubscriptionItem *)selectedItem
+                             orQuery:(NSString *)query
+                                  to:(NSMutableArray *)posts
+                           fromRange:(NSRange)range
+{
+    FMDatabase *db = [FMDatabase databaseWithPath:[ECDatabaseController pathForDatabaseFile]];
+	
+	if (![db open]) {
+		[NSException raise:@"Database error" format:@"Failed to connect to the database!"];
+	}
+	
+	NSMutableString *dbQuery = [NSMutableString string];
+	
+	if (query != nil) {
+		NSArray *queryParts = [query componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+		NSMutableString *queryBuild = [NSMutableString string];
+		BOOL isFirst = YES;
+		
+		for (NSString *queryPart in queryParts) {
+			if (isFirst == NO) {
+				[queryBuild appendString:@" OR "];
+			}
+			
+			[queryBuild appendFormat:@"post.Title LIKE '%%%@%%'", queryPart];
+			[queryBuild appendFormat:@" OR post.Author LIKE '%%%@%%'", queryPart];
+			[queryBuild appendFormat:@" OR post.PlainTextContent LIKE '%%%@%%'", queryPart];
+			[queryBuild appendFormat:@" OR feed.Title LIKE '%%%@%%'", queryPart];
+			
+			isFirst = NO;
+		}
+		
+		[dbQuery appendFormat:SEARCH_QUERY, queryBuild];
+	} else if ([selectedItem isKindOfClass:[ECSubscriptionFeed class]]) {
+		[dbQuery appendFormat:FEED_QUERY, [(ECSubscriptionFeed *)selectedItem dbId]];
+	} else if ([selectedItem isKindOfClass:[ECSubscriptionFolder class]]) {
+		[dbQuery appendFormat:FOLDER_QUERY, [(ECSubscriptionFolder *)selectedItem path]];
+	} else if (selectedItem == [[ECSubscriptionsController getSharedInstance]subscriptionNewItems]) {
+		[dbQuery appendString:NEW_ITEMS_QUERY];
+	} else if (selectedItem == [[ECSubscriptionsController getSharedInstance] subscriptionStarredItems]) {
+		[dbQuery appendString:STARRED_QUERY];
+	} else {
+		return 0;
+	}
+	
+	BOOL isOnlyUnreadItems = NO;
+	
+	if (selectedItem == [[ECSubscriptionsController getSharedInstance]subscriptionNewItems]) {
+		isOnlyUnreadItems = YES;
+	}
+	
+	[dbQuery appendString:@" ORDER BY post.Id DESC"];
+	
+    if (isOnlyUnreadItems) {
+        NSInteger numberOfReadPosts = 0;
+        
+        for (ECPost *post in posts) {
+            if ([post isRead]) {
+                numberOfReadPosts++;
+            }
+        }
+        
+        [dbQuery appendFormat:@" LIMIT %ld, %ld", (range.location - numberOfReadPosts), range.length];
+    } else {
+        [dbQuery appendFormat:@" LIMIT %ld, %ld", range.location, range.length];
+    }
+	
+	FMResultSet *rs = [db executeQuery:dbQuery];
+    NSInteger num = 0;
+
+	while ([rs next]) {
+		ECPost *post = [[ECPost alloc] initWithResultSet:rs];
+		
+		if ([rs boolForColumn:@"HasEnclosures"]) {
+			FMResultSet *rs2 = [db executeQuery:@"SELECT * FROM enclosure WHERE PostId=?", [NSNumber numberWithInteger:[post dbId]]];
+			
+			while ([rs2 next]) {
+				[[post enclosures] addObject:[rs2 stringForColumn:@"Url"]];
+			}
+			
+			[rs2 close];
+		}
+		
+//        if ([post isRead] == NO) {
+//            NSNumber *key = [NSNumber numberWithInteger:[post dbId]];
+//            [[classicView unreadItemsDict] setObject:post forKey:key];
+//        }
+        
+		[posts addObject:post];
+		[post release];
+        num++;
+	}
+	
+	[rs close];
+	[db close];
+
+    return num;
 }
 @end

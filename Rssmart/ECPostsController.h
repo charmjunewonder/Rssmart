@@ -5,17 +5,21 @@
 //  Created by charmjunewonder on 4/29/14.
 //  Copyright (c) 2014 Eric Chen. All rights reserved.
 //
+#import "ECTableViewTextFieldCellDelegate.h"
 
 @class ECTableView;
+@class ECSubscriptionItem;
 
-@interface ECPostsController : NSObject
+@interface ECPostsController : NSObject < NSTableViewDataSource, NSTableViewDelegate, ECTableViewTextFieldCellDelegate>
 
 @property (assign, nonatomic) IBOutlet ECTableView *tableView;
 @property (retain, nonatomic) NSMutableArray *posts;
+@property (assign, nonatomic) ECSubscriptionItem *selectedItem;
+@property (assign, nonatomic) NSString *searchQuery;
 
 + (ECPostsController *)getSharedInstance;
 
-- (void)createClassicView;
+- (void)setup;
 
 #pragma mark Load Post to TableView
 //- (void)loadPostsIntoClassicView:(CLClassicView *)classicView;

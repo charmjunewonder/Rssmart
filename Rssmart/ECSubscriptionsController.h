@@ -35,6 +35,7 @@ NSOutlineViewDelegate, ECIconRefreshOperationDelegate, ECFeedParserOperationDele
 @property (assign, nonatomic) IBOutlet ECAddFeedController *addFeedController;
 @property (assign, nonatomic) IBOutlet ECAddFolderController *addFolderController;
 @property (assign, nonatomic) IBOutlet NSMenu *subsViewContextMenu;
+@property (retain, nonatomic) NSMutableDictionary *feedLookupDict;
 
 + (ECSubscriptionsController *)getSharedInstance;
 
@@ -50,4 +51,6 @@ NSOutlineViewDelegate, ECIconRefreshOperationDelegate, ECFeedParserOperationDele
 - (IBAction)deleteFolder:(id)sender;
 - (void)refreshSubscriptionsView;
 - (IBAction)subscriptionsItemRefresh:(id)sender;
+- (ECSubscriptionFeed *)feedForDbId:(NSInteger)dbId;
+
 @end

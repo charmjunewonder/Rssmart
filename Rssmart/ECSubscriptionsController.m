@@ -44,6 +44,7 @@
 @synthesize addFolderController;
 @synthesize subsViewContextMenu;
 @synthesize postsController;
+@synthesize feedLookupDict;
 
 static ECSubscriptionsController *_sharedInstance = nil;
 
@@ -70,9 +71,16 @@ static ECSubscriptionsController *_sharedInstance = nil;
         
         // create an object as a placeholder until we create the real object; crashes otherwise
         [self setSubscriptionRoot:[[[ECSubscriptionFolder alloc] init] autorelease]];
-        
+        [self setFeedLookupDict:[NSMutableDictionary dictionary]];
+
     }
     return self;
+}
+
+- (void)dealloc {
+	[feedLookupDict release];
+	
+	[super dealloc];
 }
 
 -(void)setup{
@@ -83,8 +91,10 @@ static ECSubscriptionsController *_sharedInstance = nil;
     
     [subsView registerForDraggedTypes:[NSArray arrayWithObjects:SOURCE_LIST_DRAG_TYPE, nil]];
 	[subsView setDraggingSourceOperationMask:NSDragOperationEvery forLocal:YES];
-    postsController = [ECPostsController getSharedInstance];
     
+    postsController = [ECPostsController getSharedInstance];
+    [postsController setSelectedItem:subscriptionNewItems];
+    [postsController setup];
 }
 
 /*
@@ -315,11 +325,9 @@ static ECSubscriptionsController *_sharedInstance = nil;
 - (void)outlineViewSelectionDidChange:(NSNotification *)notification {
 	ECSubscriptionItem *selectedItem = [subsView itemAtRow:[subsView selectedRow]];
 	//TODO:outlineViewSelectionDidChange
-//	if (selectedItem != nil) {
-//		if ([classicView sourceListItem] != selectedItem) {
-//            [self openItemInCurrentTab:selectedItem orQuery:nil];
-//		}
-//	}
+	if (selectedItem != nil) {
+        [self openItemInCurrentTab:selectedItem orQuery:nil];
+	}
 	
 	[self setSubscriptionSelectedItem:selectedItem];
 }
@@ -449,6 +457,7 @@ static ECSubscriptionsController *_sharedInstance = nil;
 
 - (void)didDeleteFeed:(ECSubscriptionFeed *)feed {
 	if (feed != nil && [feed dbId] > 0) {
+        [feedLookupDict removeObjectForKey:[NSNumber numberWithInteger:[feed dbId]]];
 		[[ECRequestController getSharedInstance] removeFromRequestForFeed:feed];
 	}
 }
@@ -569,7 +578,8 @@ static ECSubscriptionsController *_sharedInstance = nil;
 		}
 	}
 	
-    [ECDatabaseController addSubscriptionForUrlString:url toFolder:folder refreshImmediately:YES];
+    ECSubscriptionFeed *newFeed = [ECDatabaseController addSubscriptionForUrlString:url toFolder:folder refreshImmediately:YES];
+    [feedLookupDict setObject:newFeed forKey:[NSNumber numberWithInteger:[newFeed dbId]]];
 }
 
 - (void)iconRefreshOperation:(ECIconRefreshOperation *)refreshOp refreshedFeed:(ECSubscriptionFeed *)feed foundIcon:(NSImage *)icon {
@@ -874,5 +884,22 @@ static ECSubscriptionsController *_sharedInstance = nil;
 		[self changeBadgeValuesBy:value forAncestorsOfItem:ancestor];
 	}
 }
+
+- (ECSubscriptionFeed *)feedForDbId:(NSInteger)dbId {
+	ECSubscriptionFeed *feed = nil;
+	
+	if (dbId <= 0) {
+		return nil;
+	}
+	
+	feed = [feedLookupDict objectForKey:[NSNumber numberWithInteger:dbId]];
+	
+	if (feed != nil) {
+		[[feed retain] autorelease];
+	}
+	
+	return feed;
+}
+
 
 @end

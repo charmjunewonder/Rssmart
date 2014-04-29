@@ -89,13 +89,13 @@
                                             <tableViewGridLines key="gridStyleMask" horizontal="YES"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
-                                                <tableColumn width="227" minWidth="40" maxWidth="1000" id="Obm-I5-Ynf">
+                                                <tableColumn editable="NO" width="227" minWidth="40" maxWidth="1000" id="Obm-I5-Ynf">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
                                                     </tableHeaderCell>
-                                                    <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="zah-LO-jgQ">
+                                                    <textFieldCell key="dataCell" lineBreakMode="truncatingTail" alignment="left" title="Text Cell" id="zah-LO-jgQ" customClass="ECTableViewTextFieldCell">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -135,7 +135,7 @@
                         </holdingPriorities>
                     </splitView>
                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8DT-Ji-b4p">
-                        <rect key="frame" x="182" y="6" width="23" height="25"/>
+                        <rect key="frame" x="152" y="5" width="23" height="25"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="roundTextured" title="+" bezelStyle="texturedRounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="WwL-WA-k9U">
                             <behavior key="behavior" lightByContents="YES"/>

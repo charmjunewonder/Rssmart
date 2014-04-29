@@ -35,7 +35,8 @@
 - (void)newWindow {
 	windowController = [[ECWindowController alloc] init];
 //	[windowController setSubscriptionList:subscriptionList];
-	[windowController showWindow:self];
+		
+    [windowController showWindow:self];
 	
 //	if (isFirstWindow) {
 //		NSUInteger numUnread = [windowController updateBadgeValuesFor:subscriptionList];
@@ -45,7 +46,6 @@
 //		[[windowController subscriptionNewItems] setBadgeValue:totalUnread];
 //	}
 	
-//	[[windowController subsController] selectRowIndexes:[NSIndexSet indexSetWithIndex:1] byExtendingSelection:NO];
 	
 //	[self updateMenuItems];
 	

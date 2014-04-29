@@ -12,7 +12,7 @@
 
 @interface ECDatabaseController : NSObject
 
-+ (void)addSubscriptionForUrlString:(NSString *)url toFolder:(ECSubscriptionItem *)folder refreshImmediately:(BOOL)shouldRefresh;
++ (ECSubscriptionFeed *)addSubscriptionForUrlString:(NSString *)url toFolder:(ECSubscriptionItem *)folder refreshImmediately:(BOOL)shouldRefresh;
 + (void)loadFromDatabaseTo:(ECSubscriptionItem *)subscriptions;
 + (NSMutableArray *)checkIfPostsNotExists:(NSMutableArray *)probablyNewPosts;
 + (void)updateLastSyncPosts:(NSMutableArray *)syncPosts forFeed:(ECSubscriptionFeed *)feed;
@@ -22,4 +22,9 @@
 + (ECSubscriptionFolder *)addFolderWithTitle:(NSString *)title;
 + (void)deleteFolder:(ECSubscriptionFolder *)folder;
 + (void)deleteFeed:(ECSubscriptionFeed *)feed;
++ (NSInteger)loadPostsFromDatabaseForItem:(ECSubscriptionItem *)selectedItem
+                                  orQuery:(NSString *)query
+                                       to:(NSMutableArray *)posts
+                                fromRange:(NSRange)range;
+
 @end
