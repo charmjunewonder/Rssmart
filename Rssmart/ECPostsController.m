@@ -17,6 +17,7 @@
 #import "ECRequestController.h"
 #import "ECWebView.h"
 #import "ECArticleController.h"
+#import "NSScrollView+ECAdditions.h"
 
 #define CLASSIC_VIEW_POSTS_PER_QUERY 100
 #define UNREAD_COUNT_QUERY @"UPDATE feed SET UnreadCount = (SELECT COUNT(Id) FROM post WHERE FeedId=? AND IsRead=0 AND IsHidden=0) WHERE Id=?"
@@ -104,37 +105,42 @@ static ECPostsController *_sharedInstance = nil;
     //	[self updateViewVisibilityForTab:classicView];
 }
 
-//- (void)openItemInCurrentTab:(ECSubscriptionItem *)item orQuery:(NSString *)queryString {
-//    [classicView setSourceListItem:item];
-//    [classicView setSearchQuery:queryString];
-//    
-//    if ([[classicView posts] count] > 0) {
-//        [self clearContentOfTableView];
-//    }
-//    
-//    //	[self updateViewVisibilityForTab:tabViewItem];
-//    
-//    [self loadPostsIntoClassicView:classicView];
+- (void)openSubscriptionItem:(ECSubscriptionItem *)item orQuery:(NSString *)queryString
+{
+    selectedItem = item;
+    queryString = queryString;
+    
+    if ([posts count] > 0) {
+        [self clearContentOfTableView];
+    }
+    
+    //	[self updateViewVisibilityForTab:tabViewItem];
+    
+    [self loadPostsIntoPostsView];
 //    [self performSelector:@selector(updateFirstResponder) withObject:nil afterDelay:0.1]; // don't ask
 //    [self updateViewSwitchEnabled];
-//    
-//}
+    
+}
+
+- (void)reloadDataInTableView{
+    [self openSubscriptionItem:selectedItem orQuery:nil];
+}
 
 //TODO rename
-//- (void)clearContentOfTableView {
-//    
-//    [classicView setPosts:[NSMutableArray array]];
-//    [classicView setUnreadItemsDict:[NSMutableDictionary dictionary]];
-//    [classicView setPostsMissingFromBottom:YES];
-//    [classicView setDisplayedPost:nil];
-//    [classicView setShouldIgnoreSelectionChange:NO];
-//    
-//    NSClipView *clipView = (NSClipView *)[[classicView tableView] superview];
-//    NSScrollView *scrollView = (NSScrollView *)[clipView superview];
-//    [scrollView clScrollToTop];
-//    
-//    [[[classicView webView] mainFrame] loadHTMLString:@"" baseURL:nil];
-//}
+- (void)clearContentOfTableView {
+    
+    [self setPosts:[NSMutableArray array]];
+    //[classicView setUnreadItemsDict:[NSMutableDictionary dictionary]];
+    //[classicView setPostsMissingFromBottom:YES];
+    [articleController setDisplayedPost:nil];
+    //[classicView setShouldIgnoreSelectionChange:NO];
+    
+    NSClipView *clipView = (NSClipView *)[tableView superview];
+    NSScrollView *scrollView = (NSScrollView *)[clipView superview];
+    [scrollView ecScrollToTop];
+    
+    [[[articleController webView] mainFrame] loadHTMLString:@"" baseURL:nil];
+}
 #pragma mark -
 
 #pragma mark NSTableViewDataSource

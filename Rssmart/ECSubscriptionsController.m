@@ -15,7 +15,7 @@
 #import "ECAddFeedController.h"
 #import "ECVersionNumber.h"
 #import "FMDatabase.h"
-#import "NSString+ECAddition.h"
+#import "NSString+ECAdditions.h"
 #import "ECErrorUtility.h"
 #import "ECDatabaseController.h"
 #import "ECIconRefreshOperation.h"
@@ -326,7 +326,7 @@ static ECSubscriptionsController *_sharedInstance = nil;
 	ECSubscriptionItem *selectedItem = [subsView itemAtRow:[subsView selectedRow]];
 	//TODO:outlineViewSelectionDidChange
 	if (selectedItem != nil) {
-//        [self openItemInCurrentTab:selectedItem orQuery:nil];
+        [postsController openSubscriptionItem:selectedItem orQuery:nil];
 	}
 	
 	[self setSubscriptionSelectedItem:selectedItem];
@@ -464,6 +464,7 @@ static ECSubscriptionsController *_sharedInstance = nil;
 
 - (IBAction)refreshSubscriptions:(id)sender{
     [[ECRequestController getSharedInstance] queueAllFeedsSyncRequest:subscriptionSubscriptions];
+    [postsController reloadDataInTableView];
 }
 
 - (IBAction)deleteFeed:(id)sender{

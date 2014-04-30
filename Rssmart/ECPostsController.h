@@ -25,10 +25,8 @@
 - (void)setup;
 
 #pragma mark Load Post to TableView
-//- (void)loadPostsIntoClassicView:(CLClassicView *)classicView;
-//- (void)loadPostsIntoClassicView:(CLClassicView *)classicView fromRange:(NSRange)range atBottom:(BOOL)bottom;
-//- (void)openItemInCurrentTab:(CLSourceListItem *)item orQuery:(NSString *)queryString;
-//- (void)clearContentOfTableView;
+- (void)openSubscriptionItem:(ECSubscriptionItem *)item orQuery:(NSString *)queryString;
+- (void)reloadDataInTableView;
 #pragma mark -
 
 

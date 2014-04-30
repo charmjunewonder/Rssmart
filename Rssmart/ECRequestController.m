@@ -310,13 +310,8 @@ static ECRequestController *_sharedInstance = nil;
  * Sync All Feeds
  */
 - (void)queueAllFeedsSyncRequest:(ECSubscriptionItem *)subscriptionRoot {
-	ECRequest *request = [[ECRequest alloc] init];
-	[request setRequestType:ECRequestAllFeedsSync];
-    [request setSingleFeed:subscriptionRoot];
-	[requestQueue addObject:request];
-	[request release];
-	
-	[self startRequestIfNoneInProgress];
+    //TODO:
+    [self queueSyncRequestForSpecificFeeds: [subscriptionRoot children]];
 }
 
 - (void)removeFromRequestForFeed:(ECSubscriptionFeed *)feed{

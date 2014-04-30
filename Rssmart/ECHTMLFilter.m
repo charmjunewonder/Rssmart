@@ -9,7 +9,7 @@
 #import "ECHTMLFilter.h"
 #import <WebKit/WebKit.h>
 #import "ECConstants.h"
-#import "NSString+ECAddition.h"
+#import "NSString+ECAdditions.h"
 @implementation ECHTMLFilter
 
 # pragma mark convenience & helper methods

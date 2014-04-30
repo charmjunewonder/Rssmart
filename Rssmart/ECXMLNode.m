@@ -7,7 +7,7 @@
 //
 
 #import "ECXMLNode.h"
-#import "NSString+ECAddition.h"
+#import "NSString+ECAdditions.h"
 
 @implementation ECXMLNode
 

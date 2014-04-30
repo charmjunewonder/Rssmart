@@ -28,6 +28,7 @@
 		D177BAB0190FB1E10070A632 /* NSDate+ECAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D177BAAF190FB1E10070A632 /* NSDate+ECAdditions.m */; };
 		D177BAB3190FF6450070A632 /* ECWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = D177BAB2190FF6450070A632 /* ECWebView.m */; };
 		D177BAB6190FF6FA0070A632 /* ECArticleController.m in Sources */ = {isa = PBXBuildFile; fileRef = D177BAB5190FF6FA0070A632 /* ECArticleController.m */; };
+		D177BAB91910CBD40070A632 /* NSScrollView+ECAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D177BAB81910CBD40070A632 /* NSScrollView+ECAdditions.m */; };
 		D1B8355E190A062D00E2D939 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1B8355D190A062D00E2D939 /* Cocoa.framework */; };
 		D1B83568190A062D00E2D939 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D1B83566190A062D00E2D939 /* InfoPlist.strings */; };
 		D1B8356A190A062D00E2D939 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B83569190A062D00E2D939 /* main.m */; };
@@ -65,7 +66,7 @@
 		D1B835E8190A92FD00E2D939 /* unreadDot.png in Resources */ = {isa = PBXBuildFile; fileRef = D1B835E2190A92FD00E2D939 /* unreadDot.png */; };
 		D1B835F2190AAF8900E2D939 /* AddFeedPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1B835F1190AAF8900E2D939 /* AddFeedPanel.xib */; };
 		D1B835F6190AB16C00E2D939 /* ECAddFeedController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B835F5190AB16C00E2D939 /* ECAddFeedController.m */; };
-		D1B835FA190B92A000E2D939 /* NSString+ECAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B835F9190B92A000E2D939 /* NSString+ECAddition.m */; };
+		D1B835FA190B92A000E2D939 /* NSString+ECAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B835F9190B92A000E2D939 /* NSString+ECAdditions.m */; };
 		D1B835FD190B934E00E2D939 /* ECErrorUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B835FC190B934E00E2D939 /* ECErrorUtility.m */; };
 		D1B83600190B956500E2D939 /* NSFileManager+ECAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B835FF190B956500E2D939 /* NSFileManager+ECAdditions.m */; };
 		D1B83603190C210600E2D939 /* ECTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B83602190C210600E2D939 /* ECTimer.m */; };
@@ -130,6 +131,8 @@
 		D177BAB2190FF6450070A632 /* ECWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECWebView.m; sourceTree = "<group>"; };
 		D177BAB4190FF6FA0070A632 /* ECArticleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECArticleController.h; sourceTree = "<group>"; };
 		D177BAB5190FF6FA0070A632 /* ECArticleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECArticleController.m; sourceTree = "<group>"; };
+		D177BAB71910CBD40070A632 /* NSScrollView+ECAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSScrollView+ECAdditions.h"; sourceTree = "<group>"; };
+		D177BAB81910CBD40070A632 /* NSScrollView+ECAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSScrollView+ECAdditions.m"; sourceTree = "<group>"; };
 		D1B8355A190A062D00E2D939 /* Rssmart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rssmart.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1B8355D190A062D00E2D939 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		D1B83560190A062D00E2D939 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -192,8 +195,8 @@
 		D1B835F1190AAF8900E2D939 /* AddFeedPanel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddFeedPanel.xib; sourceTree = "<group>"; };
 		D1B835F4190AB16C00E2D939 /* ECAddFeedController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECAddFeedController.h; sourceTree = "<group>"; };
 		D1B835F5190AB16C00E2D939 /* ECAddFeedController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECAddFeedController.m; sourceTree = "<group>"; };
-		D1B835F8190B92A000E2D939 /* NSString+ECAddition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ECAddition.h"; sourceTree = "<group>"; };
-		D1B835F9190B92A000E2D939 /* NSString+ECAddition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ECAddition.m"; sourceTree = "<group>"; };
+		D1B835F8190B92A000E2D939 /* NSString+ECAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ECAdditions.h"; sourceTree = "<group>"; };
+		D1B835F9190B92A000E2D939 /* NSString+ECAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ECAdditions.m"; sourceTree = "<group>"; };
 		D1B835FB190B934E00E2D939 /* ECErrorUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECErrorUtility.h; sourceTree = "<group>"; };
 		D1B835FC190B934E00E2D939 /* ECErrorUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECErrorUtility.m; sourceTree = "<group>"; };
 		D1B835FE190B956500E2D939 /* NSFileManager+ECAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileManager+ECAdditions.h"; sourceTree = "<group>"; };
@@ -479,10 +482,12 @@
 				D101BECE190CF23900B8A0A0 /* GTMNSString+HTML.m */,
 				D1B835FE190B956500E2D939 /* NSFileManager+ECAdditions.h */,
 				D1B835FF190B956500E2D939 /* NSFileManager+ECAdditions.m */,
-				D1B835F8190B92A000E2D939 /* NSString+ECAddition.h */,
-				D1B835F9190B92A000E2D939 /* NSString+ECAddition.m */,
+				D1B835F8190B92A000E2D939 /* NSString+ECAdditions.h */,
+				D1B835F9190B92A000E2D939 /* NSString+ECAdditions.m */,
 				D177BAAE190FB1E10070A632 /* NSDate+ECAdditions.h */,
 				D177BAAF190FB1E10070A632 /* NSDate+ECAdditions.m */,
+				D177BAB71910CBD40070A632 /* NSScrollView+ECAdditions.h */,
+				D177BAB81910CBD40070A632 /* NSScrollView+ECAdditions.m */,
 			);
 			name = Category;
 			sourceTree = "<group>";
@@ -596,7 +601,7 @@
 			files = (
 				D1B835D3190A17E000E2D939 /* ECVersionNumber.m in Sources */,
 				D1B83599190A0B8100E2D939 /* ECSubscriptionFeed.m in Sources */,
-				D1B835FA190B92A000E2D939 /* NSString+ECAddition.m in Sources */,
+				D1B835FA190B92A000E2D939 /* NSString+ECAdditions.m in Sources */,
 				D101BEB4190C251600B8A0A0 /* ECOperation.m in Sources */,
 				D101BEB9190C26A200B8A0A0 /* ECIconRefreshOperation.m in Sources */,
 				D101BED6190CF3A900B8A0A0 /* ECStringHelper.m in Sources */,
@@ -612,6 +617,7 @@
 				D101BED2190CF2BD00B8A0A0 /* ECFeedParserOperation.m in Sources */,
 				D1B835C8190A135800E2D939 /* ECSubscriptionsView.m in Sources */,
 				D101BEDC190CF7A400B8A0A0 /* ECDateUtility.m in Sources */,
+				D177BAB91910CBD40070A632 /* NSScrollView+ECAdditions.m in Sources */,
 				D177BAAD190FB1650070A632 /* ECTableViewTextFieldCell.m in Sources */,
 				D177BAA6190FADE60070A632 /* ECPostsController.m in Sources */,
 				D1B835BF190A0CBB00E2D939 /* FMDatabase.m in Sources */,
