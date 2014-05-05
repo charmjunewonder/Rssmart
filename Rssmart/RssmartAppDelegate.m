@@ -38,13 +38,6 @@
 		
     [windowController showWindow:self];
 	
-//	if (isFirstWindow) {
-//		NSUInteger numUnread = [windowController updateBadgeValuesFor:subscriptionList];
-//		[self changeNewItemsBadgeValueBy:numUnread];
-//		[self setIsFirstWindow:NO];
-//	} else {
-//		[[windowController subscriptionNewItems] setBadgeValue:totalUnread];
-//	}
 	
 	
 //	[self updateMenuItems];

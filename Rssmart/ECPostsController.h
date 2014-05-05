@@ -23,6 +23,11 @@
 + (ECPostsController *)getSharedInstance;
 
 - (void)setup;
+- (IBAction)markReadWithCurrentPost:(id)sender;
+- (IBAction)markUnreadWithCurrentPost:(id)sender;
+- (IBAction)addStarToCurrentPost:(id)sender;
+- (IBAction)removeStarToCurrentPost:(id)sender;
+- (void)clearContentOfTableView;
 
 #pragma mark Load Post to TableView
 - (void)openSubscriptionItem:(ECSubscriptionItem *)item orQuery:(NSString *)queryString;

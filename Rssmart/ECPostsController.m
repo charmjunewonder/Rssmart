@@ -98,9 +98,7 @@ static ECPostsController *_sharedInstance = nil;
 //        [self performSelector:@selector(checkIfClassicViewNeedsToLoadMoreContent:) withObject:classicView afterDelay:1];
 //    }
     
-    if (numOfNewPost > 0) {
-        [tableView reloadData];
-    }
+    [tableView reloadData];
 	
     //	[self updateViewVisibilityForTab:classicView];
 }
@@ -119,7 +117,7 @@ static ECPostsController *_sharedInstance = nil;
     [self loadPostsIntoPostsView];
 //    [self performSelector:@selector(updateFirstResponder) withObject:nil afterDelay:0.1]; // don't ask
 //    [self updateViewSwitchEnabled];
-    
+    [tableView deselectAll:self];
 }
 
 - (void)reloadDataInTableView{
@@ -221,6 +219,10 @@ static ECPostsController *_sharedInstance = nil;
 
 - (void)markReadWithPost:(ECPost *)post {
 		
+    if ([post isRead]) {
+        return;
+    }
+    
     NSArray *queries = [NSArray arrayWithObjects:
                         [NSArray arrayWithObjects:@"UPDATE post SET IsRead=1 WHERE Id=?", [NSNumber numberWithInteger:[post dbId]], nil],
                         [NSArray arrayWithObjects:UNREAD_COUNT_QUERY, [NSNumber numberWithInteger:[post feedDbId]], [NSNumber numberWithInteger:[post feedDbId]], nil],
@@ -233,10 +235,66 @@ static ECPostsController *_sharedInstance = nil;
 	[subsCon changeBadgeValueBy:-1 forItem:feed];
 	[subsCon changeBadgeValuesBy:-1 forAncestorsOfItem:feed];
 	
-//	[self changeNewItemsBadgeValueBy:-1];
+	[subsCon changeNewItemsBadgeValueBy:-1];
 	[subsCon refreshSubscriptionsView];
 	
     [post setIsRead:YES];
 }
+
+- (IBAction)markReadWithCurrentPost:(id)sender {
+    [self markReadWithPost:[articleController displayedPost]];
+}
+- (void)markUnreadWithPost:(ECPost *)post {
+    
+    if (![post isRead]) {
+        return;
+    }
+    
+    NSArray *queries = [NSArray arrayWithObjects:
+                        [NSArray arrayWithObjects:@"UPDATE post SET IsRead=0 WHERE Id=?", [NSNumber numberWithInteger:[post dbId]], nil],
+                        [NSArray arrayWithObjects:UNREAD_COUNT_QUERY, [NSNumber numberWithInteger:[post feedDbId]], [NSNumber numberWithInteger:[post feedDbId]], nil],
+                        nil];
+    
+	[[ECRequestController getSharedInstance] runDatabaseUpdatesOnBackgroundThread:queries];
+	ECSubscriptionsController * subsCon = [ECSubscriptionsController getSharedInstance];
+	ECSubscriptionFeed *feed = [subsCon feedForDbId:[post feedDbId]];
+	
+	[subsCon changeBadgeValueBy:+1 forItem:feed];
+	[subsCon changeBadgeValuesBy:+1 forAncestorsOfItem:feed];
+	
+	[subsCon changeNewItemsBadgeValueBy:+1];
+	[subsCon refreshSubscriptionsView];
+
+    [post setIsRead:NO];
+}
+
+- (IBAction)markUnreadWithCurrentPost:(id)sender {
+    [self markUnreadWithPost:[articleController displayedPost]];
+}
+
+- (IBAction)addStarToCurrentPost:(id)sender {
+    ECPost *post = [articleController displayedPost];
+
+    if ([post isStarred]) {
+        return;
+    }
+    
+    [[ECRequestController getSharedInstance] runDatabaseUpdateOnBackgroundThread:@"UPDATE post SET IsStarred=1 WHERE Id=?", [NSNumber numberWithInteger:[post dbId]], nil];
+	
+	[post setIsStarred:YES];
+}
+
+- (IBAction)removeStarToCurrentPost:(id)sender {
+    ECPost *post = [articleController displayedPost];
+    
+    if (![post isStarred]) {
+        return;
+    }
+    
+    [[ECRequestController getSharedInstance] runDatabaseUpdateOnBackgroundThread:@"UPDATE post SET IsStarred=0 WHERE Id=?", [NSNumber numberWithInteger:[post dbId]], nil];
+	
+	[post setIsStarred:NO];
+}
+
 
 @end

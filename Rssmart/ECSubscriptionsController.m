@@ -95,6 +95,8 @@ static ECSubscriptionsController *_sharedInstance = nil;
     postsController = [ECPostsController getSharedInstance];
     [postsController setSelectedItem:subscriptionNewItems];
     [postsController setup];
+    
+    [self updateNewsBadgeValues];
 }
 
 /*
@@ -330,6 +332,7 @@ static ECSubscriptionsController *_sharedInstance = nil;
 	}
 	
 	[self setSubscriptionSelectedItem:selectedItem];
+    [[postsController tableView] reloadData];
 }
 #pragma mark -
 
@@ -432,12 +435,6 @@ static ECSubscriptionsController *_sharedInstance = nil;
 		
         //TODO: if the selected tab is for the item we are deleting (or a descendent), change it to be for new items
         
-        //TODO: change badgeValue
-//        if ([item badgeValue] > 0) {
-//            [self changeNewItemsBadgeValueBy:([item badgeValue] * -1)];
-//        }
-        
-        
         [self didDeleteFolder:(ECSubscriptionFolder *)folder];
 		
         [[subscriptionSubscriptions children] removeObject:folder];
@@ -459,6 +456,10 @@ static ECSubscriptionsController *_sharedInstance = nil;
 	if (feed != nil && [feed dbId] > 0) {
         [feedLookupDict removeObjectForKey:[NSNumber numberWithInteger:[feed dbId]]];
 		[[ECRequestController getSharedInstance] removeFromRequestForFeed:feed];
+        //TODO: change badgeValue
+        if ([feed badgeValue] > 0) {
+            [self changeNewItemsBadgeValueBy:([feed badgeValue] * -1)];
+        }
 	}
 }
 
@@ -503,7 +504,7 @@ static ECSubscriptionsController *_sharedInstance = nil;
         //TODO: change badgeValue
         if ([feed badgeValue] > 0) {
             [self changeBadgeValuesBy:([feed badgeValue] * -1) forAncestorsOfItem:feed];
-//            [self changeNewItemsBadgeValueBy:([item badgeValue] * -1)];
+            [self changeNewItemsBadgeValueBy:([feed badgeValue] * -1)];
         }
         
         [self didDeleteFeed:(ECSubscriptionFeed *)feed];
@@ -638,7 +639,7 @@ static ECSubscriptionsController *_sharedInstance = nil;
 	if (numberOfUnread > 0) {
 		[feed setBadgeValue:([feed badgeValue] + numberOfUnread)];
 		[self changeBadgeValuesBy:numberOfUnread forAncestorsOfItem:feed];
-//		[self changeNewItemsBadgeValueBy:numberOfUnread];
+		[self changeNewItemsBadgeValueBy:numberOfUnread];
 	}
 	
 	[self processNewPosts:postsToAddToDB forFeed:feed];
@@ -910,5 +911,29 @@ static ECSubscriptionsController *_sharedInstance = nil;
 	return feed;
 }
 
+- (void)changeNewItemsBadgeValueBy:(NSInteger)value {
+	
+	if (value == 0) {
+		return;
+	}
+	
+    ECSubscriptionItem *newItems = [self subscriptionNewItems];
+    [newItems setBadgeValue:([newItems badgeValue] + value)];
+    
+    if ([newItems badgeValue] < 0) {
+        [newItems setBadgeValue:0];
+    }
+	
+//	[self updateDockTile];
+}
+
+- (void)updateNewsBadgeValues {
+	NSInteger unreadCount = 0;
+	NSMutableArray *children = [subscriptionSubscriptions children];
+	for (ECSubscriptionItem *subscription in children) {
+        unreadCount += [subscription badgeValue];
+	}
+	[self changeNewItemsBadgeValueBy:unreadCount];
+}
 
 @end
