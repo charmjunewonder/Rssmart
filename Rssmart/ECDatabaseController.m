@@ -595,10 +595,7 @@ static NSString *path;
     return num;
 }
 
-+ (BOOL)loadFromDatabaseToKeywords:(NSArray *)keywords toVector:(NSArray *)vector{
-
-    NSMutableArray *keywordsTemp = [[NSMutableArray alloc] init];
-    NSMutableArray *vectorTemp = [[NSMutableArray alloc] init];
++ (BOOL)loadFromDatabaseToKeywords:(NSMutableArray *)keywords toVector:(NSMutableArray *)vector{
 
     FMDatabase *db = [FMDatabase databaseWithPath:[ECDatabaseController pathForDatabaseFile]];
 	if (![db open]) {
@@ -610,18 +607,13 @@ static NSString *path;
     NSInteger num = 0;
     
 	while ([rs next]) {
-        [keywordsTemp addObject:[rs stringForColumn:@"keyword"]];
-        [vectorTemp addObject:[NSNumber numberWithDouble:[rs doubleForColumn:@"weight"]]];
+        [keywords addObject:[rs stringForColumn:@"keyword"]];
+        [vector addObject:[NSNumber numberWithDouble:[rs doubleForColumn:@"weight"]]];
         num++;
 	}
 	
 	[rs close];
 	[db close];
-
-    keywords = [keywordsTemp copy];
-    [keywordsTemp release];
-    vector = [vectorTemp copy];
-    [vectorTemp release];
     
     if ([keywords count] == 100) {
         return YES;
@@ -655,6 +647,23 @@ static NSString *path;
 	[db close];
 }
 
++ (void)addToDatabaseForKeywords:(NSArray *)keywords andVector:(NSArray *)vector{
+    
+    FMDatabase *db = [FMDatabase databaseWithPath:[ECDatabaseController pathForDatabaseFile]];
+    
+    if (![db open]) {
+        [NSException raise:@"Database error" format:@"Failed to connect to the database!"];
+    }
 
+    [db beginTransaction];
+
+    for (int i = 0; i < 100; ++i) {
+        [db executeUpdate:@"INSERT INTO keyword (keyword, weight) VALUES (?, ?)", keywords[i], vector[i]];
+    }
+    
+    [db commit];
+    [db close];
+
+}
 
 @end

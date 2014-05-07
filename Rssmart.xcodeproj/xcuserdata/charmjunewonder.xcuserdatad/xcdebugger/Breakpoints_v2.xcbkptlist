@@ -10,12 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Rssmart/ECRecommender.m"
-            timestampString = "421173272.802344"
+            timestampString = "421176606.236791"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "98"
-            endingLineNumber = "98"
-            landmarkName = "-generateKeywords:andVector:"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
+            landmarkName = "-getRecommendedPosts"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

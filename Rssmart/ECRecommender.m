@@ -31,8 +31,8 @@
 
 - (NSMutableArray *)getRecommendedPosts{
     NSMutableArray *recommendedPosts = [[NSMutableArray alloc] init];
-    NSArray *keywords = [[NSArray alloc] init];
-    NSArray *vectorOfKeyword =[[NSArray alloc] init];
+    NSMutableArray *keywords = [[NSMutableArray alloc] init];
+    NSMutableArray *vectorOfKeyword = [[NSMutableArray alloc] init];
     
     BOOL isExisting = [ECDatabaseController loadFromDatabaseToKeywords:keywords toVector:vectorOfKeyword];
     
@@ -43,10 +43,8 @@
     return recommendedPosts;
 }
 
-- (void)generateKeywords:(NSArray *)keywords andVector:(NSArray *)vector{
+- (void)generateKeywords:(NSMutableArray *)keywords andVector:(NSMutableArray *)vector{
     
-    NSMutableArray *vectorTemp = [[NSMutableArray alloc] init];
-
     NSMutableArray *stars = [[NSMutableArray alloc] init];
     [ECDatabaseController loadStarredItemsFromDatabaseToArray:stars fromRange:NSMakeRange(0, 100)];
     
@@ -87,17 +85,16 @@
         return (NSComparisonResult)NSOrderedSame;
     }];
     
-    NSArray *sortedArray = [allSortedArray subarrayWithRange: NSMakeRange(0, 100)];
-    NSDictionary *keywordDictionary = [totalDictionary dictionaryWithValuesForKeys:sortedArray];
+    [keywords addObjectsFromArray:[allSortedArray subarrayWithRange: NSMakeRange(0, 100)]];
+    NSDictionary *keywordDictionary = [totalDictionary dictionaryWithValuesForKeys:keywords];
 
-    for (NSString *key in sortedArray){
+    for (NSString *key in keywords){
         CGFloat weight =[[keywordDictionary objectForKey:key] floatValue];
-        [vectorTemp addObject:[NSNumber numberWithFloat:weight]];
+        [vector addObject:[NSNumber numberWithFloat:weight]];
     }
     
-    vector = [vectorTemp copy];
-    [vectorTemp release];
-    //TODO:put them into database
+    //put them into database
+    [ECDatabaseController addToDatabaseForKeywords:keywords andVector:vector];
 }
 
 - (void)countWordOccurrenceInPost:(ECPost *)post{
