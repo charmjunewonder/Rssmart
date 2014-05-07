@@ -26,5 +26,7 @@
                                   orQuery:(NSString *)query
                                        to:(NSMutableArray *)posts
                                 fromRange:(NSRange)range;
-
++ (BOOL)loadFromDatabaseToKeywords:(NSArray *)keywords toVector:(NSArray *)vector;
++ (void)loadStarredItemsFromDatabaseToArray:(NSMutableArray *)stars fromRange:(NSRange)range;
++ (void)loadReadNotStarredItemsToArray:(NSMutableArray *)reads fromRange:(NSRange)range;
 @end

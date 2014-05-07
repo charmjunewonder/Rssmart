@@ -6,8 +6,11 @@
 //  Copyright (c) 2014 Eric Chen. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 @interface ECRecommender : NSObject
 
+@property (retain, nonatomic) NSMutableArray *posts;
+
+- (id)initWithNewPosts:(NSMutableArray *)posts;
+- (BOOL)isSeparator: (char)c;
+- (NSMutableArray *)getRecommendedPosts;
 @end

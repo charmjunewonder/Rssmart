@@ -24,6 +24,8 @@ NSOutlineViewDelegate, ECIconRefreshOperationDelegate, ECFeedParserOperationDele
 @property (assign, nonatomic) IBOutlet ECSubscriptionsView *subsView;
 //feeds that are at the top containing 'Library' and 'Subscriptions'
 @property (retain, nonatomic) ECSubscriptionItem *subscriptionRoot;
+//feeds that contains recommended posts
+@property (retain, nonatomic) ECSubscriptionItem *subscriptionRecommendedItems;
 //feeds that contains new posts
 @property (retain, nonatomic) ECSubscriptionItem *subscriptionNewItems;
 //feeds that contains starred posts

@@ -25,8 +25,12 @@
 @property (assign, nonatomic) BOOL isRead;
 @property (assign, nonatomic) BOOL isStarred;
 @property (retain, nonatomic) NSMutableArray *enclosures;
+@property (assign, nonatomic) NSDictionary *wordCount;
+@property (assign, nonatomic) NSMutableArray *vector;
+@property (assign, nonatomic) NSMutableDictionary *termsDictionary;
 
 - (id)initWithResultSet:(FMResultSet *)rs; // note, this doesn't load enclosures
 - (void)populateUsingResultSet:(FMResultSet *)rs; // note, this doesn't load enclosures
-
+- (void)calculateWordCountWithStopWords:(NSArray *)stopWords;
+- (void)calculateWeightWithPosts:(NSArray *)posts;
 @end

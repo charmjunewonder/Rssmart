@@ -72,6 +72,8 @@
 		D1B83603190C210600E2D939 /* ECTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B83602190C210600E2D939 /* ECTimer.m */; };
 		D1B83605190C214B00E2D939 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1B83604190C214B00E2D939 /* QuartzCore.framework */; };
 		D1D7B2EA191A187900BF0618 /* ECRecommender.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D7B2E9191A187900BF0618 /* ECRecommender.m */; };
+		D1D7B2F3191A8A3400BF0618 /* NSDictionary+ECMerge.m in Sources */ = {isa = PBXBuildFile; fileRef = D1D7B2F2191A8A3400BF0618 /* NSDictionary+ECMerge.m */; };
+		D1D7B2F6191A958100BF0618 /* stopwords.txt in Resources */ = {isa = PBXBuildFile; fileRef = D1D7B2F5191A958100BF0618 /* stopwords.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -207,6 +209,9 @@
 		D1B83604190C214B00E2D939 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		D1D7B2E8191A187900BF0618 /* ECRecommender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECRecommender.h; sourceTree = "<group>"; };
 		D1D7B2E9191A187900BF0618 /* ECRecommender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECRecommender.m; sourceTree = "<group>"; };
+		D1D7B2F1191A8A3400BF0618 /* NSDictionary+ECMerge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+ECMerge.h"; sourceTree = "<group>"; };
+		D1D7B2F2191A8A3400BF0618 /* NSDictionary+ECMerge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+ECMerge.m"; sourceTree = "<group>"; };
+		D1D7B2F5191A958100BF0618 /* stopwords.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = stopwords.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -295,7 +300,7 @@
 		D1B83563190A062D00E2D939 /* Rssmart */ = {
 			isa = PBXGroup;
 			children = (
-				D1B835DC190A92FD00E2D939 /* Image */,
+				D1D7B2F4191A956D00BF0618 /* Resource */,
 				D1B8356F190A062D00E2D939 /* RssmartAppDelegate.h */,
 				D1B83570190A062D00E2D939 /* RssmartAppDelegate.m */,
 				D1B835F3190AB13E00E2D939 /* XIB */,
@@ -493,8 +498,19 @@
 				D177BAAF190FB1E10070A632 /* NSDate+ECAdditions.m */,
 				D177BAB71910CBD40070A632 /* NSScrollView+ECAdditions.h */,
 				D177BAB81910CBD40070A632 /* NSScrollView+ECAdditions.m */,
+				D1D7B2F1191A8A3400BF0618 /* NSDictionary+ECMerge.h */,
+				D1D7B2F2191A8A3400BF0618 /* NSDictionary+ECMerge.m */,
 			);
 			name = Category;
+			sourceTree = "<group>";
+		};
+		D1D7B2F4191A956D00BF0618 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				D1D7B2F5191A958100BF0618 /* stopwords.txt */,
+				D1B835DC190A92FD00E2D939 /* Image */,
+			);
+			name = Resource;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -579,6 +595,7 @@
 				D1B835DB190A567200E2D939 /* MainWindow.xib in Resources */,
 				D1B835E8190A92FD00E2D939 /* unreadDot.png in Resources */,
 				D1B83576190A062D00E2D939 /* Images.xcassets in Resources */,
+				D1D7B2F6191A958100BF0618 /* stopwords.txt in Resources */,
 				D1B8356E190A062D00E2D939 /* Credits.rtf in Resources */,
 				D1B835F2190AAF8900E2D939 /* AddFeedPanel.xib in Resources */,
 				D1B83574190A062D00E2D939 /* MainMenu.xib in Resources */,
@@ -609,6 +626,7 @@
 				D1B835FA190B92A000E2D939 /* NSString+ECAdditions.m in Sources */,
 				D101BEB4190C251600B8A0A0 /* ECOperation.m in Sources */,
 				D101BEB9190C26A200B8A0A0 /* ECIconRefreshOperation.m in Sources */,
+				D1D7B2F3191A8A3400BF0618 /* NSDictionary+ECMerge.m in Sources */,
 				D101BED6190CF3A900B8A0A0 /* ECStringHelper.m in Sources */,
 				D17704C6190E22CC000EC269 /* ECAddFolderController.m in Sources */,
 				D1B83571190A062D00E2D939 /* RssmartAppDelegate.m in Sources */,

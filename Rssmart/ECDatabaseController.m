@@ -86,6 +86,10 @@ static NSString *path;
 	if ([self tableExists:@"post" inDb:db] == NO) {
 		[db executeUpdate:@"CREATE TABLE post (Id INTEGER PRIMARY KEY, FeedId INTEGER, Guid TEXT, Title TEXT, Link TEXT, Published INTEGER, Received INTEGER, Author TEXT, Content TEXT, PlainTextContent TEXT, IsRead INTEGER NOT NULL DEFAULT 0, HasEnclosures INTEGER NOT NULL DEFAULT 0, IsHidden INTEGER NOT NULL DEFAULT 0, IsStarred INTEGER NOT NULL DEFAULT 0)"];
 	}
+    
+    if ([self tableExists:@"keyword" inDb:db] == NO) {
+		[db executeUpdate:@"CREATE TABLE keyword (Id INTEGER PRIMARY KEY, keyword TEXT, weight DOUBLE DEFAULT 0.0)"];
+	}
 	
 	[self recursivelyLoadChildrenOf:nil usingDatabaseHandle:db to:subscriptions];
 	[db close];
@@ -527,6 +531,8 @@ static NSString *path;
 		[dbQuery appendFormat:FEED_QUERY, [(ECSubscriptionFeed *)selectedItem dbId]];
 	} else if ([selectedItem isKindOfClass:[ECSubscriptionFolder class]]) {
 		[dbQuery appendFormat:FOLDER_QUERY, [(ECSubscriptionFolder *)selectedItem path]];
+	} else if (selectedItem == [[ECSubscriptionsController getSharedInstance]subscriptionRecommendedItems]) {
+		[dbQuery appendString:NEW_ITEMS_QUERY];
 	} else if (selectedItem == [[ECSubscriptionsController getSharedInstance]subscriptionNewItems]) {
 		[dbQuery appendString:NEW_ITEMS_QUERY];
 	} else if (selectedItem == [[ECSubscriptionsController getSharedInstance] subscriptionStarredItems]) {
@@ -588,5 +594,67 @@ static NSString *path;
 
     return num;
 }
+
++ (BOOL)loadFromDatabaseToKeywords:(NSArray *)keywords toVector:(NSArray *)vector{
+
+    NSMutableArray *keywordsTemp = [[NSMutableArray alloc] init];
+    NSMutableArray *vectorTemp = [[NSMutableArray alloc] init];
+
+    FMDatabase *db = [FMDatabase databaseWithPath:[ECDatabaseController pathForDatabaseFile]];
+	if (![db open]) {
+		[NSException raise:@"Database error" format:@"Failed to connect to the database!"];
+	}
+    NSString *query = @"SELECT * FROM keyword";
+    FMResultSet *rs = [db executeQuery:query];
+
+    NSInteger num = 0;
+    
+	while ([rs next]) {
+        [keywordsTemp addObject:[rs stringForColumn:@"keyword"]];
+        [vectorTemp addObject:[NSNumber numberWithDouble:[rs doubleForColumn:@"weight"]]];
+        num++;
+	}
+	
+	[rs close];
+	[db close];
+
+    keywords = [keywordsTemp copy];
+    [keywordsTemp release];
+    vector = [vectorTemp copy];
+    [vectorTemp release];
+    
+    if ([keywords count] == 100) {
+        return YES;
+    }
+    return NO;
+}
+
++ (void)loadStarredItemsFromDatabaseToArray:(NSMutableArray *)stars fromRange:(NSRange)range{
+    ECSubscriptionItem *selected = [[ECSubscriptionsController getSharedInstance] subscriptionStarredItems];
+    [self loadPostsFromDatabaseForItem:selected orQuery:nil  to:stars fromRange:range];
+}
+
++ (void)loadReadNotStarredItemsToArray:(NSMutableArray *)reads fromRange:(NSRange)range{
+    FMDatabase *db = [FMDatabase databaseWithPath:[ECDatabaseController pathForDatabaseFile]];
+	
+	if (![db open]) {
+		[NSException raise:@"Database error" format:@"Failed to connect to the database!"];
+	}
+    
+    NSString *query = [NSString stringWithFormat:@"SELECT post.*, feed.Title AS FeedTitle, feed.Url AS FeedUrlString FROM post, feed WHERE post.FeedId=feed.Id AND post.IsStarred=0 AND post.IsRead=1 LIMIT %ld, %ld", range.location, range.length];
+    FMResultSet *rs = [db executeQuery:query];
+
+    while ([rs next]) {
+		ECPost *post = [[ECPost alloc] initWithResultSet:rs];
+		      
+		[reads addObject:post];
+		[post release];
+	}
+	
+	[rs close];
+	[db close];
+}
+
+
 
 @end

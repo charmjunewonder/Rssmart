@@ -35,6 +35,7 @@
 
 @synthesize subsView;
 @synthesize subscriptionRoot;
+@synthesize subscriptionRecommendedItems;
 @synthesize subscriptionNewItems;
 @synthesize subscriptionStarredItems;
 @synthesize subscriptionSubscriptions;
@@ -112,6 +113,19 @@ static ECSubscriptionsController *_sharedInstance = nil;
 	[library setTitle:@"LIBRARY"];
 	[library setIsGroupItem:YES];
 	
+    /************************ New Items ************************/
+	ECSubscriptionItem *recommendedItems = [[ECSubscriptionItem alloc] init];
+	[recommendedItems setTitle:@"Recommender"];
+	NSString *recommendedItemsIconName = [[NSBundle mainBundle] pathForResource:@"rssIcon" ofType:@"png"];
+	NSImage *recommendedItemsIcon = [[[NSImage alloc] initWithContentsOfFile:recommendedItemsIconName] autorelease];
+	[recommendedItemsIcon setFlipped:YES];
+	[recommendedItems setIcon:recommendedItemsIcon];
+	
+	[[library children] addObject:recommendedItems];
+	[self setSubscriptionRecommendedItems:recommendedItems];
+	[recommendedItems release];
+    
+    /************************ New Items ************************/
 	ECSubscriptionItem *newItems = [[ECSubscriptionItem alloc] init];
 	[newItems setTitle:@"New Items"];
 	NSString *newItemsIconName = [[NSBundle mainBundle] pathForResource:@"inbox-table" ofType:@"png"];
@@ -123,6 +137,7 @@ static ECSubscriptionsController *_sharedInstance = nil;
 	[self setSubscriptionNewItems:newItems];
 	[newItems release];
 	
+    /************************ Starred Items ************************/
 	ECSubscriptionItem *starredItems = [[ECSubscriptionItem alloc] init];
 	[starredItems setTitle:@"Starred Items"];
 	NSImage *starredItemsIcon = [NSImage imageNamed:@"star"];

@@ -18,6 +18,7 @@
 #import "ECWebView.h"
 #import "ECArticleController.h"
 #import "NSScrollView+ECAdditions.h"
+#import "ECRecommender.h"
 
 #define CLASSIC_VIEW_POSTS_PER_QUERY 100
 #define UNREAD_COUNT_QUERY @"UPDATE feed SET UnreadCount = (SELECT COUNT(Id) FROM post WHERE FeedId=? AND IsRead=0 AND IsHidden=0) WHERE Id=?"
@@ -86,8 +87,19 @@ static ECPostsController *_sharedInstance = nil;
 		return;
 	}
 	
-	NSInteger numOfNewPost = [ECDatabaseController loadPostsFromDatabaseForItem:selectedItem orQuery:searchQuery to:posts fromRange:range];
-	
+    if (selectedItem == [[ECSubscriptionsController getSharedInstance]subscriptionRecommendedItems]) {
+        NSMutableArray *newPosts = [NSMutableArray array];
+        [ECDatabaseController loadPostsFromDatabaseForItem:selectedItem orQuery:searchQuery to:newPosts fromRange:range];
+
+        ECRecommender *recommender = [[ECRecommender alloc] init];
+        posts = [recommender getRecommendedPosts];
+    } else {
+        [ECDatabaseController loadPostsFromDatabaseForItem:selectedItem orQuery:searchQuery to:posts fromRange:range];
+    }
+
+    
+//    NSInteger numOfNewPost = [ECDatabaseController loadPostsFromDatabaseForItem:selectedItem orQuery:searchQuery to:posts fromRange:range];
+
 	NSUInteger numPostsRequested = (NSInteger)range.length;
 	
 //    if (numOfNewPost < numPostsRequested) {

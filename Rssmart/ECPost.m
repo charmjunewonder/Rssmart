@@ -28,6 +28,9 @@
 @synthesize isRead;
 @synthesize isStarred;
 @synthesize enclosures;
+@synthesize wordCount;
+@synthesize vector;
+@synthesize termsDictionary;
 
 - (id)init {
 	self = [super init];
@@ -81,6 +84,55 @@
 
 - (NSComparisonResult)publishedDateCompare:(ECPost *)otherPost {
 	return [published compare:[otherPost published]];
+}
+
+- (void)calculateWordCountWithStopWords:(NSArray *)stopWords{
+    NSMutableDictionary *allWordCount = [[NSMutableDictionary alloc] init];
+    [plainTextContent enumerateSubstringsInRange:NSMakeRange(0, [plainTextContent length])
+                                  options:NSStringEnumerationByWords | NSStringEnumerationLocalized
+                               usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop){
+                                   
+                                   NSString *lowerS = substring.lowercaseString;
+                                   NSInteger count = [[allWordCount objectForKey:lowerS] integerValue];
+                                   count++;
+                                   // adds the update count to the master list in constant time (NSDictionary implementation is like hash table)
+                                   [allWordCount setObject:[NSNumber numberWithInteger:count] forKey:lowerS];
+                               }];
+    NSPredicate *p = [NSPredicate predicateWithFormat:@"NOT (SELF in %@)", stopWords];
+    NSArray *keys = [allWordCount allKeys];
+    NSArray *filteredKeys = [keys filteredArrayUsingPredicate:p];
+    NSString *regex = @"[0-9.]+";
+    NSPredicate *p2 = [NSPredicate predicateWithFormat:@"NOT (SELF MATCHES %@)", regex];
+    filteredKeys = [filteredKeys filteredArrayUsingPredicate:p2];
+    wordCount = [allWordCount dictionaryWithValuesForKeys:filteredKeys];
+    [allWordCount release];
+}
+
+- (void)calculateWeightWithPosts:(NSArray *)posts{
+    termsDictionary = [[NSMutableDictionary alloc] init];
+    
+    NSArray *keys = [wordCount allKeys];
+    
+    //get total count of the article
+    NSInteger totalCount = 0;
+    for (NSString *key in keys){
+        NSInteger a = [[wordCount objectForKey:key] integerValue];
+        totalCount += a;
+    }
+    
+    for (NSString *key in keys){
+        NSInteger count =[[wordCount objectForKey:key] integerValue];
+        CGFloat termFrequency = count * 1.0 / totalCount;
+        NSInteger documentCount = 0;
+        for (ECPost *post in posts){
+            if ([post.wordCount objectForKey:key]) {
+                documentCount++;
+            }
+        }
+        CGFloat inverseDocumentFrequency = log10f([posts count]/documentCount);
+        termFrequency *= inverseDocumentFrequency;
+        [termsDictionary setObject:[NSNumber numberWithFloat:termFrequency] forKey:key];
+    }
 }
 
 @end
