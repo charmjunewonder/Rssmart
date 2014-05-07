@@ -23,18 +23,18 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <splitView fixedFrame="YES" dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fUZ-WW-Zc7">
-                        <rect key="frame" x="0.0" y="32" width="840" height="583"/>
+                        <rect key="frame" x="0.0" y="22" width="840" height="593"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <subviews>
                             <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" verticalScrollElasticity="none" id="Wpp-ca-pAs">
-                                <rect key="frame" x="0.0" y="0.0" width="176" height="583"/>
+                                <rect key="frame" x="0.0" y="0.0" width="176" height="593"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <clipView key="contentView" ambiguous="YES" misplaced="YES" id="4d7-5w-iJp">
-                                    <rect key="frame" x="0.0" y="0.0" width="176" height="583"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="176" height="593"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" multipleSelection="NO" autosaveColumns="NO" rowHeight="24" indentationPerLevel="16" outlineTableColumn="4F9-6b-agf" id="TlF-42-hWE" customClass="ECSubscriptionsView">
-                                            <rect key="frame" x="0.0" y="0.0" width="176" height="583"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="176" height="593"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="0.0"/>
                                             <color key="backgroundColor" name="_sourceListBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -75,14 +75,14 @@
                                 </scroller>
                             </scrollView>
                             <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="82" horizontalPageScroll="10" verticalLineScroll="82" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="jl3-OM-v8g">
-                                <rect key="frame" x="177" y="0.0" width="230" height="583"/>
+                                <rect key="frame" x="177" y="0.0" width="230" height="593"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <clipView key="contentView" ambiguous="YES" misplaced="YES" id="lak-XM-Cv4">
-                                    <rect key="frame" x="0.0" y="0.0" width="230" height="583"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="230" height="593"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="80" id="HSa-4u-0XX" customClass="ECTableView">
-                                            <rect key="frame" x="0.0" y="0.0" width="230" height="583"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="230" height="593"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -121,7 +121,7 @@
                                 </scroller>
                             </scrollView>
                             <webView fixedFrame="YES" maintainsBackForwardList="NO" id="bSD-cn-pwu" customClass="ECWebView">
-                                <rect key="frame" x="408" y="0.0" width="432" height="583"/>
+                                <rect key="frame" x="408" y="0.0" width="432" height="593"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12">
                                     <nil key="identifier"/>
@@ -134,31 +134,54 @@
                             <real value="250"/>
                         </holdingPriorities>
                     </splitView>
-                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8DT-Ji-b4p">
-                        <rect key="frame" x="152" y="5" width="23" height="25"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="roundTextured" title="+" bezelStyle="texturedRounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="WwL-WA-k9U">
-                            <behavior key="behavior" lightByContents="YES"/>
-                            <font key="font" metaFont="system" size="20"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="addSubscription:" target="sR3-8g-wLc" id="M6I-AC-p95"/>
-                        </connections>
-                    </button>
-                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yFC-pj-cgG">
-                        <rect key="frame" x="8" y="5" width="23" height="25"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSRefreshTemplate" imagePosition="overlaps" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="jp6-a0-Kq4">
-                            <behavior key="behavior" lightByContents="YES"/>
-                            <font key="font" metaFont="cellTitle"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="refreshSubscriptions:" target="sR3-8g-wLc" id="HFQ-rz-tsu"/>
-                        </connections>
-                    </button>
                 </subviews>
             </view>
-            <contentBorderThickness minY="32"/>
+            <toolbar key="toolbar" implicitIdentifier="0C8F64B5-87F3-4EB5-9C1A-22287AEB7EE0" autosavesConfiguration="NO" displayMode="iconOnly" sizeMode="regular" id="fDT-dE-gu5">
+                <allowedToolbarItems>
+                    <toolbarItem implicitItemIdentifier="NSToolbarShowColorsItem" id="rfa-dT-SQT"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarShowFontsItem" id="fnG-vM-32s"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarPrintItem" id="Itn-8a-tC8"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="myM-Va-bTw"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="Sjr-zx-Y8W"/>
+                    <toolbarItem implicitItemIdentifier="3085817F-97CC-4722-AD91-F23DDA1FCB90" label="Refresh" paletteLabel="Refresh" image="NSRefreshTemplate" id="g0r-uP-Onh">
+                        <nil key="toolTip"/>
+                        <size key="minSize" width="27" height="25"/>
+                        <size key="maxSize" width="27" height="25"/>
+                        <button key="view" verticalHuggingPriority="750" id="M79-6u-npI">
+                            <rect key="frame" x="10" y="14" width="27" height="25"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="roundTextured" title="Round Textured" bezelStyle="texturedRounded" image="NSRefreshTemplate" imagePosition="only" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Xee-zf-tYd">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="refreshSubscriptions:" target="sR3-8g-wLc" id="5SX-RC-ftD"/>
+                            </connections>
+                        </button>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="17581D33-083D-4103-B2C7-61E4C12D3AB7" label="Add Feed" paletteLabel="Add Feed" image="NSAddTemplate" id="NNi-Ix-bEG">
+                        <nil key="toolTip"/>
+                        <size key="minSize" width="27" height="25"/>
+                        <size key="maxSize" width="27" height="25"/>
+                        <button key="view" verticalHuggingPriority="750" id="Dfx-0j-fb3">
+                            <rect key="frame" x="15" y="14" width="27" height="25"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="roundTextured" title="Round Textured" bezelStyle="texturedRounded" image="NSAddTemplate" imagePosition="only" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="QhM-QJ-sa9">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="addSubscription:" target="sR3-8g-wLc" id="xM7-ia-jef"/>
+                            </connections>
+                        </button>
+                    </toolbarItem>
+                </allowedToolbarItems>
+                <defaultToolbarItems>
+                    <toolbarItem reference="NNi-Ix-bEG"/>
+                    <toolbarItem reference="g0r-uP-Onh"/>
+                </defaultToolbarItems>
+            </toolbar>
+            <contentBorderThickness minY="22"/>
         </window>
         <menu title="AMainMenu" systemMenu="main" id="aXD-aV-iPH">
             <items>
@@ -607,6 +630,7 @@ DQ
         </customObject>
     </objects>
     <resources>
+        <image name="NSAddTemplate" width="8" height="8"/>
         <image name="NSRefreshTemplate" width="10" height="12"/>
     </resources>
 </document>
