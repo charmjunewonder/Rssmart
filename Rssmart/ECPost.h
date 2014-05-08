@@ -33,4 +33,5 @@
 - (void)populateUsingResultSet:(FMResultSet *)rs; // note, this doesn't load enclosures
 - (void)calculateWordCountWithStopWords:(NSArray *)stopWords;
 - (void)calculateWeightWithPosts:(NSArray *)posts;
+- (void)calculateVectorWithKeywords:(NSArray *)keywords withPosts:(NSArray *)posts;
 @end

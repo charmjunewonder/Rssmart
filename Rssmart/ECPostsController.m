@@ -92,7 +92,7 @@ static ECPostsController *_sharedInstance = nil;
         [ECDatabaseController loadPostsFromDatabaseForItem:selectedItem orQuery:searchQuery to:newPosts fromRange:range];
 
         ECRecommender *recommender = [[ECRecommender alloc] init];
-        posts = [recommender getRecommendedPosts];
+        posts = [recommender getRecommendedPosts:newPosts];
     } else {
         [ECDatabaseController loadPostsFromDatabaseForItem:selectedItem orQuery:searchQuery to:posts fromRange:range];
     }

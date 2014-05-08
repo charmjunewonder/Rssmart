@@ -135,4 +135,35 @@
     }
 }
 
+- (void)calculateVectorWithKeywords:(NSArray *)keywords withPosts:(NSArray *)posts{
+    vector = [[NSMutableArray alloc] init];
+    NSArray *keys = [wordCount allKeys];
+    
+    //get total count of the article
+    NSInteger totalCount = 0;
+    for (NSString *key in keys){
+        NSInteger a = [[wordCount objectForKey:key] integerValue];
+        totalCount += a;
+    }
+    
+    for (NSString *key in keywords){
+        NSInteger count =[[wordCount objectForKey:key] integerValue];
+        if (count == 0) {
+            [vector addObject:[NSNumber numberWithFloat:0]];
+            continue;
+        }
+        CGFloat termFrequency = count * 1.0 / totalCount;
+        NSInteger documentCount = 0;
+        for (ECPost *post in posts){
+            if ([post.wordCount objectForKey:key]) {
+                documentCount++;
+            }
+        }
+        CGFloat inverseDocumentFrequency = log10f([posts count]/documentCount);
+        termFrequency *= inverseDocumentFrequency;
+        [vector addObject:[NSNumber numberWithFloat:termFrequency]];
+    }
+}
+
+
 @end

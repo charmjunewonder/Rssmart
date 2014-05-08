@@ -29,7 +29,7 @@
     [super dealloc];
 }
 
-- (NSMutableArray *)getRecommendedPosts{
+- (NSMutableArray *)getRecommendedPosts:(NSMutableArray *)newPosts{
     NSMutableArray *recommendedPosts = [[NSMutableArray alloc] init];
     NSMutableArray *keywords = [[NSMutableArray alloc] init];
     NSMutableArray *vectorOfKeyword = [[NSMutableArray alloc] init];
@@ -40,7 +40,40 @@
         [self generateKeywords:keywords andVector:vectorOfKeyword];
     }
     
+    //read stopwords from file
+    NSString *filepath = [[NSBundle mainBundle] pathForResource:@"stopwords.txt" ofType:nil];
+    NSError *error;
+    NSString *fileContents = [NSString stringWithContentsOfFile:filepath encoding:NSUTF8StringEncoding error:&error];
+    
+    NSArray *stopWords = [fileContents componentsSeparatedByString:@"\n"];
+    
+    for (ECPost *post in newPosts){
+        [post calculateWordCountWithStopWords:stopWords];
+    }
+    for (ECPost *post in newPosts){
+        [post calculateVectorWithKeywords:keywords withPosts:newPosts];
+        CGFloat similarity = [self calculateSimilarityWith:[post vector] and:vectorOfKeyword];
+        if (similarity > 0.3) {
+            [recommendedPosts addObject:post];
+        }
+    }
+
     return recommendedPosts;
+}
+
+- (CGFloat)calculateSimilarityWith:(NSArray *)vectorA and:(NSArray *)vectorB{
+    CGFloat dotProduct = 0.0;
+    CGFloat magnitudeA = 0.0;
+    CGFloat magnitudeB = 0.0;
+    for (int i = 1; i < 100; ++i) {
+        CGFloat valueA = [vectorA[i] floatValue];
+        CGFloat valueB = [vectorB[i] floatValue];
+        dotProduct +=  valueA * valueB;
+        magnitudeA += valueA * valueA;
+        magnitudeB += valueB * valueB;
+    }
+    CGFloat result = dotProduct / ( sqrtf(magnitudeA) * sqrtf(magnitudeB) );
+    return result;
 }
 
 - (void)generateKeywords:(NSMutableArray *)keywords andVector:(NSMutableArray *)vector{
@@ -88,9 +121,10 @@
     [keywords addObjectsFromArray:[allSortedArray subarrayWithRange: NSMakeRange(0, 100)]];
     NSDictionary *keywordDictionary = [totalDictionary dictionaryWithValuesForKeys:keywords];
 
+    NSInteger numOfStarItem = [stars count];
     for (NSString *key in keywords){
         CGFloat weight =[[keywordDictionary objectForKey:key] floatValue];
-        [vector addObject:[NSNumber numberWithFloat:weight]];
+        [vector addObject:[NSNumber numberWithFloat:weight/numOfStarItem]];
     }
     
     //put them into database
