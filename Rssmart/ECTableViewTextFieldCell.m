@@ -90,7 +90,7 @@ static NSImage *unreadDot;
     imageRect = NSMakeRect(titleRect.origin.x + 30, titleRect.origin.y + 0, 15, 15);
     [starIcon drawInRect:imageRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
     
-	titleRect = NSMakeRect(titleRect.origin.x + 22, titleRect.origin.y + 1, titleRect.size.width - 27, 20);
+	titleRect = NSMakeRect(titleRect.origin.x + 22, titleRect.origin.y + 1, titleRect.size.width - 50, 20);
 
 	// date
 	NSString *dateString = [[post received] ecStringForDisplay];
@@ -132,7 +132,7 @@ static NSImage *unreadDot;
 		[attributes setObject:[NSColor colorWithCalibratedWhite:0.015 alpha:1.0] forKey:NSForegroundColorAttributeName];
 	}
 	
-	NSRect titleDrawRect = NSMakeRect(titleRect.origin.x + 40, titleRect.origin.y - 5, titleRect.size.width - dateRectWidth - 7, titleRect.size.height);
+	NSRect titleDrawRect = NSMakeRect(titleRect.origin.x + 40, titleRect.origin.y - 5, titleRect.size.width - 7, titleRect.size.height);
 	
 	[feedTitle drawWithRect:titleDrawRect options:(NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin) attributes:attributes];
 	
@@ -158,7 +158,7 @@ static NSImage *unreadDot;
 	
 	summary = [[summary componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]] componentsJoinedByString:@" "];
 	
-	NSRect summaryRect = NSMakeRect(titleRect.origin.x + 40, titleRect.origin.y + 35, titleRect.size.width, 35);
+	NSRect summaryRect = NSMakeRect(titleRect.origin.x + 40, titleRect.origin.y + 35, titleRect.size.width - 7, 39);
 	
 	attributes = [NSMutableDictionary dictionary];
 	[attributes setObject:font forKey:NSFontAttributeName];
