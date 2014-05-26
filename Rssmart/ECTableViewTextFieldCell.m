@@ -12,6 +12,8 @@
 #import "ECTableView.h"
 #import "NSDate+ECAdditions.h"
 #import "GTMNSString+HTML.h"
+#import "ECHTMLFilter.h"
+#import "NSImage+ECScaling.h"
 
 @implementation ECTableViewTextFieldCell
 
@@ -22,7 +24,7 @@ static NSImage *unreadDot;
 @synthesize tableViewReference;
 
 + (void)initialize {
-	NSString *unreadDotName = [[NSBundle mainBundle] pathForResource:@"unreadDot" ofType:@"png"];
+	NSString *unreadDotName = [[NSBundle mainBundle] pathForResource:@"dot" ofType:@"png"];
 	unreadDot = [[NSImage alloc] initWithContentsOfFile:unreadDotName];
 	[unreadDot setFlipped:YES];
 }
@@ -41,16 +43,55 @@ static NSImage *unreadDot;
 	if (post == nil) {
 		return;
 	}
-	
+	//TODO: move to feedparseoperation
+    
 	NSRect titleRect = [self titleRectForBounds:cellFrame];
 	
-	if ([post isRead] == NO && isSelectedRow == NO) {
-		NSRect imageRect = NSMakeRect(titleRect.origin.x + 6, titleRect.origin.y + 35, 9, 9);
+    if ([post firstImage] == nil) {
+        if ([post firstImageUrl] == nil) {
+            NSString *firstImageUrl = [ECHTMLFilter extractFirstImageUrlFromString:[post content]];
+            [post setFirstImageUrl:firstImageUrl];
+        }
+        if ([post firstImageUrl] == nil) {
+            
+        }
+        NSURL *imageUrl = [NSURL URLWithString:[post firstImageUrl]];
+        NSImage *image = [[NSImage alloc] initWithContentsOfURL:imageUrl];
+        image = [image imageBySelectivelyScalingToSize:NSMakeSize (50, 50)];
+        [post setFirstImage:image];
+    }
+    
+    NSRect imageRect = NSMakeRect(titleRect.origin.x + 6, titleRect.origin.y + 15, 50, 50);
+    [[post firstImage] drawInRect:imageRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+
+	if ([post isRead] == NO) {
+		NSRect imageRect = NSMakeRect(titleRect.origin.x + 17, titleRect.origin.y + 3.5, 9, 9);
 		[unreadDot drawInRect:imageRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
-	}
-	
+	} else {
+        NSString *readDotName = [[NSBundle mainBundle] pathForResource:@"read_dot" ofType:@"png"];
+        NSImage *readDot = [[NSImage alloc] initWithContentsOfFile:readDotName];
+        [readDot setFlipped:YES];
+        NSRect imageRect = NSMakeRect(titleRect.origin.x + 17, titleRect.origin.y + 3.5, 9, 9);
+		[readDot drawInRect:imageRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+    }
+    
+    NSImage *starIcon = nil;
+
+    if ([post isStarred] == NO) {
+        NSString *unstarredIconName = [[NSBundle mainBundle] pathForResource:@"star_small" ofType:@"png"];
+        starIcon = [[NSImage alloc] initWithContentsOfFile:unstarredIconName];
+        [starIcon setFlipped:YES];
+	} else{
+        NSString *starredIconName = [[NSBundle mainBundle] pathForResource:@"star_full_small" ofType:@"png"];
+        starIcon = [[NSImage alloc] initWithContentsOfFile:starredIconName];
+        [starIcon setFlipped:YES];
+    }
+    
+    imageRect = NSMakeRect(titleRect.origin.x + 30, titleRect.origin.y + 0, 15, 15);
+    [starIcon drawInRect:imageRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+    
 	titleRect = NSMakeRect(titleRect.origin.x + 22, titleRect.origin.y + 1, titleRect.size.width - 27, 20);
-	
+
 	// date
 	NSString *dateString = [[post received] ecStringForDisplay];
 	
@@ -60,14 +101,14 @@ static NSImage *unreadDot;
 	if (isSelectedRow && (isKeyWindow == NO || isFirstResponder == NO)) {
 		[attributes setObject:[NSColor colorWithCalibratedWhite:0.4 alpha:1.0] forKey:NSForegroundColorAttributeName];
 	} else {
-		[attributes setObject:[NSColor colorWithCalibratedRed:0.163 green:0.357 blue:0.840 alpha:1.0] forKey:NSForegroundColorAttributeName];
+		[attributes setObject:[NSColor colorWithCalibratedWhite:0.015 alpha:0.5] forKey:NSForegroundColorAttributeName];
 	}
 	
 	NSAttributedString *attributedDateString = [[NSAttributedString alloc] initWithString:dateString attributes:attributes];
 	
 	NSRect dateRectSize = [dateString boundingRectWithSize:NSZeroSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes];
 	NSInteger dateRectWidth = (NSInteger)ceil(dateRectSize.size.width);
-	NSRect dateRect = NSMakeRect(titleRect.origin.x + titleRect.size.width - dateRectWidth, titleRect.origin.y, dateRectWidth, titleRect.size.height);
+	NSRect dateRect = NSMakeRect(13, titleRect.origin.y + 60, dateRectWidth, titleRect.size.height);
 	
 	[attributedDateString drawInRect:dateRect];
 	[attributedDateString release];
@@ -91,7 +132,7 @@ static NSImage *unreadDot;
 		[attributes setObject:[NSColor colorWithCalibratedWhite:0.015 alpha:1.0] forKey:NSForegroundColorAttributeName];
 	}
 	
-	NSRect titleDrawRect = NSMakeRect(titleRect.origin.x, titleRect.origin.y, titleRect.size.width - dateRectWidth - 7, titleRect.size.height);
+	NSRect titleDrawRect = NSMakeRect(titleRect.origin.x + 40, titleRect.origin.y - 5, titleRect.size.width - dateRectWidth - 7, titleRect.size.height);
 	
 	[feedTitle drawWithRect:titleDrawRect options:(NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin) attributes:attributes];
 	
@@ -102,7 +143,7 @@ static NSImage *unreadDot;
 		postTitle = @"(Untitled)";
 	}
 	
-	NSRect bylineRect = NSMakeRect(titleRect.origin.x, titleRect.origin.y + 19, titleRect.size.width, titleRect.size.height);
+	NSRect bylineRect = NSMakeRect(titleRect.origin.x + 40, titleRect.origin.y + 14, titleRect.size.width, titleRect.size.height);
 	
 	[attributes setObject:font forKey:NSFontAttributeName];
 	
@@ -117,7 +158,7 @@ static NSImage *unreadDot;
 	
 	summary = [[summary componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]] componentsJoinedByString:@" "];
 	
-	NSRect summaryRect = NSMakeRect(titleRect.origin.x, titleRect.origin.y + 40, titleRect.size.width, 35);
+	NSRect summaryRect = NSMakeRect(titleRect.origin.x + 40, titleRect.origin.y + 35, titleRect.size.width, 35);
 	
 	attributes = [NSMutableDictionary dictionary];
 	[attributes setObject:font forKey:NSFontAttributeName];

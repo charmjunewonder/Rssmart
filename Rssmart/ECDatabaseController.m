@@ -171,6 +171,7 @@ static NSString *path;
 	[rs close];
 }
 
+//
 + (ECSubscriptionFeed *)addSubscriptionForUrlString:(NSString *)url toFolder:(ECSubscriptionFolder *)folder refreshImmediately:(BOOL)shouldRefresh{
 	
 	// check to see if this feed already exists in the database

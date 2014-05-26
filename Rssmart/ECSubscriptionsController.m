@@ -116,7 +116,7 @@ static ECSubscriptionsController *_sharedInstance = nil;
     /************************ New Items ************************/
 	ECSubscriptionItem *recommendedItems = [[ECSubscriptionItem alloc] init];
 	[recommendedItems setTitle:@"Recommender"];
-	NSString *recommendedItemsIconName = [[NSBundle mainBundle] pathForResource:@"rssIcon" ofType:@"png"];
+	NSString *recommendedItemsIconName = [[NSBundle mainBundle] pathForResource:@"flash" ofType:@"png"];
 	NSImage *recommendedItemsIcon = [[[NSImage alloc] initWithContentsOfFile:recommendedItemsIconName] autorelease];
 	[recommendedItemsIcon setFlipped:YES];
 	[recommendedItems setIcon:recommendedItemsIcon];
@@ -128,7 +128,7 @@ static ECSubscriptionsController *_sharedInstance = nil;
     /************************ New Items ************************/
 	ECSubscriptionItem *newItems = [[ECSubscriptionItem alloc] init];
 	[newItems setTitle:@"New Items"];
-	NSString *newItemsIconName = [[NSBundle mainBundle] pathForResource:@"inbox-table" ofType:@"png"];
+	NSString *newItemsIconName = [[NSBundle mainBundle] pathForResource:@"list" ofType:@"png"];
 	NSImage *newItemsIcon = [[[NSImage alloc] initWithContentsOfFile:newItemsIconName] autorelease];
 	[newItemsIcon setFlipped:YES];
 	[newItems setIcon:newItemsIcon];
@@ -140,7 +140,7 @@ static ECSubscriptionsController *_sharedInstance = nil;
     /************************ Starred Items ************************/
 	ECSubscriptionItem *starredItems = [[ECSubscriptionItem alloc] init];
 	[starredItems setTitle:@"Starred Items"];
-	NSImage *starredItemsIcon = [NSImage imageNamed:@"star"];
+	NSImage *starredItemsIcon = [NSImage imageNamed:@"star_full"];
 	[starredItemsIcon setFlipped:YES];
 	[starredItems setIcon:starredItemsIcon];
 	[[library children] addObject:starredItems];
@@ -430,7 +430,7 @@ static ECSubscriptionsController *_sharedInstance = nil;
 		[alert setMessageText:@"Are you sure you want to delete this subscription?"];
 	} else if ([clickedItem isKindOfClass:[ECSubscriptionFolder class]]) {
 		[alert setMessageText:@"Are you sure you want to delete this folder?\nAll the subscriptions it contains will be REMOVED at the same time!"];
-	} else { // should never happen, but handle it anyway
+	} else { //never happen
         [alert setMessageText:@"Are you sure you want to delete this?"];
 	}
 	

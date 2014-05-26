@@ -11,5 +11,6 @@
 + (NSString *)extractPlainTextFromString:(NSString *)string;
 + (NSString *)extractPlainTextFromNode:(NSXMLNode *)node;
 + (NSString *)cleanUrlString:(NSString *)url;
++ (NSString *)extractFirstImageUrlFromString:(NSString *)htmlString;
 
 @end

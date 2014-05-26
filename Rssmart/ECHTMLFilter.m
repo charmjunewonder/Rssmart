@@ -55,6 +55,48 @@
 	return returnValue;
 }
 
++ (NSString *)extractFirstImageUrlFromString:(NSString *)htmlString {
+	
+	NSString *firstImageUrl;
+	
+	if (htmlString == nil || [htmlString length] == 0) {
+		return @"";
+	}
+	
+    NSRange t = [htmlString rangeOfString:@"<img src=\""];
+    
+    if(t.location == NSNotFound){
+        return nil;
+    }
+
+    htmlString = [htmlString substringFromIndex:t.location + t.length];
+    
+    NSRange d = [htmlString rangeOfString:@"\""];
+    firstImageUrl = [htmlString substringToIndex:d.location];
+
+	if ([firstImageUrl hasPrefix:@"//"] ) {
+        firstImageUrl = [NSString stringWithFormat:@"http:%@", firstImageUrl];
+    }
+	return firstImageUrl;
+}
+
++ (NSString *)extractFirstImageUrlFromNode:(NSXMLNode *)node {
+	NSMutableString *returnValue = [NSMutableString string];
+	
+	if ([node kind] == NSXMLTextKind) {
+		[returnValue appendString:[node stringValue]];
+	} else if ([node kind] == NSXMLElementKind || [node kind] == NSXMLDocumentKind) {
+        NSLog(@"%@", [node name]);
+		if ([[node name] isEqual:@"script"] == NO && [[node name] isEqual:@"style"] == NO) {
+			for (NSXMLNode *child in [node children]) {
+				[returnValue appendString:[ECHTMLFilter extractFirstImageUrlFromNode:child]];
+			}
+		}
+	}
+	
+	return returnValue;
+}
+
 + (NSString *)cleanUrlString:(NSString *)urlString {
 	
 	if (urlString == nil || [urlString isEqual:@""]) {

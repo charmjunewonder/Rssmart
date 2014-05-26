@@ -34,7 +34,7 @@ static NSImage *defaultIcon;
 @synthesize isWindowFocused;
 
 + (void)initialize {
-	NSString *rssIconName = [[NSBundle mainBundle] pathForResource:@"rssIcon" ofType:@"png"];
+	NSString *rssIconName = [[NSBundle mainBundle] pathForResource:@"rss" ofType:@"png"];
 	defaultIcon = [[NSImage alloc] initWithContentsOfFile:rssIconName];
 }
 

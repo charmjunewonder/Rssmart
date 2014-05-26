@@ -75,21 +75,21 @@
                                 </scroller>
                             </scrollView>
                             <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="82" horizontalPageScroll="10" verticalLineScroll="82" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="jl3-OM-v8g">
-                                <rect key="frame" x="174" y="0.0" width="220" height="593"/>
+                                <rect key="frame" x="174" y="0.0" width="244" height="593"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <clipView key="contentView" ambiguous="YES" misplaced="YES" id="lak-XM-Cv4">
-                                    <rect key="frame" x="0.0" y="0.0" width="220" height="593"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="244" height="593"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="80" id="HSa-4u-0XX" customClass="ECTableView">
-                                            <rect key="frame" x="0.0" y="0.0" width="220" height="593"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="244" height="593"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <tableViewGridLines key="gridStyleMask" horizontal="YES"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
-                                                <tableColumn editable="NO" width="217" minWidth="40" maxWidth="1000" id="Obm-I5-Ynf">
+                                                <tableColumn editable="NO" width="241" minWidth="40" maxWidth="1000" id="Obm-I5-Ynf">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -121,7 +121,7 @@
                                 </scroller>
                             </scrollView>
                             <webView fixedFrame="YES" maintainsBackForwardList="NO" id="bSD-cn-pwu" customClass="ECWebView">
-                                <rect key="frame" x="395" y="0.0" width="677" height="593"/>
+                                <rect key="frame" x="419" y="0.0" width="653" height="593"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12">
                                     <nil key="identifier"/>
