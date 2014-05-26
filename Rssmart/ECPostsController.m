@@ -277,6 +277,8 @@ static ECPostsController *_sharedInstance = nil;
 	[subsCon changeNewItemsBadgeValueBy:+1];
 	[subsCon refreshSubscriptionsView];
 
+    [tableView setNeedsDisplay:YES];
+    
     [post setIsRead:NO];
 }
 
