@@ -39,20 +39,7 @@
     
 	NSRect titleRect = [self titleRectForBounds:cellFrame];
 	
-    if ([post firstImage] == nil) {
-        if ([post firstImageUrl] == nil) {
-            NSString *firstImageUrl = [ECHTMLFilter extractFirstImageUrlFromString:[post content]];
-            [post setFirstImageUrl:firstImageUrl];
-        }
-        if ([post firstImageUrl] == nil) {
-            
-        }
-        NSURL *imageUrl = [NSURL URLWithString:[post firstImageUrl]];
-        NSImage *image = [[NSImage alloc] initWithContentsOfURL:imageUrl];
-        image = [image imageBySelectivelyScalingToSize:NSMakeSize (50, 50)];
-        [post setFirstImage:image];
-    }
-    
+    /************************ firstImage ************************/
     NSRect imageRect = NSMakeRect(titleRect.origin.x + 6, titleRect.origin.y + 15, 50, 50);
     [[post firstImage] drawInRect:imageRect];
 

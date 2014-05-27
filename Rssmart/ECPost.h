@@ -28,7 +28,6 @@
 @property (assign, nonatomic) NSDictionary *wordCount;
 @property (assign, nonatomic) NSMutableArray *vector;
 @property (assign, nonatomic) NSMutableDictionary *termsDictionary;
-@property (copy, nonatomic) NSString *firstImageUrl;
 @property (copy, nonatomic) NSImage *firstImage;
 
 - (id)initWithResultSet:(FMResultSet *)rs; // note, this doesn't load enclosures

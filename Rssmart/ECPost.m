@@ -31,7 +31,6 @@
 @synthesize wordCount;
 @synthesize vector;
 @synthesize termsDictionary;
-@synthesize firstImageUrl;
 @synthesize firstImage;
 
 - (id)init {
@@ -63,7 +62,6 @@
 	[content release];
 	[plainTextContent release];
 	[enclosures release];
-	[firstImageUrl release];
     [firstImage release];
     
 	[super dealloc];
