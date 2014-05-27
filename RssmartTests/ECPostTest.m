@@ -10,6 +10,7 @@
 #import "FMDatabase.h"
 #import "ECDatabaseController.h"
 #import "NSFileManager+ECAdditions.h"
+#import "ECPost.h"
 
 @interface ECPostTest : XCTestCase
 
@@ -29,7 +30,7 @@
     [super tearDown];
 }
 
-- (void)testExample
+- (void)testInitWithResultSet
 {
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSString *folder = [fileManager ecRssmartSupportDirectory];
@@ -47,6 +48,15 @@
 	
 	FMResultSet *rs = [db executeQuery:dbQuery];
     XCTAssertTrue(rs.next, @"no row in the table");
+    
+    ECPost *post = [[ECPost alloc] initWithResultSet:rs];
+
+    XCTAssertNotNil(post, @"post is nil");
+    XCTAssertNotNil(post.firstImage, @"first image is nil");
+    XCTAssertNotNil(post, @" is nil");
+    
+
+    
 }
 
 @end
