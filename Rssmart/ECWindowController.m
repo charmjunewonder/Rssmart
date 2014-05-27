@@ -43,6 +43,9 @@
 //    [[self window] makeFirstResponder:[[self window] contentView]];
 //    [[self window] makeFirstResponder:[subsController subsView]];
     [subsController setup];
+    
+    [[self window] makeFirstResponder: self.window.contentView];
+
 }
 
 //- (void)updateFirstResponder {

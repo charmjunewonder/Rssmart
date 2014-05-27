@@ -62,7 +62,7 @@ static NSImage *unreadDot;
     }
     
     NSRect imageRect = NSMakeRect(titleRect.origin.x + 6, titleRect.origin.y + 15, 50, 50);
-    [[post firstImage] drawInRect:imageRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+    [[post firstImage] drawInRect:imageRect];
 
 	if ([post isRead] == NO) {
 		NSRect imageRect = NSMakeRect(titleRect.origin.x + 17, titleRect.origin.y + 3.5, 9, 9);

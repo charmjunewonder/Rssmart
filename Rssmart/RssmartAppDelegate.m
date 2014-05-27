@@ -32,6 +32,7 @@
     [self newWindow];
 }
 
+
 - (void)newWindow {
 	windowController = [[ECWindowController alloc] init];
 //	[windowController setSubscriptionList:subscriptionList];
