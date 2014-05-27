@@ -366,8 +366,8 @@ static ECSubscriptionsController *_sharedInstance = nil;
     
 	[addFolderController hideDialog:nil];
 }
-//TODO:(ECSubscriptionFolder *) may delete
-- (ECSubscriptionFolder *)addFolderWithTitle:(NSString *)folderTitle{
+
+- (void)addFolderWithTitle:(NSString *)folderTitle{
 	
 	if (folderTitle == nil) {
 		folderTitle = @"(Untitled)";
@@ -375,12 +375,13 @@ static ECSubscriptionsController *_sharedInstance = nil;
 	
     ECSubscriptionFolder *newFolder = [ECDatabaseController addFolderWithTitle:folderTitle];
     
+    if (newFolder == nil) {
+        return;
+    }
     [[subscriptionSubscriptions children] addObject:newFolder];
 
 //	[self sortSourceList];
 	[self refreshSubscriptionsView];
-    
-	return newFolder;
 }
 
 - (IBAction)editFolder:(id)sender{
@@ -596,6 +597,11 @@ static ECSubscriptionsController *_sharedInstance = nil;
 	}
 	
     ECSubscriptionFeed *newFeed = [ECDatabaseController addSubscriptionForUrlString:url toFolder:folder refreshImmediately:YES];
+    
+    if (newFeed == nil) {
+        return;
+    }
+
     [feedLookupDict setObject:newFeed forKey:[NSNumber numberWithInteger:[newFeed dbId]]];
 }
 

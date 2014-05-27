@@ -122,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Rssmart/ECSubscriptionsController.m"
-            timestampString = "422868631.138457"
+            timestampString = "422886261.328963"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "680"
-            endingLineNumber = "680"
+            startingLineNumber = "686"
+            endingLineNumber = "686"
             landmarkName = "-processNewPosts:forFeed:"
             landmarkType = "5">
          </BreakpointContent>
@@ -138,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Rssmart/ECSubscriptionsController.m"
-            timestampString = "422868673.958225"
+            timestampString = "422886261.328963"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "674"
-            endingLineNumber = "674"
+            startingLineNumber = "680"
+            endingLineNumber = "680"
             landmarkName = "-processNewPosts:forFeed:"
             landmarkType = "5">
          </BreakpointContent>

@@ -434,6 +434,18 @@ static NSString *path;
 	if (![db open]) {
 		[NSException raise:@"Database error" format:@"Failed to connect to the database!"];
 	}
+    
+    FMResultSet *rs = [db executeQuery:@"SELECT * FROM folder WHERE Title=?", title];
+	
+	if ([rs next]) {
+		[ECErrorUtility createAndDisplayError:@"The folder could not be added because it already exists in your library!"];
+		[rs close];
+		[db close];
+		return nil;
+	}
+	
+	[rs close];
+
 	
 	NSNumber *parentId = nil;
 		
