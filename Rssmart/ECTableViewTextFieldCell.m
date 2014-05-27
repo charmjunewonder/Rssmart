@@ -21,9 +21,6 @@
 @synthesize rowIndex;
 @synthesize tableViewReference;
 
-+ (void)initialize {
-}
-
 - (void)drawInteriorWithFrame:(NSRect)cellFrame inView:(NSView *)controlView {
 	
 	BOOL isKeyWindow = [[tableViewReference window] isKeyWindow];

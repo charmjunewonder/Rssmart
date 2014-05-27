@@ -679,7 +679,8 @@ static ECSubscriptionsController *_sharedInstance = nil;
 			
         [ECDatabaseController addToDatabaseForPosts:reverseNewItems forFeed:feed];
 	}
-	
+	[[self subsView] setNeedsDisplay:YES];
+    [[self postsController] reloadDataInTableView];
 //	[fself updateMenuItems];
 }
 

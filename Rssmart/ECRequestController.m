@@ -89,7 +89,7 @@ static ECRequestController *_sharedInstance = nil;
     if ([feed websiteLink] != nil && [[feed websiteLink] length] > 0) {
         NSTimeInterval iconRefreshTimeLapsed = 0.0;
         NSTimeInterval iconRefreshDelay = 0.0;
-        NSTimeInterval minRefreshDelay = (TIME_INTERVAL_MINUTE * 10);
+        NSTimeInterval minRefreshDelay = 0.0;
         
         if ([feed iconLastRefreshed] != nil) {
             iconRefreshTimeLapsed = [[NSDate date] timeIntervalSinceDate:[feed iconLastRefreshed]];

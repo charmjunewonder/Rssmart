@@ -19,6 +19,7 @@
 #import "FMResultSet.h"
 #import "GTMNSString+HTML.h"
 #import "ECDatabaseController.h"
+#import "NSImage+ECScaling.h"
 
 #define FEED_TYPE_UNKNOWN 0
 #define FEED_TYPE_RSS 1
@@ -385,6 +386,19 @@
 				
 				if ([newPost content] != nil) {
 					[newPost setPlainTextContent:[ECHTMLFilter extractPlainTextFromString:[newPost content]]];
+                    
+                    NSString *firstImageUrl = [ECHTMLFilter extractFirstImageUrlFromString:[newPost content]];
+                    NSImage *image = nil;
+                    if (firstImageUrl.length == 0) {
+                        image = [feed icon];
+                        image = [image imageByScalingToSize:NSMakeSize (50, 50)];
+                    } else{
+                        firstImageUrl = [firstImageUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                        NSURL *imageUrl = [NSURL URLWithString:firstImageUrl];
+                        image = [[NSImage alloc] initWithContentsOfURL:imageUrl];
+                        image = [image imageBySelectivelyScalingToSize:NSMakeSize (50, 50)];
+                    }
+                    [newPost setFirstImage:image];
 				}
 				
 				[allPosts addObject:newPost];
@@ -491,6 +505,17 @@
 				
 				if ([newPost content] != nil) {
 					[newPost setPlainTextContent:[ECHTMLFilter extractPlainTextFromString:[newPost content]]];
+                    
+                    NSString *firstImageUrl = [ECHTMLFilter extractFirstImageUrlFromString:[newPost content]];
+                    NSImage *image = nil;
+                    if (firstImageUrl.length == 0) {
+                        image = [feed icon];
+                        image = [image imageByScalingToSize:NSMakeSize (50, 50)];
+                    }
+                    NSURL *imageUrl = [NSURL URLWithString:firstImageUrl];
+                    image = [[NSImage alloc] initWithContentsOfURL:imageUrl];
+                    image = [image imageBySelectivelyScalingToSize:NSMakeSize (50, 50)];
+                    [newPost setFirstImage:image];
 				}
 				
 				[allPosts addObject:newPost];

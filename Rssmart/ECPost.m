@@ -84,6 +84,8 @@
 	[self setPlainTextContent:[rs stringForColumn:@"PlainTextContent"]];
 	[self setIsRead:[rs boolForColumn:@"IsRead"]];
 	[self setIsStarred:[rs boolForColumn:@"IsStarred"]];
+    NSImage *image = [[NSImage alloc] initWithData:[rs dataForColumn:@"FirstImage"]];
+    [self setFirstImage:image];
 }
 
 - (NSComparisonResult)publishedDateCompare:(ECPost *)otherPost {

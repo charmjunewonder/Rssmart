@@ -84,7 +84,7 @@ static NSString *path;
 	}
 	
 	if ([self tableExists:@"post" inDb:db] == NO) {
-		[db executeUpdate:@"CREATE TABLE post (Id INTEGER PRIMARY KEY, FeedId INTEGER, Guid TEXT, Title TEXT, Link TEXT, Published INTEGER, Received INTEGER, Author TEXT, Content TEXT, PlainTextContent TEXT, IsRead INTEGER NOT NULL DEFAULT 0, HasEnclosures INTEGER NOT NULL DEFAULT 0, IsHidden INTEGER NOT NULL DEFAULT 0, IsStarred INTEGER NOT NULL DEFAULT 0)"];
+		[db executeUpdate:@"CREATE TABLE post (Id INTEGER PRIMARY KEY, FeedId INTEGER, Guid TEXT, Title TEXT, Link TEXT, Published INTEGER, Received INTEGER, Author TEXT, Content TEXT, PlainTextContent TEXT, IsRead INTEGER NOT NULL DEFAULT 0, HasEnclosures INTEGER NOT NULL DEFAULT 0, IsHidden INTEGER NOT NULL DEFAULT 0, IsStarred INTEGER NOT NULL DEFAULT 0, FirstImage BLOB)"];
 	}
     
     if ([self tableExists:@"keyword" inDb:db] == NO) {
@@ -381,8 +381,8 @@ static NSString *path;
             if ([[post enclosures] count] > 0) {
                 hasEnclosures = YES;
             }
-            
-            [db executeUpdate:@"INSERT INTO post (FeedId, Guid, Title, Link, Published, Received, Author, Content, PlainTextContent, IsRead, HasEnclosures) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [NSNumber numberWithInteger:[post feedDbId]], [post guid], [post title], [post link], [post published], [post received], [post author], [post content], [post plainTextContent], [NSNumber numberWithBool:[post isRead]], [NSNumber numberWithBool:hasEnclosures]];
+
+            [db executeUpdate:@"INSERT INTO post (FeedId, Guid, Title, Link, Published, Received, Author, Content, PlainTextContent, IsRead, HasEnclosures, FirstImage) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [NSNumber numberWithInteger:[post feedDbId]], [post guid], [post title], [post link], [post published], [post received], [post author], [post content], [post plainTextContent], [NSNumber numberWithBool:[post isRead]], [NSNumber numberWithBool:hasEnclosures], [[post firstImage] TIFFRepresentation]];
             NSInteger insertId = [db lastInsertRowId];
             [post setDbId:insertId];
             

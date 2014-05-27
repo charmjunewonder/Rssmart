@@ -6,8 +6,7 @@
 //  Copyright (c) 2014 Eric Chen. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
-
 @interface NSImage (ECScaling)
 - (NSImage*)imageBySelectivelyScalingToSize:(NSSize)targetSize;
+- (NSImage*)imageByScalingToSize:(NSSize)targetSize;
 @end

@@ -22,31 +22,56 @@
         float targetWidth  = targetSize.width;
         float targetHeight = targetSize.height;
         
-        NSRect fromRect = NSMakeRect(0, 0, width, height);
-        NSRect rect = fromRect;
+        NSRect fromRect = NSMakeRect(0, 0, targetWidth, targetHeight);
+        NSSize scaleSize = targetSize;
         if (width > height) {
-            fromRect = NSMakeRect(width/2 - height/2, 0, height, height);
-            rect = NSMakeRect(0, 0, height, height);
+            scaleSize = NSMakeSize(width * targetHeight / height, targetHeight);
+            fromRect = NSMakeRect(scaleSize.width/2 - scaleSize.height/2, 0, targetWidth, targetHeight);
         } else if (width < height){
-            rect = NSMakeRect(0, 0, width, width);
+            scaleSize = NSMakeSize(targetWidth, height * targetWidth / width);
+            fromRect = NSMakeRect(0, scaleSize.width/2 - scaleSize.height/2, targetWidth, targetHeight);
         }
-        NSImage *selectedImage = [[NSImage alloc] initWithSize:fromRect.size];
-        [selectedImage lockFocus];
-        [sourceImage drawInRect: rect
-                       fromRect: fromRect
-                      operation: NSCompositeCopy
-                       fraction: 1.0];
-        [selectedImage unlockFocus];
+        
+        NSImage *scaleImage = [[NSImage alloc] initWithSize:scaleSize];
+        [scaleImage lockFocus];
+        [sourceImage drawInRect: NSMakeRect(0, 0, scaleSize.width, scaleSize.height)
+                         fromRect: NSZeroRect
+                        operation: NSCompositeSourceOver
+                         fraction: 1.0];
+        [scaleImage unlockFocus];
 
         newImage = [[NSImage alloc] initWithSize:targetSize];
         [newImage lockFocus];
-        [selectedImage drawInRect: NSMakeRect(0, 0, targetWidth, targetHeight)
-                       fromRect: NSZeroRect
-                      operation: NSCompositeSourceOver
+        [scaleImage drawInRect: NSMakeRect(0, 0, targetWidth, targetWidth)
+                       fromRect: fromRect
+                      operation: NSCompositeCopy
                        fraction: 1.0];
         [newImage unlockFocus];
+        
+        [scaleImage release];
     }
     return [newImage autorelease];
 }
+
+- (NSImage*)imageByScalingToSize:(NSSize)targetSize{
+    NSImage* sourceImage = self;
+
+    
+    NSRect targetFrame = NSMakeRect(0, 0, targetSize.width, targetSize.height);
+    NSImage*  targetImage = [[NSImage alloc] initWithSize:targetSize];
+    NSImageRep *sourceImageRep =
+    [sourceImage bestRepresentationForRect:targetFrame
+                                   context:nil
+                                     hints:nil];
+
+    [targetImage lockFocus];
+    
+    [sourceImageRep drawInRect: targetFrame];
+
+    [targetImage unlockFocus];
+    
+    return targetImage;
+}
+
 
 @end
