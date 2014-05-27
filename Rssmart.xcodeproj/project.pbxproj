@@ -80,6 +80,7 @@
 		D1DAFA8B191BC9B500AD51AE /* rss.png in Resources */ = {isa = PBXBuildFile; fileRef = D1DAFA8A191BC9B500AD51AE /* rss.png */; };
 		D1DAFA8D191BCA2C00AD51AE /* list.png in Resources */ = {isa = PBXBuildFile; fileRef = D1DAFA8C191BCA2C00AD51AE /* list.png */; };
 		D1DAFA8F191BCCC500AD51AE /* dot.png in Resources */ = {isa = PBXBuildFile; fileRef = D1DAFA8E191BCCC500AD51AE /* dot.png */; };
+		D1E8BB3219348B3300F3A131 /* ECPostTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D1E8BB3119348B3300F3A131 /* ECPostTest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -225,6 +226,7 @@
 		D1DAFA8A191BC9B500AD51AE /* rss.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rss.png; sourceTree = "<group>"; };
 		D1DAFA8C191BCA2C00AD51AE /* list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = list.png; sourceTree = "<group>"; };
 		D1DAFA8E191BCCC500AD51AE /* dot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dot.png; sourceTree = "<group>"; };
+		D1E8BB3119348B3300F3A131 /* ECPostTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECPostTest.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -345,6 +347,7 @@
 		D1B83581190A062D00E2D939 /* RssmartTests */ = {
 			isa = PBXGroup;
 			children = (
+				D1E8BB3119348B3300F3A131 /* ECPostTest.m */,
 				D1B83587190A062D00E2D939 /* RssmartTests.m */,
 				D1B83582190A062D00E2D939 /* Supporting Files */,
 			);
@@ -701,6 +704,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D1B83588190A062D00E2D939 /* RssmartTests.m in Sources */,
+				D1E8BB3219348B3300F3A131 /* ECPostTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -872,6 +876,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Rssmart.app/Contents/MacOS/Rssmart";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
@@ -894,6 +899,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Rssmart.app/Contents/MacOS/Rssmart";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",

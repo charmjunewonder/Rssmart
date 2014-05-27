@@ -75,6 +75,9 @@
     CGFloat result = dotProduct / ( sqrtf(magnitudeA) * sqrtf(magnitudeB) );
     return result;
 }
+- (IBAction)calculateUserModel:(id)sender{
+    [self generateKeywords:nil andVector:nil];
+}
 
 - (void)generateKeywords:(NSMutableArray *)keywords andVector:(NSMutableArray *)vector{
     

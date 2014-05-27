@@ -223,10 +223,14 @@
                 <menuItem title="File" id="U8f-Pr-rzB">
                     <menu key="submenu" title="File" id="EDg-7S-doN">
                         <items>
-                            <menuItem title="Close Window" keyEquivalent="w" id="dtD-xn-NYX"/>
-                            <menuItem title="Item 2" id="RMQ-Gf-QwJ">
+                            <menuItem title="Calculate User Model" id="RMQ-Gf-QwJ">
                                 <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="calculateUserModel:" target="Ufs-fX-cku" id="wQd-Vf-L3g"/>
+                                </connections>
                             </menuItem>
+                            <menuItem isSeparatorItem="YES" id="86x-mC-6XW"/>
+                            <menuItem title="Close Window" keyEquivalent="w" id="dtD-xn-NYX"/>
                             <menuItem title="Item 3" id="4wO-KC-yy4">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                             </menuItem>
@@ -652,6 +656,7 @@ DQ
                 <outlet property="submitButton" destination="DHW-ZZ-csD" id="wut-8J-vlD"/>
             </connections>
         </customObject>
+        <customObject id="Ufs-fX-cku" customClass="ECRecommender"/>
     </objects>
     <resources>
         <image name="NSAddTemplate" width="8" height="8"/>

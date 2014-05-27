@@ -214,7 +214,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Rssmart/ECRequestController.m"
@@ -224,6 +224,22 @@
             startingLineNumber = "107"
             endingLineNumber = "107"
             landmarkName = "-startToRequestIconForFeed:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Rssmart/ECArticleController.m"
+            timestampString = "422873370.6156"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
+            landmarkName = "-updateUsingPost:headlineFontName:headlineFontSize:bodyFontName:bodyFontSize:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

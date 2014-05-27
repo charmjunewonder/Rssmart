@@ -13,5 +13,5 @@
 - (id)initWithNewPosts:(NSMutableArray *)posts;
 - (BOOL)isSeparator: (char)c;
 - (NSMutableArray *)getRecommendedPosts:(NSMutableArray *)newPosts;
-
+- (IBAction)calculateUserModel:(id)sender;
 @end
