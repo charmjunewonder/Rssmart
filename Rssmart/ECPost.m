@@ -63,6 +63,10 @@
 	[plainTextContent release];
 	[enclosures release];
     [firstImage release];
+    [wordCount release];
+    [vector release];
+    [termsDictionary release];
+    [firstImage release];
     
 	[super dealloc];
 }

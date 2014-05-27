@@ -57,6 +57,15 @@ static ECPostsController *_sharedInstance = nil;
     return self;
 }
 
+- (void)dealloc {
+    [articleController release];
+    [posts release];
+    [selectedItem release];
+    [searchQuery release];
+    [_sharedInstance release];
+    [super dealloc];
+}
+
 - (void)setup{
     [self loadPostsIntoPostsView];
     articleController = [ECArticleController getSharedInstance];
@@ -93,6 +102,7 @@ static ECPostsController *_sharedInstance = nil;
 
         ECRecommender *recommender = [[ECRecommender alloc] init];
         posts = [recommender getRecommendedPosts:newPosts];
+        [recommender release];
     } else {
         [ECDatabaseController loadPostsFromDatabaseForItem:selectedItem orQuery:searchQuery to:posts fromRange:range];
     }

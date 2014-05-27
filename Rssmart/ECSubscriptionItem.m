@@ -41,6 +41,7 @@
 	[icon release];
 	[iconLastRefreshed release];
     [children release];
+    [parentFolderReference release];
 	[super dealloc];
 }
 

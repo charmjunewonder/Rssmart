@@ -48,7 +48,7 @@
 	[data release];
 	[allPosts release];
 	[_atomFeedAuthor release];
-	
+
 	[super dealloc];
 }
 

@@ -19,7 +19,7 @@
 #import "ECSubscriptionFolder.h"
 
 #define ICON_REFRESH_INTERVAL TIME_INTERVAL_MONTH
-#define MAX_CONCURRENT_REQUESTS 2
+#define MAX_CONCURRENT_REQUESTS 4
 
 @implementation ECRequestController
 
@@ -63,6 +63,17 @@ static ECRequestController *_sharedInstance = nil;
     }
     return self;
 }
+
+- (void)dealloc {
+    [iconRefreshTimers release];
+    [operationQueue release];
+    [requestQueue release];
+    [feedRequests release];
+    [feedsToSync release];
+    [_sharedInstance release];
+    [super dealloc];
+}
+
 
 - (void)startToOperate{
 	[ECTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(startFeedRequests) userInfo:nil repeats:YES];
@@ -257,7 +268,7 @@ static ECRequestController *_sharedInstance = nil;
 - (void)feedRequest:(ECFeedRequest *)feedRequest didFinishWithData:(NSData *)data encoding:(NSStringEncoding)encoding {
 	[[feedRequest retain] autorelease];
 	[feedRequests removeObject:feedRequest];
-	
+	//TODO check if the concurrent reach to the max.
 	if (data != nil) {
 		ECFeedParserOperation *parserOp = [[ECFeedParserOperation alloc] init];
 		[parserOp setDelegate:[ECSubscriptionsController getSharedInstance]];

@@ -44,6 +44,11 @@ static ECArticleController *_sharedInstance = nil;
     return self;
 }
 
+- (void)dealloc {
+    [displayedPost release];
+    [super dealloc];
+}
+
 - (void)updateUsingPost:(ECPost *)post headlineFontName:(NSString *)headlineFontName headlineFontSize:(CGFloat)headlineFontSize bodyFontName:(NSString *)bodyFontName bodyFontSize:(CGFloat)bodyFontSize {
 	
 	[self setDisplayedPost:post];

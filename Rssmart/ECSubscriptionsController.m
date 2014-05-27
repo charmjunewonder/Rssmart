@@ -80,7 +80,19 @@ static ECSubscriptionsController *_sharedInstance = nil;
 
 - (void)dealloc {
 	[feedLookupDict release];
-	
+    [subscriptionRoot release];
+    [subscriptionRecommendedItems release];
+    [subscriptionNewItems release];
+    [subscriptionStarredItems release];
+    [subscriptionSubscriptions release];
+    [subscriptionSelectedItem release];
+    [subscriptionDragItem release];
+    [addFeedController release];
+    [addFolderController release];
+    [subsViewContextMenu release];
+    [postsController release];
+    
+	[_sharedInstance release];
 	[super dealloc];
 }
 
@@ -162,7 +174,7 @@ static ECSubscriptionsController *_sharedInstance = nil;
 	[self setSubscriptionSubscriptions:subscriptions];
 	[subscriptions release];
 	
-    [[addFeedController folderArray] addObject:subscriptions];
+//    [[addFeedController folderArray] addObject:subscriptions];
     
 	[self setSubscriptionRoot:root];
 	[root release];
@@ -533,7 +545,7 @@ static ECSubscriptionsController *_sharedInstance = nil;
         }
         
         [self refreshSubscriptionsView];
-        
+        [postsController reloadDataInTableView];
 		[feed release];
 	}
 }

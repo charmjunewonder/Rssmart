@@ -30,7 +30,7 @@
 }
 
 - (NSMutableArray *)getRecommendedPosts:(NSMutableArray *)newPosts{
-    NSMutableArray *recommendedPosts = [[NSMutableArray alloc] init];
+    NSMutableArray *recommendedPosts = [[[NSMutableArray alloc] init] autorelease];
     NSMutableArray *keywords = [[NSMutableArray alloc] init];
     NSMutableArray *vectorOfKeyword = [[NSMutableArray alloc] init];
     
@@ -57,7 +57,8 @@
             [recommendedPosts addObject:post];
         }
     }
-
+    [keywords release];
+    [newPosts release];
     return recommendedPosts;
 }
 
@@ -97,7 +98,7 @@
     NSArray *stopWords = [fileContents componentsSeparatedByString:@"\n"];
 
     NSArray *allPosts= [stars arrayByAddingObjectsFromArray:reads];
-
+    [reads release];
     for (ECPost *post in allPosts){
         [post calculateWordCountWithStopWords:stopWords];
     }
@@ -108,7 +109,9 @@
         [star calculateWeightWithPosts:allPosts];
         totalDictionary = [totalDictionary dictionaryByMergingWith:[star termsDictionary]];
     }
-    
+    NSInteger numOfStarItem = [stars count];
+    [stars release];
+
     NSArray *allSortedArray;
     
     allSortedArray = [totalDictionary keysSortedByValueUsingComparator: ^(id obj1, id obj2) {
@@ -124,7 +127,6 @@
     [keywords addObjectsFromArray:[allSortedArray subarrayWithRange: NSMakeRange(0, 100)]];
     NSDictionary *keywordDictionary = [totalDictionary dictionaryWithValuesForKeys:keywords];
 
-    NSInteger numOfStarItem = [stars count];
     for (NSString *key in keywords){
         CGFloat weight =[[keywordDictionary objectForKey:key] floatValue];
         [vector addObject:[NSNumber numberWithFloat:weight/numOfStarItem]];

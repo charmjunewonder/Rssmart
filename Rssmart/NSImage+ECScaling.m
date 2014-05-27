@@ -70,7 +70,7 @@
 
     [targetImage unlockFocus];
     
-    return targetImage;
+    return [targetImage autorelease];
 }
 
 

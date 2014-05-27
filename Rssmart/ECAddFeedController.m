@@ -14,17 +14,21 @@
 @synthesize mainWindow;
 @synthesize addFeedDialog;
 @synthesize feedDialogTextField;
-@synthesize folderArray;
+//@synthesize folderArray;
 
 -(id)init
 {
     self = [super init];
     if (self != nil) {
-        folderArray = [[NSMutableArray alloc] init];
+        //folderArray = [[NSMutableArray alloc] init];
     }
     return self;
 }
 
+- (void)dealloc {
+    
+    [super dealloc];
+}
 
 - (void)reloadDataOfPopUp
 {

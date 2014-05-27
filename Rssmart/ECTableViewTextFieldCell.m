@@ -57,7 +57,8 @@
     
     imageRect = NSMakeRect(titleRect.origin.x + 17, titleRect.origin.y + 3.5, 9, 9);
     [unreadDot drawInRect:imageRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
-
+    [unreadDot release];
+    
     /************************ starIcon ************************/
     NSImage *starIcon = nil;
 
@@ -73,6 +74,7 @@
     
     imageRect = NSMakeRect(titleRect.origin.x + 30, titleRect.origin.y + 0, 15, 15);
     [starIcon drawInRect:imageRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+    [starIcon release];
     
 	titleRect = NSMakeRect(titleRect.origin.x + 22, titleRect.origin.y + 1, titleRect.size.width - 50, 20);
     

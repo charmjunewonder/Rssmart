@@ -10,7 +10,7 @@
 
 @interface ECAddFeedController : NSWindowController
 
-@property (retain, nonatomic) NSMutableArray *folderArray;
+//@property (retain, nonatomic) NSMutableArray *folderArray;
 @property (assign, nonatomic) IBOutlet NSWindow *mainWindow;
 @property (assign, nonatomic) IBOutlet NSTextField *feedDialogTextField;
 @property (assign, nonatomic) IBOutlet NSPanel *addFeedDialog;

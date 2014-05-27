@@ -24,7 +24,7 @@
 - (void)dealloc {
 	[[[NSWorkspace sharedWorkspace] notificationCenter] removeObserver:self];
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	
+    
 	[timer release];
 	[sleepDate release];
 	

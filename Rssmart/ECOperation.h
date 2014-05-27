@@ -13,8 +13,8 @@
 @property (assign) id <ECOperationDelegate> _delegate;
 
 - (id <ECOperationDelegate>)delegate;
-- (void)setDelegate:(id <ECOperationDelegate>)delegate;
 
+- (void)setDelegate:(id <ECOperationDelegate>)delegate;
 - (void)dispatchDidStartDelegateMessage;
 - (void)dispatchDidFinishDelegateMessage;
 

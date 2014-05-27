@@ -26,6 +26,7 @@
 }
 
 - (void)dealloc {
+    [subsController release];
 	[super dealloc];
 }
 /*

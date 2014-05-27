@@ -48,7 +48,13 @@
 	[websiteLink release];
 	[postsToAddToDB release];
 	[lastSyncPosts release];
-	
+    
+    if ([self.iconTimer isValid]) {
+		[self.iconTimer invalidate];
+	}
+
+	[self.iconTimer release];
+    
 	[super dealloc];
 }
 
