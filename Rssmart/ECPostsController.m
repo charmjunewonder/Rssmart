@@ -276,10 +276,10 @@ static ECPostsController *_sharedInstance = nil;
 	
 	[subsCon changeNewItemsBadgeValueBy:+1];
 	[subsCon refreshSubscriptionsView];
-
-    [tableView setNeedsDisplay:YES];
     
     [post setIsRead:NO];
+    
+    [tableView setNeedsDisplay:YES];
 }
 
 - (IBAction)markUnreadWithCurrentPost:(id)sender {
@@ -296,6 +296,8 @@ static ECPostsController *_sharedInstance = nil;
     [[ECRequestController getSharedInstance] runDatabaseUpdateOnBackgroundThread:@"UPDATE post SET IsStarred=1 WHERE Id=?", [NSNumber numberWithInteger:[post dbId]], nil];
 	
 	[post setIsStarred:YES];
+    
+    [tableView setNeedsDisplay:YES];
 }
 
 - (IBAction)removeStarToCurrentPost:(id)sender {
@@ -308,6 +310,8 @@ static ECPostsController *_sharedInstance = nil;
     [[ECRequestController getSharedInstance] runDatabaseUpdateOnBackgroundThread:@"UPDATE post SET IsStarred=0 WHERE Id=?", [NSNumber numberWithInteger:[post dbId]], nil];
 	
 	[post setIsStarred:NO];
+    
+    [tableView setNeedsDisplay:YES];
 }
 
 
