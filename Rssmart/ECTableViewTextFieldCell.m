@@ -17,16 +17,11 @@
 
 @implementation ECTableViewTextFieldCell
 
-static NSImage *unreadDot;
-
 @synthesize delegate;
 @synthesize rowIndex;
 @synthesize tableViewReference;
 
 + (void)initialize {
-	NSString *unreadDotName = [[NSBundle mainBundle] pathForResource:@"dot" ofType:@"png"];
-	unreadDot = [[NSImage alloc] initWithContentsOfFile:unreadDotName];
-	[unreadDot setFlipped:YES];
 }
 
 - (void)drawInteriorWithFrame:(NSRect)cellFrame inView:(NSView *)controlView {
@@ -64,17 +59,22 @@ static NSImage *unreadDot;
     NSRect imageRect = NSMakeRect(titleRect.origin.x + 6, titleRect.origin.y + 15, 50, 50);
     [[post firstImage] drawInRect:imageRect];
 
+    /************************ unreadDot ************************/
+    NSImage *unreadDot;
 	if ([post isRead] == NO) {
-		NSRect imageRect = NSMakeRect(titleRect.origin.x + 17, titleRect.origin.y + 3.5, 9, 9);
-		[unreadDot drawInRect:imageRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+        NSString *unreadDotName = [[NSBundle mainBundle] pathForResource:@"dot" ofType:@"png"];
+        unreadDot = [[NSImage alloc] initWithContentsOfFile:unreadDotName];
+        [unreadDot setFlipped:YES];
 	} else {
         NSString *readDotName = [[NSBundle mainBundle] pathForResource:@"read_dot" ofType:@"png"];
-        NSImage *readDot = [[NSImage alloc] initWithContentsOfFile:readDotName];
-        [readDot setFlipped:YES];
-        NSRect imageRect = NSMakeRect(titleRect.origin.x + 17, titleRect.origin.y + 3.5, 9, 9);
-		[readDot drawInRect:imageRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+        unreadDot = [[NSImage alloc] initWithContentsOfFile:readDotName];
+        [unreadDot setFlipped:YES];
     }
     
+    imageRect = NSMakeRect(titleRect.origin.x + 17, titleRect.origin.y + 3.5, 9, 9);
+    [unreadDot drawInRect:imageRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+
+    /************************ starIcon ************************/
     NSImage *starIcon = nil;
 
     if ([post isStarred] == NO) {
@@ -91,8 +91,8 @@ static NSImage *unreadDot;
     [starIcon drawInRect:imageRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
     
 	titleRect = NSMakeRect(titleRect.origin.x + 22, titleRect.origin.y + 1, titleRect.size.width - 50, 20);
-
-	// date
+    
+    /************************ date ************************/
 	NSString *dateString = [[post received] ecStringForDisplay];
 	
 	NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
@@ -113,7 +113,7 @@ static NSImage *unreadDot;
 	[attributedDateString drawInRect:dateRect];
 	[attributedDateString release];
 	
-	// feed title
+    /************************ feed title ************************/
 	NSString *feedTitle = [post feedTitle];
 	
 	if (feedTitle == nil) {
@@ -136,7 +136,7 @@ static NSImage *unreadDot;
 	
 	[feedTitle drawWithRect:titleDrawRect options:(NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin) attributes:attributes];
 	
-	// post title
+    /************************ post title ************************/
 	NSString *postTitle = [post title];
 	
 	if (postTitle == nil || [postTitle length] == 0) {
@@ -149,7 +149,7 @@ static NSImage *unreadDot;
 	
 	[postTitle drawWithRect:bylineRect options:(NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin) attributes:attributes];
 	
-	// summary
+    /************************ summary ************************/
 	NSString *summary = [post plainTextContent];
 	
 	if (summary == nil) {
