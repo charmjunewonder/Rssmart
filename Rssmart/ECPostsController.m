@@ -98,7 +98,7 @@ static ECPostsController *_sharedInstance = nil;
 	
     if (selectedItem == [[ECSubscriptionsController getSharedInstance]subscriptionRecommendedItems]) {
         NSMutableArray *newPosts = [NSMutableArray array];
-        [ECDatabaseController loadPostsFromDatabaseForItem:selectedItem orQuery:searchQuery to:newPosts fromRange:range];
+        [ECDatabaseController loadPostsFromDatabaseForItem:selectedItem orQuery:searchQuery to:newPosts fromRange:NSMakeRange([posts count], 200)];
         if ([newPosts count] > 0) {
             ECRecommender *recommender = [[ECRecommender alloc] init];
             [recommender getRecommendedPostsFrom:newPosts to:posts];
