@@ -978,6 +978,11 @@ static ECSubscriptionsController *_sharedInstance = nil;
     NSNumber *feedDbId = [NSNumber numberWithInteger:[feed dbId]];
     [[ECRequestController getSharedInstance] runDatabaseUpdateOnBackgroundThread:@"UPDATE post SET IsRead=1 WHERE FeedId=? AND IsRead=0", feedDbId, nil];
     [[ECRequestController getSharedInstance] runDatabaseUpdateOnBackgroundThread:@"UPDATE feed SET UnreadCount=0 WHERE Id=?", feedDbId, nil];
+    NSInteger numOfPost = [feed badgeValue];
+    [self changeBadgeValueBy:-numOfPost forItem:feed];
+	[self changeBadgeValuesBy:-numOfPost forAncestorsOfItem:feed];
+	
+	[self changeNewItemsBadgeValueBy:-numOfPost];
 
 	[self refreshSubscriptionsView];
     [postsController reloadDataInTableView];
