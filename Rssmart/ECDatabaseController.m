@@ -679,6 +679,23 @@ static NSString *path;
 
 }
 
++ (void)clearKeywordsInDatabase{
+    
+    FMDatabase *db = [FMDatabase databaseWithPath:[ECDatabaseController pathForDatabaseFile]];
+    
+    if (![db open]) {
+        [NSException raise:@"Database error" format:@"Failed to connect to the database!"];
+    }
+    
+    [db beginTransaction];
+    
+    [db executeUpdate:@"delete from keyword"];
+    
+    [db commit];
+    [db close];
+    
+}
+
 + (void)markAllAsReadForFeed:(ECSubscriptionFeed *)feed{
     FMDatabase *db = [FMDatabase databaseWithPath:[ECDatabaseController pathForDatabaseFile]];
 	

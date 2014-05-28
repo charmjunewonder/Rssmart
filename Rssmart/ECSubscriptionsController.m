@@ -532,8 +532,9 @@ static ECSubscriptionsController *_sharedInstance = nil;
         
         //TODO: change badgeValue
         if ([feed badgeValue] > 0) {
-            [self changeBadgeValuesBy:([feed badgeValue] * -1) forAncestorsOfItem:feed];
-            [self changeNewItemsBadgeValueBy:([feed badgeValue] * -1)];
+            NSInteger num = [feed badgeValue];
+            [self changeBadgeValuesBy:(num * -1) forAncestorsOfItem:feed];
+            //[self changeNewItemsBadgeValueBy:(num * -1)];
         }
         
         [self didDeleteFeed:(ECSubscriptionFeed *)feed];

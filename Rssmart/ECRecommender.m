@@ -75,7 +75,10 @@
     return result;
 }
 - (IBAction)calculateUserModel:(id)sender{
-    [self generateKeywords:nil andVector:nil];
+    [ECDatabaseController clearKeywordsInDatabase];
+    NSMutableArray *keywords = [[[NSMutableArray alloc] init] autorelease];
+    NSMutableArray *vectorOfKeyword = [[[NSMutableArray alloc] init] autorelease];
+    [self generateKeywords:keywords andVector:vectorOfKeyword];
 }
 
 - (void)generateKeywords:(NSMutableArray *)keywords andVector:(NSMutableArray *)vector{

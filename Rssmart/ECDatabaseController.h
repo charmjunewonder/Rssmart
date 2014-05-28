@@ -30,4 +30,5 @@
 + (void)loadStarredItemsFromDatabaseToArray:(NSMutableArray *)stars fromRange:(NSRange)range;
 + (void)loadReadNotStarredItemsToArray:(NSMutableArray *)reads fromRange:(NSRange)range;
 + (void)addToDatabaseForKeywords:(NSArray *)keywords andVector:(NSArray *)vector;
++ (void)clearKeywordsInDatabase;
 @end
