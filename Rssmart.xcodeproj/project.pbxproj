@@ -39,7 +39,6 @@
 		D1B8356A190A062D00E2D939 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B83569190A062D00E2D939 /* main.m */; };
 		D1B8356E190A062D00E2D939 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = D1B8356C190A062D00E2D939 /* Credits.rtf */; };
 		D1B83571190A062D00E2D939 /* RssmartAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B83570190A062D00E2D939 /* RssmartAppDelegate.m */; };
-		D1B83574190A062D00E2D939 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1B83572190A062D00E2D939 /* MainMenu.xib */; };
 		D1B83576190A062D00E2D939 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D1B83575190A062D00E2D939 /* Images.xcassets */; };
 		D1B8357D190A062D00E2D939 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1B8357C190A062D00E2D939 /* XCTest.framework */; };
 		D1B8357E190A062D00E2D939 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1B8355D190A062D00E2D939 /* Cocoa.framework */; };
@@ -65,7 +64,6 @@
 		D1B835DB190A567200E2D939 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1B835DA190A567200E2D939 /* MainWindow.xib */; };
 		D1B835E4190A92FD00E2D939 /* outlineHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = D1B835DE190A92FD00E2D939 /* outlineHighlight.png */; };
 		D1B835E5190A92FD00E2D939 /* outlineHighlightFocused.png in Resources */ = {isa = PBXBuildFile; fileRef = D1B835DF190A92FD00E2D939 /* outlineHighlightFocused.png */; };
-		D1B835F2190AAF8900E2D939 /* AddFeedPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1B835F1190AAF8900E2D939 /* AddFeedPanel.xib */; };
 		D1B835F6190AB16C00E2D939 /* ECAddFeedController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B835F5190AB16C00E2D939 /* ECAddFeedController.m */; };
 		D1B835FA190B92A000E2D939 /* NSString+ECAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B835F9190B92A000E2D939 /* NSString+ECAdditions.m */; };
 		D1B835FD190B934E00E2D939 /* ECErrorUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B835FC190B934E00E2D939 /* ECErrorUtility.m */; };
@@ -162,7 +160,6 @@
 		D1B8356D190A062D00E2D939 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		D1B8356F190A062D00E2D939 /* RssmartAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RssmartAppDelegate.h; sourceTree = "<group>"; };
 		D1B83570190A062D00E2D939 /* RssmartAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RssmartAppDelegate.m; sourceTree = "<group>"; };
-		D1B83573190A062D00E2D939 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		D1B83575190A062D00E2D939 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		D1B8357B190A062D00E2D939 /* RssmartTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RssmartTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1B8357C190A062D00E2D939 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -205,7 +202,6 @@
 		D1B835DA190A567200E2D939 /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		D1B835DE190A92FD00E2D939 /* outlineHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = outlineHighlight.png; sourceTree = "<group>"; };
 		D1B835DF190A92FD00E2D939 /* outlineHighlightFocused.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = outlineHighlightFocused.png; sourceTree = "<group>"; };
-		D1B835F1190AAF8900E2D939 /* AddFeedPanel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddFeedPanel.xib; sourceTree = "<group>"; };
 		D1B835F4190AB16C00E2D939 /* ECAddFeedController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECAddFeedController.h; sourceTree = "<group>"; };
 		D1B835F5190AB16C00E2D939 /* ECAddFeedController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECAddFeedController.m; sourceTree = "<group>"; };
 		D1B835F8190B92A000E2D939 /* NSString+ECAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ECAdditions.h"; sourceTree = "<group>"; };
@@ -502,9 +498,7 @@
 		D1B835F3190AB13E00E2D939 /* XIB */ = {
 			isa = PBXGroup;
 			children = (
-				D1B83572190A062D00E2D939 /* MainMenu.xib */,
 				D1B835DA190A567200E2D939 /* MainWindow.xib */,
-				D1B835F1190AAF8900E2D939 /* AddFeedPanel.xib */,
 			);
 			name = XIB;
 			sourceTree = "<group>";
@@ -625,13 +619,11 @@
 				D1DAFA8D191BCA2C00AD51AE /* list.png in Resources */,
 				D1D7B2F6191A958100BF0618 /* stopwords.txt in Resources */,
 				D1B8356E190A062D00E2D939 /* Credits.rtf in Resources */,
-				D1B835F2190AAF8900E2D939 /* AddFeedPanel.xib in Resources */,
 				D117DE871933918B00C23A19 /* star_full_small.png in Resources */,
 				D117DE8919339A2C00C23A19 /* read_dot.png in Resources */,
 				D1DAFA89191BC98600AD51AE /* flash.png in Resources */,
 				D117DE861933918B00C23A19 /* star_small.png in Resources */,
 				D117DE831933912600C23A19 /* star_full.png in Resources */,
-				D1B83574190A062D00E2D939 /* MainMenu.xib in Resources */,
 				D1B835E4190A92FD00E2D939 /* outlineHighlight.png in Resources */,
 				D1B835E5190A92FD00E2D939 /* outlineHighlightFocused.png in Resources */,
 			);
@@ -737,14 +729,6 @@
 				D1B8356D190A062D00E2D939 /* en */,
 			);
 			name = Credits.rtf;
-			sourceTree = "<group>";
-		};
-		D1B83572190A062D00E2D939 /* MainMenu.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D1B83573190A062D00E2D939 /* Base */,
-			);
-			name = MainMenu.xib;
 			sourceTree = "<group>";
 		};
 		D1B83584190A062D00E2D939 /* InfoPlist.strings */ = {
