@@ -25,12 +25,11 @@
 }
 
 - (void)dealloc{
-    [self.posts release];
+    //[self.posts release];
     [super dealloc];
 }
 
-- (NSMutableArray *)getRecommendedPosts:(NSMutableArray *)newPosts{
-    NSMutableArray *recommendedPosts = [[[NSMutableArray alloc] init] autorelease];
+- (void)getRecommendedPostsFrom:(NSMutableArray *)newPosts to:(NSMutableArray *)posts{
     NSMutableArray *keywords = [[NSMutableArray alloc] init];
     NSMutableArray *vectorOfKeyword = [[NSMutableArray alloc] init];
     
@@ -54,12 +53,11 @@
         [post calculateVectorWithKeywords:keywords withPosts:newPosts];
         CGFloat similarity = [self calculateSimilarityWith:[post vector] and:vectorOfKeyword];
         if (similarity > 0.3) {
-            [recommendedPosts addObject:post];
+            [posts addObject:post];
         }
     }
     [keywords release];
-    [newPosts release];
-    return recommendedPosts;
+    [vectorOfKeyword release];
 }
 
 - (CGFloat)calculateSimilarityWith:(NSArray *)vectorA and:(NSArray *)vectorB{

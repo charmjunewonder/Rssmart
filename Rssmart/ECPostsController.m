@@ -20,7 +20,7 @@
 #import "NSScrollView+ECAdditions.h"
 #import "ECRecommender.h"
 
-#define CLASSIC_VIEW_POSTS_PER_QUERY 10
+#define CLASSIC_VIEW_POSTS_PER_QUERY 50
 #define UNREAD_COUNT_QUERY @"UPDATE feed SET UnreadCount = (SELECT COUNT(Id) FROM post WHERE FeedId=? AND IsRead=0 AND IsHidden=0) WHERE Id=?"
 
 @implementation ECPostsController
@@ -99,10 +99,11 @@ static ECPostsController *_sharedInstance = nil;
     if (selectedItem == [[ECSubscriptionsController getSharedInstance]subscriptionRecommendedItems]) {
         NSMutableArray *newPosts = [NSMutableArray array];
         [ECDatabaseController loadPostsFromDatabaseForItem:selectedItem orQuery:searchQuery to:newPosts fromRange:range];
-
-        ECRecommender *recommender = [[ECRecommender alloc] init];
-        posts = [recommender getRecommendedPosts:newPosts];
-        [recommender release];
+        if ([newPosts count] > 0) {
+            ECRecommender *recommender = [[ECRecommender alloc] init];
+            [recommender getRecommendedPostsFrom:newPosts to:posts];
+            [recommender release];
+        }
     } else {
         [ECDatabaseController loadPostsFromDatabaseForItem:selectedItem orQuery:searchQuery to:posts fromRange:range];
     }

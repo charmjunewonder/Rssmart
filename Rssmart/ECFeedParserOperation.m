@@ -167,13 +167,8 @@
 				
 				// for first sync, only mark limited number of new items as unread
 				if (isFirstSync) {
-					
-					NSInteger postCount = 0;
-					
+										
 					for (ECPost *post in newPosts) {
-						if (postCount >= 5) {
-							[post setIsRead:YES];
-						}
 						
 						NSTimeInterval timeSincePublished = [[NSDate date] timeIntervalSinceDate:[post published]];
 						
@@ -181,7 +176,6 @@
 							[post setIsRead:YES];
 						}
 						
-						postCount++;
 					}
 				}
 				

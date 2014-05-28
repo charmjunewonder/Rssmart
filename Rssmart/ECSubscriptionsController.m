@@ -742,7 +742,7 @@ static ECSubscriptionsController *_sharedInstance = nil;
 		[menu addItem:refreshItem];
 		[refreshItem release];
 		
-		NSMenuItem *markReadItem = [[NSMenuItem alloc] initWithTitle:@"Mark All As Read" action:@selector(sourceListMarkAllAsRead:) keyEquivalent:@""];
+		NSMenuItem *markReadItem = [[NSMenuItem alloc] initWithTitle:@"Mark All As Read" action:@selector(feedMarkAllAsRead:) keyEquivalent:@""];
         [markReadItem setTarget:self];
 		[menu addItem:markReadItem];
 		[markReadItem release];
@@ -830,14 +830,12 @@ static ECSubscriptionsController *_sharedInstance = nil;
         isFeed = NO;
     }
 
-    if ([anItem action] == @selector(addSubscription:)
-        || [anItem action] == @selector(editFeed:)
+    if ([anItem action] == @selector(editFeed:)
         || [anItem action] == @selector(deleteFeed:)) {
 		return isFeed;
 	}
     
-	if ([anItem action] == @selector(addFolder:)
-        || [anItem action] == @selector(editFolder:)
+	if ([anItem action] == @selector(editFolder:)
         || [anItem action] == @selector(deleteFolder:)) {
 		return !isFeed;
 	}
@@ -969,5 +967,21 @@ static ECSubscriptionsController *_sharedInstance = nil;
 	}
 	[self changeNewItemsBadgeValueBy:unreadCount];
 }
+
+- (IBAction)subscriptionMarkAllAsRead:(id)sender{
+    ECSubscriptionItem *feed = [self getCurrentSubscriptionItem];
+}
+
+- (IBAction)feedMarkAllAsRead:(id)sender{
+    ECSubscriptionItem *feed = [self getCurrentSubscriptionItem];
+    
+    NSNumber *feedDbId = [NSNumber numberWithInteger:[feed dbId]];
+    [[ECRequestController getSharedInstance] runDatabaseUpdateOnBackgroundThread:@"UPDATE post SET IsRead=1 WHERE FeedId=? AND IsRead=0", feedDbId, nil];
+    [[ECRequestController getSharedInstance] runDatabaseUpdateOnBackgroundThread:@"UPDATE feed SET UnreadCount=0 WHERE Id=?", feedDbId, nil];
+
+	[self refreshSubscriptionsView];
+    [postsController reloadDataInTableView];
+}
+
 
 @end

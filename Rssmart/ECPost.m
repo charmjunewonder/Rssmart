@@ -63,11 +63,6 @@
 	[plainTextContent release];
 	[enclosures release];
     [firstImage release];
-    [wordCount release];
-    [vector release];
-    [termsDictionary release];
-    [firstImage release];
-    
 	[super dealloc];
 }
 
@@ -95,7 +90,7 @@
 }
 
 - (void)calculateWordCountWithStopWords:(NSArray *)stopWords{
-    NSMutableDictionary *allWordCount = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *allWordCount = [[[NSMutableDictionary alloc] init] autorelease];
     [plainTextContent enumerateSubstringsInRange:NSMakeRange(0, [plainTextContent length])
                                   options:NSStringEnumerationByWords | NSStringEnumerationLocalized
                                usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop){
@@ -113,11 +108,10 @@
     NSPredicate *p2 = [NSPredicate predicateWithFormat:@"NOT (SELF MATCHES %@)", regex];
     filteredKeys = [filteredKeys filteredArrayUsingPredicate:p2];
     wordCount = [allWordCount dictionaryWithValuesForKeys:filteredKeys];
-    [allWordCount release];
 }
 
 - (void)calculateWeightWithPosts:(NSArray *)posts{
-    termsDictionary = [[NSMutableDictionary alloc] init];
+    termsDictionary = [[[NSMutableDictionary alloc] init] autorelease];
     
     NSArray *keys = [wordCount allKeys];
     
@@ -144,7 +138,7 @@
 }
 
 - (void)calculateVectorWithKeywords:(NSArray *)keywords withPosts:(NSArray *)posts{
-    vector = [[NSMutableArray alloc] init];
+    vector = [[[NSMutableArray alloc] init] autorelease];
     NSArray *keys = [wordCount allKeys];
     
     //get total count of the article

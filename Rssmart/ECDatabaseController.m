@@ -679,4 +679,32 @@ static NSString *path;
 
 }
 
++ (void)markAllAsReadForFeed:(ECSubscriptionFeed *)feed{
+    FMDatabase *db = [FMDatabase databaseWithPath:[ECDatabaseController pathForDatabaseFile]];
+	
+	if (![db open]) {
+		[NSException raise:@"Database error" format:@"Failed to connect to the database!"];
+	}
+	
+	NSMutableArray *posts = [NSMutableArray array];
+	FMResultSet *rs = nil;
+	
+    if (feed != nil) {
+		rs = [db executeQuery:@"SELECT post.Id, post.Guid, post.FeedId, FROM post, feed WHERE post.FeedId=feed.Id AND post.FeedId=? AND post.IsRead=0", [NSNumber numberWithInteger:[feed dbId]]];
+	}
+	
+	while ([rs next]) {
+		NSMutableDictionary *post = [NSMutableDictionary dictionary];
+		[post setValue:[NSNumber numberWithInteger:[rs longForColumn:@"Id"]] forKey:@"Id"];
+		[post setValue:[rs stringForColumn:@"Guid"] forKey:@"Guid"];
+		[post setValue:[NSNumber numberWithInteger:[rs longForColumn:@"FeedId"]] forKey:@"FeedId"];
+		[posts addObject:post];
+	}
+    [self runDatabaseUpdateOnBackgroundThread:[NSString stringWithFormat:@"UPDATE post SET IsRead=1 WHERE Id IN (SELECT post.Id FROM post, feed WHERE post.FeedId=feed.Id AND feed.FolderId=folder.Id) AND IsRead=0", nil]];
+
+	[rs close];
+	[db close];
+
+}
+
 @end
