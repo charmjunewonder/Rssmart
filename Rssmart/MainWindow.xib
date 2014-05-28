@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5053" systemVersion="13C1021" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5053" systemVersion="13D65" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5053"/>
         <plugIn identifier="com.apple.WebKitIBPlugin" version="5053"/>
@@ -15,7 +15,7 @@
         <window title="Rssmart" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="51i-xz-Lua">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="102" y="163" width="1072" height="615"/>
+            <rect key="contentRect" x="110" y="100" width="1072" height="615"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
             <value key="minSize" type="size" width="600" height="360"/>
             <view key="contentView" id="2OE-5z-8Sg">
@@ -24,7 +24,7 @@
                 <subviews>
                     <splitView dividerStyle="thin" vertical="YES" id="fUZ-WW-Zc7">
                         <rect key="frame" x="0.0" y="22" width="1072" height="593"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" usesPredominantAxisScrolling="NO" horizontalScrollElasticity="none" verticalScrollElasticity="none" id="Wpp-ca-pAs">
                                 <rect key="frame" x="0.0" y="0.0" width="173" height="593"/>
@@ -229,24 +229,12 @@
                                     <action selector="calculateUserModel:" target="Ufs-fX-cku" id="wQd-Vf-L3g"/>
                                 </connections>
                             </menuItem>
-                            <menuItem isSeparatorItem="YES" id="86x-mC-6XW"/>
-                            <menuItem title="Close Window" keyEquivalent="w" id="dtD-xn-NYX"/>
-                            <menuItem title="Item 3" id="4wO-KC-yy4">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                            </menuItem>
                         </items>
                     </menu>
                 </menuItem>
                 <menuItem title="Edit" id="n8q-6E-Vsb">
                     <menu key="submenu" title="Edit" id="vtM-Qz-UAb">
                         <items>
-                            <menuItem title="Undo" keyEquivalent="z" id="nWb-DV-eoW"/>
-                            <menuItem title="Redo" keyEquivalent="Z" id="kut-8s-fDc">
-                                <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="qfY-up-Otf">
-                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                            </menuItem>
                             <menuItem title="Cut" keyEquivalent="x" id="spY-K9-O7k">
                                 <connections>
                                     <action selector="cut:" target="-1" id="Ed9-aO-ApS"/>
@@ -359,10 +347,6 @@
                 <menuItem title="View" id="CvY-Je-ni6">
                     <menu key="submenu" title="View" id="ncw-jX-Xm3">
                         <items>
-                            <menuItem title="Item" id="NDs-Tt-bSC">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="Gfr-Pu-l5W"/>
                             <menuItem title="Show Toolbar" keyEquivalent="t" id="h2q-8h-vQ4">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                             </menuItem>
@@ -512,14 +496,14 @@
         <window title="Add Subscription" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" oneShot="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="THW-fi-6iZ" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" utility="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="553" y="457" width="385" height="113"/>
+            <rect key="contentRect" x="553" y="457" width="385" height="95"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
             <view key="contentView" id="xtt-EY-jl3">
-                <rect key="frame" x="0.0" y="0.0" width="385" height="113"/>
+                <rect key="frame" x="0.0" y="0.0" width="385" height="95"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="Lkv-8p-l1C">
-                        <rect key="frame" x="17" y="76" width="38" height="17"/>
+                        <rect key="frame" x="17" y="58" width="38" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Feed:" id="6j6-ua-iD7">
                             <font key="font" metaFont="system"/>
@@ -527,17 +511,8 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="Ock-iW-lXR">
-                        <rect key="frame" x="6" y="48" width="61" height="17"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Category" id="or7-GQ-PEP">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
                     <textField verticalHuggingPriority="750" id="PKZ-sU-jZb">
-                        <rect key="frame" x="78" y="73" width="293" height="22"/>
+                        <rect key="frame" x="78" y="55" width="293" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="RY7-Qg-F8G">
                             <font key="font" metaFont="system"/>
@@ -545,22 +520,8 @@
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <popUpButton verticalHuggingPriority="750" id="xHm-8n-VtE">
-                        <rect key="frame" x="77" y="43" width="297" height="26"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="OCJ-fE-imw">
-                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="menu"/>
-                            <menu key="menu" title="OtherViews" id="5GX-dk-ZC9">
-                                <items>
-                                    <menuItem title="Root" id="31Q-JP-CrS"/>
-                                    <menuItem isSeparatorItem="YES" id="NcK-a3-UWi"/>
-                                </items>
-                            </menu>
-                        </popUpButtonCell>
-                    </popUpButton>
                     <button verticalHuggingPriority="750" id="7dK-W9-DJq">
-                        <rect key="frame" x="295" y="5" width="82" height="32"/>
+                        <rect key="frame" x="295" y="13" width="82" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Submit" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="I3j-61-3Sz">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -574,7 +535,7 @@ DQ
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" id="kXx-1G-aTW">
-                        <rect key="frame" x="213" y="5" width="82" height="32"/>
+                        <rect key="frame" x="213" y="13" width="82" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="oNT-3A-0FR">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -593,14 +554,14 @@ Gw
         <window title="Add Folder" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="R77-Pz-KvE" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" utility="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="120" y="65" width="385" height="113"/>
+            <rect key="contentRect" x="120" y="65" width="385" height="98"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
             <view key="contentView" id="Mt8-W2-EKV">
-                <rect key="frame" x="0.0" y="0.0" width="385" height="113"/>
+                <rect key="frame" x="0.0" y="0.0" width="385" height="98"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="8SV-GJ-Stj">
-                        <rect key="frame" x="18" y="76" width="44" height="17"/>
+                        <rect key="frame" x="18" y="61" width="44" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Folder" id="mZ1-hl-7w7">
                             <font key="font" metaFont="system"/>
@@ -609,7 +570,7 @@ Gw
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" id="juv-Tn-88u">
-                        <rect key="frame" x="78" y="73" width="293" height="22"/>
+                        <rect key="frame" x="78" y="58" width="293" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="VBG-um-tzB">
                             <font key="font" metaFont="system"/>
@@ -618,7 +579,7 @@ Gw
                         </textFieldCell>
                     </textField>
                     <button verticalHuggingPriority="750" id="DPw-eB-BuX">
-                        <rect key="frame" x="213" y="6" width="82" height="32"/>
+                        <rect key="frame" x="213" y="13" width="82" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Asq-hO-9Wz">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -632,7 +593,7 @@ Gw
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" id="DHW-ZZ-csD">
-                        <rect key="frame" x="295" y="6" width="82" height="32"/>
+                        <rect key="frame" x="295" y="13" width="82" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Submit" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="H2j-jo-xzG">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
