@@ -52,7 +52,7 @@
     for (ECPost *post in newPosts){
         [post calculateVectorWithKeywords:keywords withPosts:newPosts];
         CGFloat similarity = [self calculateSimilarityWith:[post vector] and:vectorOfKeyword];
-        if (similarity > 0.2) {
+        if (similarity > 0.25) {
             [posts addObject:post];
         }
     }

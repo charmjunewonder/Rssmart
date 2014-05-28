@@ -238,7 +238,6 @@ static ECSubscriptionsController *_sharedInstance = nil;
 	return YES;
 }
 
-//TODO:drap
 - (NSDragOperation)outlineView:(NSOutlineView *)outlineView
                   validateDrop:(id <NSDraggingInfo>)info
                   proposedItem:(ECSubscriptionItem *)dropTarget
