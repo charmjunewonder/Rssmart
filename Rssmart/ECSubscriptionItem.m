@@ -22,15 +22,11 @@
 @synthesize dbId;
 @synthesize parentFolderReference;
 @synthesize children;
+@synthesize isCollection;
 
 - (id)init {
 	self = [super init];
 	if (self != nil) {
-		[self setIsGroupItem:NO];
-		[self setIsEditable:NO];
-		[self setIsDraggable:NO];
-		[self setBadgeValue:0];
-		[self setIsLoading:NO];
         [self setChildren:[NSMutableArray array]];
 	}
 	return self;

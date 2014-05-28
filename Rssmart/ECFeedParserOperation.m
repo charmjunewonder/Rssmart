@@ -20,6 +20,7 @@
 #import "GTMNSString+HTML.h"
 #import "ECDatabaseController.h"
 #import "NSImage+ECScaling.h"
+#import "ECIconRefreshOperation.h"
 
 #define FEED_TYPE_UNKNOWN 0
 #define FEED_TYPE_RSS 1
@@ -303,8 +304,18 @@
 			if ([[feed websiteLink] isEqual:hrefValue] == NO) {
 				[feed setWebsiteLink:hrefValue];
                 [ECDatabaseController updateWebsiteLink:hrefValue forFeed:feed];
-				
-				[self performSelectorOnMainThread:@selector(dispatchWebsiteLinkDelegateMessage) withObject:nil waitUntilDone:YES];
+                
+                if ([feed icon] == nil) {
+                    ECIconRefreshOperation *iconOp = [[[ECIconRefreshOperation alloc] init] autorelease];
+                    if ([feed websiteLink] != nil && [[feed websiteLink] length] > 0) {
+                        NSImage *im = [iconOp faviconForUrlString:[feed websiteLink]];
+                        [feed setIcon:im];
+                    }
+                } else{
+                    [self performSelectorOnMainThread:@selector(dispatchWebsiteLinkDelegateMessage) withObject:nil waitUntilDone:YES];
+
+                }
+                
 			}
 			
 			shouldProcessChildren = NO;
@@ -392,6 +403,7 @@
                         image = [[NSImage alloc] initWithContentsOfURL:imageUrl];
                         image = [image imageBySelectivelyScalingToSize:NSMakeSize (50, 50)];
                     }
+//                    NSAssert(image != nil, @"image is nil");
                     [newPost setFirstImage:image];
 				}
 				

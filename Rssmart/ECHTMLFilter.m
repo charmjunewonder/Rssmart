@@ -63,7 +63,7 @@
 		return @"";
 	}
 	
-    NSRange t = [htmlString rangeOfString:@"<img src=\""];
+    NSRange t = [htmlString rangeOfString:@"<img "];
     
     if(t.location == NSNotFound){
         return nil;
@@ -71,6 +71,10 @@
 
     htmlString = [htmlString substringFromIndex:t.location + t.length];
     
+    NSRange m = [htmlString rangeOfString:@"src=\""];
+    
+    htmlString = [htmlString substringFromIndex:m.location + m.length];
+
     NSRange d = [htmlString rangeOfString:@"\""];
     firstImageUrl = [htmlString substringToIndex:d.location];
 

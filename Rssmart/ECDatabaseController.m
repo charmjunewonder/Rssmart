@@ -520,7 +520,7 @@ static NSString *path;
 	}
 	
 	NSMutableString *dbQuery = [NSMutableString string];
-	
+
 	if (query != nil) {
 		NSArray *queryParts = [query componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 		NSMutableString *queryBuild = [NSMutableString string];

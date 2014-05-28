@@ -13,8 +13,9 @@
 @property (assign, nonatomic) NSInteger dbId;
 @property (copy) NSString *title;
 @property (assign, nonatomic) BOOL isGroupItem;
-@property (assign, nonatomic) BOOL isEditable;//TODO: maybe delete?
+@property (assign, nonatomic) BOOL isEditable;
 @property (assign, nonatomic) BOOL isDraggable;
+@property (assign, nonatomic) BOOL isCollection;
 @property (assign, nonatomic) NSInteger badgeValue;
 @property (copy) NSImage *icon;
 @property (retain) NSDate *iconLastRefreshed;

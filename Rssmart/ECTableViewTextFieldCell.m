@@ -41,6 +41,9 @@
 	
     /************************ firstImage ************************/
     NSRect imageRect = NSMakeRect(titleRect.origin.x + 6, titleRect.origin.y + 15, 50, 50);
+    if ([post firstImage] == nil) {
+        
+    }
     [[post firstImage] drawInRect:imageRect];
 
     /************************ unreadDot ************************/

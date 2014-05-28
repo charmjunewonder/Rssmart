@@ -125,12 +125,13 @@ static ECSubscriptionsController *_sharedInstance = nil;
 	[library setTitle:@"LIBRARY"];
 	[library setIsGroupItem:YES];
 	
-    /************************ New Items ************************/
+    /************************ Recommend Items ************************/
 	ECSubscriptionItem *recommendedItems = [[ECSubscriptionItem alloc] init];
 	[recommendedItems setTitle:@"Recommender"];
 	NSString *recommendedItemsIconName = [[NSBundle mainBundle] pathForResource:@"flash" ofType:@"png"];
 	NSImage *recommendedItemsIcon = [[[NSImage alloc] initWithContentsOfFile:recommendedItemsIconName] autorelease];
 	[recommendedItemsIcon setFlipped:YES];
+    [recommendedItems setIsCollection:YES];
 	[recommendedItems setIcon:recommendedItemsIcon];
 	
 	[[library children] addObject:recommendedItems];
@@ -144,7 +145,7 @@ static ECSubscriptionsController *_sharedInstance = nil;
 	NSImage *newItemsIcon = [[[NSImage alloc] initWithContentsOfFile:newItemsIconName] autorelease];
 	[newItemsIcon setFlipped:YES];
 	[newItems setIcon:newItemsIcon];
-	
+	[newItems setIsCollection:YES];
 	[[library children] addObject:newItems];
 	[self setSubscriptionNewItems:newItems];
 	[newItems release];
@@ -158,7 +159,7 @@ static ECSubscriptionsController *_sharedInstance = nil;
 	[[library children] addObject:starredItems];
 	[self setSubscriptionStarredItems:starredItems];
 	[starredItems release];
-	
+	[starredItems setIsCollection:YES];
 	[[root children] addObject:library];
 	[library release];
     
@@ -543,7 +544,7 @@ static ECSubscriptionsController *_sharedInstance = nil;
         } else{
             [[ancestor children] removeObject:feed];
         }
-        
+        [postsController setSelectedItem:subscriptionNewItems];
         [self refreshSubscriptionsView];
         [postsController reloadDataInTableView];
 		[feed release];
@@ -736,64 +737,66 @@ static ECSubscriptionsController *_sharedInstance = nil;
 		if ([clickedItem isGroupItem]) {
 			return;
 		}
-        //TODO:menu item
-		NSMenuItem *refreshItem = [[NSMenuItem alloc] initWithTitle:@"Refresh" action:@selector(subscriptionsItemRefresh:) keyEquivalent:@""];
-        [refreshItem setTarget:self];
-		[menu addItem:refreshItem];
-		[refreshItem release];
-		
-		NSMenuItem *markReadItem = [[NSMenuItem alloc] initWithTitle:@"Mark All As Read" action:@selector(feedMarkAllAsRead:) keyEquivalent:@""];
-        [markReadItem setTarget:self];
-		[menu addItem:markReadItem];
-		[markReadItem release];
-		
-		if ([clickedItem isEditable]) {
-			[menu addItem:[NSMenuItem separatorItem]];
-			NSMenuItem *addItem = nil;
-			NSMenuItem *editItem = nil;
-            NSMenuItem *deleteItem = nil;
-
-            NSString *editTitle = [NSString stringWithFormat:@"Edit \"%@\"", [clickedItem title]];;
-            NSString *deleteTitle = [NSString stringWithFormat:@"Delete \"%@\"", [clickedItem title]];;
-
-            if ([clickedItem isKindOfClass:[ECSubscriptionFeed class]]) {
-                addItem = [[NSMenuItem alloc] initWithTitle:@"Add Feed"
-                                                      action:@selector(addSubscription:)
-                                               keyEquivalent:@""];
-                
-                editItem = [[NSMenuItem alloc] initWithTitle:editTitle
-                                                      action:@selector(editFeed:)
-                                               keyEquivalent:@""];
-
-                deleteItem = [[NSMenuItem alloc] initWithTitle:deleteTitle
-                                                        action:@selector(deleteFeed:)
-                                                 keyEquivalent:@""];
-
-            } else{
-                addItem = [[NSMenuItem alloc] initWithTitle:@"Add Folder"
-                                                     action:@selector(addFolder:)
-                                              keyEquivalent:@""];
-                
-                editItem = [[NSMenuItem alloc] initWithTitle:editTitle
-                                                      action:@selector(editFolder:)
-                                               keyEquivalent:@""];
-                
-                deleteItem = [[NSMenuItem alloc] initWithTitle:deleteTitle
-                                                        action:@selector(deleteFolder:)
-                                                 keyEquivalent:@""];
-            }
-            [addItem setTarget:self];
-			[menu addItem:addItem];
-			[addItem release];
+        if (![clickedItem isCollection]) {
+            NSMenuItem *refreshItem = [[NSMenuItem alloc] initWithTitle:@"Refresh" action:@selector(subscriptionsItemRefresh:) keyEquivalent:@""];
+            [refreshItem setTarget:self];
+            [menu addItem:refreshItem];
+            [refreshItem release];
             
-            [editItem setTarget:self];
-			[menu addItem:editItem];
-			[editItem release];
+            NSMenuItem *markReadItem = [[NSMenuItem alloc] initWithTitle:@"Mark All As Read" action:@selector(feedMarkAllAsRead:) keyEquivalent:@""];
+            [markReadItem setTarget:self];
+            [menu addItem:markReadItem];
+            [markReadItem release];
 
-            [deleteItem setTarget:self];
-            [menu addItem:deleteItem];
-            [deleteItem release];
-		}
+            if ([clickedItem isEditable]) {
+                [menu addItem:[NSMenuItem separatorItem]];
+                NSMenuItem *addItem = nil;
+                NSMenuItem *editItem = nil;
+                NSMenuItem *deleteItem = nil;
+                
+                NSString *editTitle = [NSString stringWithFormat:@"Edit \"%@\"", [clickedItem title]];;
+                NSString *deleteTitle = [NSString stringWithFormat:@"Delete \"%@\"", [clickedItem title]];;
+                
+                if ([clickedItem isKindOfClass:[ECSubscriptionFeed class]]) {
+                    addItem = [[NSMenuItem alloc] initWithTitle:@"Add Feed"
+                                                         action:@selector(addSubscription:)
+                                                  keyEquivalent:@""];
+                    
+                    editItem = [[NSMenuItem alloc] initWithTitle:editTitle
+                                                          action:@selector(editFeed:)
+                                                   keyEquivalent:@""];
+                    
+                    deleteItem = [[NSMenuItem alloc] initWithTitle:deleteTitle
+                                                            action:@selector(deleteFeed:)
+                                                     keyEquivalent:@""];
+                    
+                } else{
+                    addItem = [[NSMenuItem alloc] initWithTitle:@"Add Folder"
+                                                         action:@selector(addFolder:)
+                                                  keyEquivalent:@""];
+                    
+                    editItem = [[NSMenuItem alloc] initWithTitle:editTitle
+                                                          action:@selector(editFolder:)
+                                                   keyEquivalent:@""];
+                    
+                    deleteItem = [[NSMenuItem alloc] initWithTitle:deleteTitle
+                                                            action:@selector(deleteFolder:)
+                                                     keyEquivalent:@""];
+                }
+                [addItem setTarget:self];
+                [menu addItem:addItem];
+                [addItem release];
+                
+                [editItem setTarget:self];
+                [menu addItem:editItem];
+                [editItem release];
+                
+                [deleteItem setTarget:self];
+                [menu addItem:deleteItem];
+                [deleteItem release];
+            }
+        }
+		
         [menu update];
 	}
 }
@@ -829,6 +832,14 @@ static ECSubscriptionsController *_sharedInstance = nil;
     } else if ([currentItem isKindOfClass:[ECSubscriptionFolder class]]) {
         isFeed = NO;
     }
+    
+//    if ([anItem action] == @selector(markUnreadWithCurrentPost:)
+//        || [anItem action] == @selector(markReadWithCurrentPost:)
+//        || [anItem action] == @selector(addStarToCurrentPost:)
+//        || [anItem action] == @selector(removeStarToCurrentPost:)) {
+//		return [postsController selectedItem] != nil;
+//	}
+
 
     if ([anItem action] == @selector(editFeed:)
         || [anItem action] == @selector(deleteFeed:)) {
@@ -987,6 +998,5 @@ static ECSubscriptionsController *_sharedInstance = nil;
 	[self refreshSubscriptionsView];
     [postsController reloadDataInTableView];
 }
-
 
 @end

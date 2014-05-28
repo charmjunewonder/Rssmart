@@ -54,7 +54,7 @@ static ECRequestController *_sharedInstance = nil;
     _sharedInstance = self;
     if (self != nil) {
         [self setOperationQueue:[[[NSOperationQueue alloc] init] autorelease]];
-		[operationQueue setMaxConcurrentOperationCount:2];
+		[operationQueue setMaxConcurrentOperationCount:4];
 		[self setIconRefreshTimers:[NSMutableArray array]];
         [self setFeedsToSync:[NSMutableArray array]];
 		[self setFeedRequests:[NSMutableArray array]];
